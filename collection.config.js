@@ -18,6 +18,8 @@ const collection = {
 
   // Where does your knowledge come from? A person, a place, a community.
   source: "Sources are gathered from the elders such as grandparents, parents, neighbours, as well as words passed down from generations. ",
+
+  province: "Phnom Penh, Cambodia",
 };
 
 export default collection;

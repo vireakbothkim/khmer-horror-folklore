@@ -8,7 +8,7 @@ const styles = {
   },
   kicker: {
     fontFamily: "'Courier New', monospace",
-    color: "#2EE6A8",
+    color: "#972514",
     fontSize: 14,
     letterSpacing: 1,
   },
@@ -38,6 +38,23 @@ const styles = {
     margin: 0,
   },
   cardValue: {
+    fontSize: 16,
+    margin: "6px 0 0",
+  },
+  entryCard: {
+    marginTop: 48,
+    padding: 24,
+    backgroundColor: "#1C222C",
+    border: "1px solid #2E3644",
+    borderRadius: 10,
+  },
+  entryCardLabel: {
+    fontFamily: "'Courier New', monospace",
+    fontSize: 12,
+    color: "#97A1B3",
+    margin: 0,
+  },
+  entryCardValue: {
     fontSize: 16,
     margin: "6px 0 0",
   },
@@ -71,8 +88,17 @@ export default function Home() {
         <p style={styles.cardLabel}>SOURCE</p>
         <p style={styles.cardValue}>{collection.source}</p>
       </div>
+      <div style={styles.card}>
+        <p style={styles.cardLabel}>PROVINCE</p>
+        <p style={styles.cardValue}>{collection.province}</p>
+      </div>
 
       <p style={styles.count}>entries in the archive: 0 (for now)</p>
+      
+      <div style={styles.entryCard}>
+        <p style={styles.entryCardLabel}>test</p>
+        <p style={styles.entryCardValue}>test</p>
+      </div>
 
       <footer style={styles.footer}>
         Built in ICT 340 — Vibe Coding, American University of Phnom Penh, Fall
