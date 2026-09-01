@@ -1,7 +1,7 @@
 import collection from "../collection.config.js";
 import EntryCard from "../components/EntryCard";
-import krasueImg from "../components/krasue.jpg";
-import bananaTreeGhostImg from "../components/banana_tree_ghost.png";
+// Import all entries from the data file
+import entries from "../data/entries.js";
 
 const styles = {
   wrap: {
@@ -77,24 +77,8 @@ const styles = {
 };
 
 export default function Home() {
-  const entry1 = {
-    title: "Ahp(Krasue)",
-    khmerName: "អាប",
-    story: "Ahp(Krasue) is a bodyless woman flying entity with all the human organs attached to the head. The entity appears to have sharp eyes, glowing, flickering red light from the heart, and long hair flying with the late night wind. In urban legends, Ahp seeks blood like a vampire. They desire farm animal organs, especially chickens, blood of newly delivered human newborn, and any types of organs.",
-    source: "Urban Legend, ",
-    place: "Mostly Urban, Farmland, Animal Farm, Maternity Hospital",
-    media: krasueImg,
-  };
-
-  const entry2 = {
-    title: "Banana Tree Ghost",
-    khmerName: "ខ្មោចដេីមចេកជ្វា",
-    story: "Banana Tree Ghost is a restless ghost that lives strictly on the banana tree. In rural areas, it is forbidden to plant a banana tree right next to the window of your house as the leaf of the banana tree could grow and attached to the house, providing a path for the banana tree ghost to go in and haunt those who lives inside.",
-    source: "Grandparents, friends, urban legend",
-    place: "Mostly Urban, Farmland,",
-    media: bananaTreeGhostImg,
-  };
-
+  // Now using entries imported from data/entries.js instead of hard-coded objects
+  
   return (
     <main style={styles.wrap}>
       <p style={styles.kicker}>KHMER LIVING ARCHIVE</p>
@@ -114,10 +98,13 @@ export default function Home() {
         <p style={styles.cardValue}>{collection.province}</p>
       </div>
 
-      <p style={styles.count}>entries in the archive: 2</p>
+      {/* Dynamic count based on entries array length */}
+      <p style={styles.count}>entries in the archive: {entries.length}</p>
 
-      <EntryCard entry={entry1} />
-      <EntryCard entry={entry2} />
+      {/* Render all entries dynamically */}
+      {entries.map((entry) => (
+        <EntryCard key={entry.id} entry={entry} />
+      ))}
 
       <footer style={styles.footer}>
         Built in ICT 340 — Vibe Coding, American University of Phnom Penh, Fall

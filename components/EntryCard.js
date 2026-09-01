@@ -35,14 +35,14 @@ export default function EntryCard({ entry, isLoading = false, error = null }) {
       <p style={styles.value}>{entry.title}</p>
       <p style={styles.label}>KHMER NAME</p>
       <p style={styles.value}>{entry.khmerName}</p>
+      <p style={styles.label}>APPEARANCE</p>
+      <p style={styles.value}>{entry.appearance}</p>
       <p style={styles.label}>STORY</p>
       <p style={styles.value}>{entry.story}</p>
       <p style={styles.label}>SOURCE</p>
       <p style={styles.value}>{entry.source}</p>
       <p style={styles.label}>PLACE</p>
       <p style={styles.value}>{entry.place}</p>
-      <p style={styles.label}>DATE</p>
-      <p style={styles.value}>{entry.date}</p>
       <p style={styles.label}>MEDIA</p>
       {entry.media ? (
         <img
