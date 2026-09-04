@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import collection from "../collection.config.js";
 import EntryCard from "../components/EntryCard";
 // Import all entries from the data file
@@ -74,11 +77,73 @@ const styles = {
     fontSize: 13,
     color: "#5A6373",
   },
+  searchBox: {
+    marginTop: 48,
+    padding: "12px 16px",
+    fontSize: 16,
+    backgroundColor: "#1C222C",
+    border: "1px solid #2E3644",
+    borderRadius: 8,
+    color: "#FFFFFF",
+    width: "100%",
+    boxSizing: "border-box",
+  },
+  searchLabel: {
+    fontFamily: "'Courier New', monospace",
+    fontSize: 12,
+    color: "#97A1B3",
+    marginBottom: 8,
+  },
+  noResults: {
+    marginTop: 48,
+    padding: 24,
+    backgroundColor: "#1C222C",
+    border: "1px solid #2E3644",
+    borderRadius: 10,
+    textAlign: "center",
+    color: "#97A1B3",
+    fontSize: 16,
+  },
 };
 
 export default function Home() {
-  // Now using entries imported from data/entries.js instead of hard-coded objects
-  
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Function to filter entries based on search query
+  const filterEntries = (query) => {
+    const trimmedQuery = query.trim();
+    
+    if (!trimmedQuery) {
+      return entries; // Show all entries when query is empty
+    }
+
+    return entries.filter((entry) => {
+      // Check if query matches any of the searchable fields
+      // Search in: English title, Khmer title, English appearance, English story
+      const searchableFields = [
+        entry.title?.toLowerCase() || "",
+        entry.khmerName || "",
+        entry.appearance?.toLowerCase() || "",
+        entry.story?.toLowerCase() || ""
+      ];
+
+      return searchableFields.some((field) => {
+        // For English fields (title, appearance, story), do case-insensitive search
+        // For Khmer field (khmerName), do direct substring match
+        if (field === entry.khmerName) {
+          // Khmer text - direct substring match
+          return field.includes(trimmedQuery);
+        } else {
+          // English text - case-insensitive match
+          return field.includes(trimmedQuery.toLowerCase());
+        }
+      });
+    });
+  };
+
+  // Get filtered entries based on current search query
+  const filteredEntries = filterEntries(searchQuery);
+
   return (
     <main style={styles.wrap}>
       <p style={styles.kicker}>KHMER LIVING ARCHIVE</p>
@@ -98,13 +163,40 @@ export default function Home() {
         <p style={styles.cardValue}>{collection.province}</p>
       </div>
 
-      {/* Dynamic count based on entries array length */}
-      <p style={styles.count}>entries in the archive: {entries.length}</p>
+      {/* Search box */}
+      <div style={{ marginTop: 48 }}>
+        <p style={styles.searchLabel}>SEARCH ENTRIES</p>
+        <input
+          type="text"
+          placeholder="Search by title (English or Khmer) or description..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={styles.searchBox}
+        />
+      </div>
 
-      {/* Render all entries dynamically */}
-      {entries.map((entry) => (
-        <EntryCard key={entry.id} entry={entry} />
-      ))}
+      {/* Dynamic count based on filtered entries array length */}
+      <p style={styles.count}>
+        {searchQuery.trim() 
+          ? `found ${filteredEntries.length} of ${entries.length} entries` 
+          : `entries in the archive: ${entries.length}`}
+      </p>
+
+      {/* Render filtered entries dynamically */}
+      {filteredEntries.length > 0 ? (
+        filteredEntries.map((entry) => (
+          <EntryCard key={entry.id} entry={entry} />
+        ))
+      ) : searchQuery.trim() ? (
+        <div style={styles.noResults}>
+          No results found for "{searchQuery}"
+        </div>
+      ) : (
+        // This case shouldn't happen since entries should always exist
+        <div style={styles.noResults}>
+          No entries found
+        </div>
+      )}
 
       <footer style={styles.footer}>
         Built in ICT 340 — Vibe Coding, American University of Phnom Penh, Fall
