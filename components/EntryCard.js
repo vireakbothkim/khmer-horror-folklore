@@ -1,4 +1,4 @@
-export default function EntryCard({ entry, isLoading = false, error = null }) {
+export default function EntryCard({ entry, isLoading = false, error = null, lang = "en" }) {
   if (isLoading) {
     return <div>Loading entry...</div>;
   }
@@ -6,6 +6,30 @@ export default function EntryCard({ entry, isLoading = false, error = null }) {
   if (error) {
     return <div>Error: {error}</div>;
   }
+
+  // UI text for labels based on language
+  const uiText = {
+    en: {
+      title: "TITLE",
+      khmerName: "KHMER NAME",
+      appearance: "APPEARANCE",
+      story: "STORY",
+      source: "SOURCE",
+      place: "PLACE",
+      media: "MEDIA",
+    },
+    kh: {
+      title: "ចំណងជើង",
+      khmerName: "ឈ្មោះខ្មែរ",
+      appearance: "រូបរាង",
+      story: "រឿងរ៉ាវ",
+      source: "ប្រភព",
+      place: "ទីកន្លែង",
+      media: "មេឌៀ",
+    },
+  };
+
+  const t = uiText[lang];
 
   const styles = {
     wrap: {
@@ -31,19 +55,23 @@ export default function EntryCard({ entry, isLoading = false, error = null }) {
 
   return (
     <div style={styles.wrap}>
-      <p style={styles.label}>TITLE</p>
+      <p style={styles.label}>{t.title}</p>
       <p style={styles.value}>{entry.title}</p>
-      <p style={styles.label}>KHMER NAME</p>
-      <p style={styles.value}>{entry.khmerName}</p>
-      <p style={styles.label}>APPEARANCE</p>
+      {entry.khmerName && (
+        <>
+          <p style={styles.label}>{t.khmerName}</p>
+          <p style={styles.value}>{entry.khmerName}</p>
+        </>
+      )}
+      <p style={styles.label}>{t.appearance}</p>
       <p style={styles.value}>{entry.appearance}</p>
-      <p style={styles.label}>STORY</p>
+      <p style={styles.label}>{t.story}</p>
       <p style={styles.value}>{entry.story}</p>
-      <p style={styles.label}>SOURCE</p>
+      <p style={styles.label}>{t.source}</p>
       <p style={styles.value}>{entry.source}</p>
-      <p style={styles.label}>PLACE</p>
+      <p style={styles.label}>{t.place}</p>
       <p style={styles.value}>{entry.place}</p>
-      <p style={styles.label}>MEDIA</p>
+      <p style={styles.label}>{t.media}</p>
       {entry.media ? (
         <img
           src={entry.media.src}
