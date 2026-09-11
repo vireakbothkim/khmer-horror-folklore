@@ -1,0 +1,149 @@
+.wrap {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 80px 24px;
+}
+
+.headerRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.kicker {
+  font-family: 'Courier New', monospace;
+  color: #972514;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.title {
+  font-size: 48px;
+  font-weight: 700;
+  margin: 16px 0 12px;
+  line-height: 1.1;
+}
+
+.description {
+  font-size: 18px;
+  color: #97A1B3;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.card {
+  margin-top: 48px;
+  padding: 24px;
+  background-color: #1C222C;
+  border: 1px solid #2E3644;
+  border-radius: 10px;
+}
+
+.cardLabel {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #97A1B3;
+  margin: 0;
+}
+
+.cardValue {
+  font-size: 16px;
+  margin: 6px 0 0;
+}
+
+.entryCard {
+  margin-top: 48px;
+  padding: 24px;
+  background-color: #1C222C;
+  border: 1px solid #2E3644;
+  border-radius: 10px;
+}
+
+.entryCardLabel {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #97A1B3;
+  margin: 0;
+}
+
+.entryCardValue {
+  font-size: 16px;
+  margin: 6px 0 0;
+}
+
+.count {
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  color: #2EE6A8;
+  margin-top: 48px;
+}
+
+.footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid #2E3644;
+  font-size: 13px;
+  color: #5A6373;
+}
+
+.searchContainer {
+  margin-top: 48px;
+  position: relative;
+}
+
+.searchBox {
+  margin-top: 0;
+  padding: 12px 16px;
+  padding-right: 40px; /* Space for clear button */
+  font-size: 16px;
+  background-color: #1C222C;
+  border: 1px solid #2E3644;
+  border-radius: 8px;
+  color: #FFFFFF;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.searchLabel {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #97A1B3;
+  margin-bottom: 8px;
+}
+
+.clearButton {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #97A1B3;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px 8px;
+}
+
+.noResults {
+  margin-top: 48px;
+  padding: 24px;
+  background-color: #1C222C;
+  border: 1px solid #2E3644;
+  border-radius: 10px;
+  text-align: center;
+  color: #97A1B3;
+  font-size: 16px;
+}
+
+.languageToggle {
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  color: #97A1B3;
+  background: none;
+  border: 1px solid #2E3644;
+  border-radius: 4px;
+  padding: 4px 8px;
+  cursor: pointer;
+  margin-top: 4px;
+}

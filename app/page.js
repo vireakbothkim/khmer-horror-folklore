@@ -5,6 +5,7 @@ import collection from "../collection.config.js";
 import EntryCard from "../components/EntryCard";
 // Import all entries from the data file
 import { entriesEn, entriesKh } from "../data/entries.js";
+import styles from "./page.module.css";
 
 const uiText = {
   en: {
@@ -37,139 +38,7 @@ const uiText = {
   },
 };
 
-const styles = {
-  wrap: {
-    maxWidth: 720,
-    margin: "0 auto",
-    padding: "80px 24px",
-  },
-  headerRow: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "flex-start",
-    marginBottom: 16,
-  },
-  kicker: {
-    fontFamily: "'Courier New', monospace",
-    color: "#972514",
-    fontSize: 14,
-    letterSpacing: 1,
-  },
-  title: {
-    fontSize: 48,
-    fontWeight: 700,
-    margin: "16px 0 12px",
-    lineHeight: 1.1,
-  },
-  description: {
-    fontSize: 18,
-    color: "#97A1B3",
-    lineHeight: 1.6,
-    margin: 0,
-  },
-  card: {
-    marginTop: 48,
-    padding: 24,
-    backgroundColor: "#1C222C",
-    border: "1px solid #2E3644",
-    borderRadius: 10,
-  },
-  cardLabel: {
-    fontFamily: "'Courier New', monospace",
-    fontSize: 12,
-    color: "#97A1B3",
-    margin: 0,
-  },
-  cardValue: {
-    fontSize: 16,
-    margin: "6px 0 0",
-  },
-  entryCard: {
-    marginTop: 48,
-    padding: 24,
-    backgroundColor: "#1C222C",
-    border: "1px solid #2E3644",
-    borderRadius: 10,
-  },
-  entryCardLabel: {
-    fontFamily: "'Courier New', monospace",
-    fontSize: 12,
-    color: "#97A1B3",
-    margin: 0,
-  },
-  entryCardValue: {
-    fontSize: 16,
-    margin: "6px 0 0",
-  },
-  count: {
-    fontFamily: "'Courier New', monospace",
-    fontSize: 14,
-    color: "#2EE6A8",
-    marginTop: 48,
-  },
-  footer: {
-    marginTop: 64,
-    paddingTop: 24,
-    borderTop: "1px solid #2E3644",
-    fontSize: 13,
-    color: "#5A6373",
-  },
-  searchContainer: {
-    marginTop: 48,
-    position: "relative",
-  },
-  searchBox: {
-    marginTop: 0,
-    padding: "12px 16px",
-    paddingRight: "40px", // Space for clear button
-    fontSize: 16,
-    backgroundColor: "#1C222C",
-    border: "1px solid #2E3644",
-    borderRadius: 8,
-    color: "#FFFFFF",
-    width: "100%",
-    boxSizing: "border-box",
-  },
-  searchLabel: {
-    fontFamily: "'Courier New', monospace",
-    fontSize: 12,
-    color: "#97A1B3",
-    marginBottom: 8,
-  },
-  clearButton: {
-    position: "absolute",
-    right: "12px",
-    top: "50%",
-    transform: "translateY(-50%)",
-    background: "none",
-    border: "none",
-    color: "#97A1B3",
-    cursor: "pointer",
-    fontSize: "16px",
-    padding: "4px 8px",
-  },
-  noResults: {
-    marginTop: 48,
-    padding: 24,
-    backgroundColor: "#1C222C",
-    border: "1px solid #2E3644",
-    borderRadius: 10,
-    textAlign: "center",
-    color: "#97A1B3",
-    fontSize: 16,
-  },
-  languageToggle: {
-    fontFamily: "'Courier New', monospace",
-    fontSize: 12,
-    color: "#97A1B3",
-    background: "none",
-    border: "1px solid #2E3644",
-    borderRadius: 4,
-    padding: "4px 8px",
-    cursor: "pointer",
-    marginTop: 4,
-  },
-};
+
 
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -235,48 +104,48 @@ export default function Home() {
   const totalEntries = lang === "en" ? entriesEn.length : entriesKh.length;
 
   return (
-    <main style={styles.wrap}>
-      <div style={styles.headerRow}>
+    <main className={styles.wrap}>
+      <div className={styles.headerRow}>
         <div>
-          <p style={styles.kicker}>{t.kicker}</p>
-          <h1 style={styles.title}>{collectionName}</h1>
-          <p style={styles.description}>{collectionDescription}</p>
+          <p className={styles.kicker}>{t.kicker}</p>
+          <h1 className={styles.title}>{collectionName}</h1>
+          <p className={styles.description}>{collectionDescription}</p>
         </div>
         <button
-          style={styles.languageToggle}
+          className={styles.languageToggle}
           onClick={() => setLang(lang === "en" ? "kh" : "en")}
         >
           {t.languageToggle}
         </button>
       </div>
 
-      <div style={styles.card}>
-        <p style={styles.cardLabel}>{t.curatedBy}</p>
-        <p style={styles.cardValue}>{collectionCurator}</p>
+      <div className={styles.card}>
+        <p className={styles.cardLabel}>{t.curatedBy}</p>
+        <p className={styles.cardValue}>{collectionCurator}</p>
       </div>
-      <div style={styles.card}>
-        <p style={styles.cardLabel}>{t.source}</p>
-        <p style={styles.cardValue}>{collectionSource}</p>
+      <div className={styles.card}>
+        <p className={styles.cardLabel}>{t.source}</p>
+        <p className={styles.cardValue}>{collectionSource}</p>
       </div>
-      <div style={styles.card}>
-        <p style={styles.cardLabel}>{t.province}</p>
-        <p style={styles.cardValue}>{collectionProvince}</p>
+      <div className={styles.card}>
+        <p className={styles.cardLabel}>{t.province}</p>
+        <p className={styles.cardValue}>{collectionProvince}</p>
       </div>
 
       {/* Search box */}
-      <div style={styles.searchContainer}>
-        <p style={styles.searchLabel}>{t.searchEntries}</p>
+      <div className={styles.searchContainer}>
+        <p className={styles.searchLabel}>{t.searchEntries}</p>
         <div style={{ position: "relative" }}>
           <input
             type="text"
             placeholder={t.searchPlaceholder}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            style={styles.searchBox}
+            className={styles.searchBox}
           />
           {searchQuery && (
             <button
-              style={styles.clearButton}
+              className={styles.clearButton}
               onClick={() => setSearchQuery("")}
               aria-label="Clear search"
             >
@@ -287,7 +156,7 @@ export default function Home() {
       </div>
 
       {/* Dynamic count based on filtered entries array length */}
-      <p style={styles.count}>
+      <p className={styles.count}>
         {searchQuery.trim() 
           ? t.countFound(filteredEntries.length, totalEntries)
           : t.countTotal(totalEntries)}
@@ -299,17 +168,17 @@ export default function Home() {
           <EntryCard key={entry.id} entry={entry} lang={lang} />
         ))
       ) : searchQuery.trim() ? (
-        <div style={styles.noResults}>
+        <div className={styles.noResults}>
           {t.noResults(searchQuery)}
         </div>
       ) : (
         // This case shouldn't happen since entries should always exist
-        <div style={styles.noResults}>
+        <div className={styles.noResults}>
           {t.noEntries}
         </div>
       )}
 
-      <footer style={styles.footer}>
+      <footer className={styles.footer}>
         {t.footer}
       </footer>
     </main>
