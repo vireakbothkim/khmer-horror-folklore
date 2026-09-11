@@ -3,7 +3,7 @@
 import { useState } from "react";
 import collection from "../collection.config.js";
 import EntryCard from "../components/EntryCard";
-// Import all entries from the data file
+import EntrySearch from "../components/EntrySearch";
 import { entriesEn, entriesKh } from "../data/entries.js";
 import styles from "./page.module.css";
 
@@ -133,27 +133,13 @@ export default function Home() {
       </div>
 
       {/* Search box */}
-      <div className={styles.searchContainer}>
-        <p className={styles.searchLabel}>{t.searchEntries}</p>
-        <div style={{ position: "relative" }}>
-          <input
-            type="text"
-            placeholder={t.searchPlaceholder}
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className={styles.searchBox}
-          />
-          {searchQuery && (
-            <button
-              className={styles.clearButton}
-              onClick={() => setSearchQuery("")}
-              aria-label="Clear search"
-            >
-              ✕
-            </button>
-          )}
-        </div>
-      </div>
+      <EntrySearch
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onClear={() => setSearchQuery("")}
+        labelText={t.searchEntries}
+        placeholderText={t.searchPlaceholder}
+      />
 
       {/* Dynamic count based on filtered entries array length */}
       <p className={styles.count}>
