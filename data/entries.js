@@ -8,6 +8,8 @@ import mrenhKongvealImg from "../components/mrenh.jpeg";
 import neakTaImg from "../components/nakta.jpg";
 import pretaImg from "../components/pret.jpg";
 import preayImg from "../components/preay.jpg";
+import tayHorngImg from "../components/tay_horng.webp";  
+import arakImg from "../components/arak.png";
 
 // Array of English folklore entries
 export const entriesEn = [
@@ -54,16 +56,16 @@ export const entriesEn = [
     story: "Unlike spirits who pass away peacefully from old age or natural illness, Kmoch Tay Horng refers strictly to ghosts of individuals who died suddenly from violent accidents, murders, suicides, or catastrophic calamities. Because their lives were cut abruptly short with unfinished business, unexpressed anger, or sudden shock, their souls remain bound to the mortal plane. They are often believed to haunt the exact location of their tragedy until proper Buddhist funeral rites, ancestral prayers, or karma-clearing ceremonies are performed by monks.",
     source: "Oral accounts passed down by parents, grandparents, teachers, friends, and local urban legends.",
     place: "Accident sites, dangerous roadways, rivers, abandoned buildings, and locations of sudden fatal tragedies.",
-    media: null,
+    media: tayHorngImg,
   },
   {
     id: 6,
-    title: "Kmoch Anatha / Unclaimed Corpse Spirit",
-    appearance: "Appears as a hollow, weathered apparition clad in faded, threadbare clothing, often bearing the stark look of exhaustion and neglect, and lacking any identifying marks, jewelry, or personal belongings.",
-    story: "Kmoch Anatha refers to the vagrant spirits of individuals who died completely alone with no family, friends, or loved ones to claim their bodies or perform their funeral rites. Having passed away as strangers in life—often due to homelessness, sudden accidents, or poverty—their souls are believed to wander the human realm aimlessly, hungry and forgotten. Because no living relatives exist to dedicate food or merits to them, they rely heavily on the compassion of strangers and monks during religious festivals like Pchum Ben, where specific rituals are held to feed these unclaimed and wandering souls.",
-    source: "Traditional Khmer folklore, Pchum Ben ritual oral histories, and modern urban societal accounts.",
-    place: "City streets, under bridges, hospital morgues, remote riversides, and Buddhist temple grounds during religious festivals.",
-    media: null,
+    title: "Arak Khmer / Khmer Ancestral and Nature Spirits / Demon",
+    appearance: "Invisible ancestral and nature spirits; during rituals, they manifest through a medium (ruop) who assumes the distinct attire, posture, gender, and demeanor of the specific arak possessing them.",
+    story: "In Khmer animism, the arak are territorial and ancestral guardian spirits tied directly to the natural world—inhabiting large ancient trees, rivers, forests, mountains, and rice fields. They act as guardians of moral order, natural harmony, and community well-being. When humans honor them with respect, offerings (such as fruits, incense, and music), and proper ethical behavior, the arak show benevolence by providing protection, curing illness, and bringing good fortune and abundant harvests. However, if humans disrespect nature, breach social taboos, or neglect traditional rituals, the arak become offended and exact swift retribution—striking transgressors with sudden sickness, severe accidents, bad luck, crop failure, or localized misfortunes until atonement is made through an Arak ceremony (Pithi Lae Arak).",
+    source: "Khmer Folk Animism and Oral Traditions",
+    place: "Sacred groves, ancient banyan or silk-cotton trees, water bodies, mountains, rice fields, and traditional spirit shrines (neak ta shrines) across rural Cambodia.",
+    media: arakImg
   },
   {
     id: 7,
@@ -130,16 +132,16 @@ export const entriesKh = [
     story: "ខុសពីព្រលឹងដែលចែកឋានទៅដោយសុខសាន្តដោយសារជរាពាធ ឬជំងឺធម្មជាតិ ខ្មោចតៃហោង សំដៅលើព្រលឹងរបស់អ្នកដែលបានស្លាប់ភ្លាមៗដោយសារគ្រោះថ្នាក់សាហាវ ការឃាតកម្ម ការធ្វើអត្តឃាត ឬមហន្តរាយផ្សេងៗ។ ដោយសារតែជីវិតរបស់ពួកគេត្រូវបានបញ្ចប់យ៉ាងប្រញាប់ប្រញាល់ជាមួយនឹងការងារមិនទាន់រួចរាល់ កំហឹង ឬការភិតភ័យភ្លាមៗ ព្រលឹងរបស់ពួកគេនៅតែជាប់ជំពាក់នឹងលោកិយនេះ។ គេជឿថាពួកគេតែងតែលងបន្លាចនៅទីតាំងកើតហេតុ រហូតទាល់តែមានការធ្វើបុណ្យតាមប្រពៃណីព្រះពុទ្ធសាសនា ការបន់ស្រន់ ឬពិធីរំដោះគ្រោះដោយព្រះសង្ឃ។",
     source: "រឿងរ៉ាវនិយាយតៗគ្នាដោយឪពុកម្តាយ ជីដូនជីតា គ្រូបង្រៀន មិត្តភក្តិ និងរឿងប្រេងប្រជាប្រិយ។",
     place: "កន្លែងកើតគ្រោះថ្នាក់ ផ្លូវគ្រោះថ្នាក់ ទន្លេ អគារបោះបង់ចោល និងទីតាំងកើតសោកនាដកម្មស្លាប់ភ្លាមៗ។",
-    media: null,
+    media: tayHorngImg,
   },
   {
     id: 6,
-    title: "ខ្មោចអនាថា",
-    appearance: "លេចឡើងជារូបរាងប្រឡាក់ប្រឡូក ស្លៀកពាក់ខោអាវចាស់រហែក មានទឹកមុខល្ហិតល្ហៃ និងគ្មា​នគ្រឿងអលង្ការ ឬរបស់របរផ្ទាល់ខ្លួនជាប់ខ្លួនឡើយ។",
-    story: "ខ្មោចអនាថា សំដៅលើវិញ្ញាណលេចលង់របស់អ្នកដែលបានស្លាប់ទៅដោយគ្មានគ្រួសារ មិត្តភក្តិ ឬបងប្អូនសាច់ញាតិមកទទួលសព ឬធ្វើបុណ្យឱ្យឡើយ។ ដោយសារតែស្លាប់ទៅជាមនុស្សសាត់អណ្តែត—ភាគច្រើនដោយសារការគ្មានផ្ទះសម្បែង គ្រោះថ្នាក់ ឬភាពក្រីក្រ—ព្រលឹងរបស់ពួកគេត្រូវគេជឿថាតែងតែអណ្តែតអណ្តូងក្នុងលោកមនុស្សដោយការស្រេកឃ្លាន និងភ្លេចភ្លាំង។ ដោយសារគ្មានសាច់ញាតិធ្វើបុណ្យឧទ្ទិសកុសលឱ្យ ពួកគេត្រូវពឹងផ្អែកយ៉ាងខ្លាំងលើក្ដីមេត្តារបស់អ្នកដទៃ និងព្រះសង្ឃក្នុងពិធីបុណ្យសាសនាដូចជាបុណ្យភ្ជុំបិណ្ឌ ជាទីដែលពិធីពិសេសៗត្រូវបានធ្វើឡើងដើម្បីឧទ្ទិសដល់ព្រលឹងអនាថាទាំងនេះ។",
-    source: "រឿងព្រេងប្រជាប្រិយខ្មែរ ប្រវត្តិរឿងរ៉ាវពិធីបុណ្យភ្ជុំបិណ្ឌ និងរឿងរ៉ាវសង្គមសម័យទំនើប។",
-    place: "តាមផ្លូវក្នុងក្រុង ក្រោមស្ពាន រោងតម្កល់សព មាត់ទន្លេដាច់ស្រយាល និងតាមវត្តអារាមក្នុងអំឡុងបុណ្យសាសនា។",
-    media: null,
+    title: "អារក្សខ្មែរ",
+    appearance: "ជាព្រលឹងដូនតានិងព្រលឹងធម្មជាតិដែលមើលមិនឃើញ។ ក្នុងពេលប្រារព្ធពិធី ពួកគេចូលសព្វសឹងតាមរយៈរូបស្នង (រូប) ដោយបង្ហាញនូវសម្លៀកបំពាក់ កាយវិការ ភេទ និងអាកប្បកិរិយាយ៉ាងច្បាស់លាស់ទៅតាមចរិតរបស់អារក្សនីមួយៗ។",
+    story: "ក្នុងជំនឿអ្នកតានិងអារក្សរបស់ខ្មែរ អារក្សគឺជាព្រលឹងម្ចាស់ទឹកម្ចាស់ដីនិងព្រលឹងដូនតាដែលមានទំនាក់ទំនងផ្ទាល់ជាមួយពិភពធម្មជាតិ ដោយរស់នៅតាមដើមឈើធំៗបុរាណ ទន្លេ ព្រៃភ្នំ និងវាលស្រែ។ ពួកគេដើរតួជាអ្នកថែរក្សាសីលធម៌ ភាពសុខដុមនៃធម្មជាតិ និងសុខុមាលភាពរបស់សហគមន៍។ កាលណា មនុស្សសម្តែងការគោរព បូជាគ្រឿងសំណែន (ដូចជាផ្លែឈើ ធូប ភ្លេង) និងប្រកាន់ខ្ជាប់នូវសីលធម៌ អារក្សនឹងផ្តល់នូវក្តីមេត្តា ដោយជួយការពារ ព្យាបាលជំងឺ និងនាំមកនូវសិរីសួស្តី ព្រមទាំងភោគផលដំណាំយ៉ាងបរិបូរណ៍។ ទោះជាយ៉ាងណាក៏ដោយ ប្រសិនបើមនុស្សប្រមាថមើលងាយធម្មជាតិ រំលោភលើតមមាត់ ឬមើលរំលងពិធីការបែបបុរាណ អារក្សនឹងខឹងសម្បារ ហើយធ្វើការសងសឹកយ៉ាងឆាប់រហ័ស ដោយធ្វើឲ្យអ្នកប្រព្រឹត្តខុសធ្លាក់ខ្លួនឈឺភ្លាមៗ ជួបគ្រោះថ្នាក់ធ្ងន់ធ្ងរ ស៊យ ឬជួបគ្រោះមហន្តរាយផ្សេងៗ រហូតទាល់តែមានការសុំខមាទោសតាមរយៈពិធីលេងអារក្ស។",
+    source: "ជំនឿប្រជាប្រិយ និងរឿងព្រេងតលែករបស់ខ្មែរ",
+    place: "ព្រៃអារក្ស/ព្រៃអ្នកតា ដើមជ្រៃ ឬដើមរកាធំៗបុរាណ ប្រភពទឹក ភ្នំ វាលស្រែ និងអាសនៈសក្ការៈ (រោងអ្នកតា) នៅតាមជនបទក្នុងប្រទេសកម្ពុជា។",
+    media: arakImg
   },
   {
     id: 7,
