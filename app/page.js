@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import collection from "../collection.config.js";
 import EntryCard from "../components/EntryCard";
 import EntrySearch from "../components/EntrySearch";
 import { entriesEn, entriesKh } from "../data/entries.js";
 import styles from "./page.module.css";
+import { createClient } from "../lib/supabase-client";
 
 const uiText = {
   en: {
@@ -43,6 +44,75 @@ const uiText = {
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [lang, setLang] = useState("en"); // "en" or "kh"
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const supabase = createClient();
+        const { data: { user }, error } = await supabase.auth.getUser();
+        
+        if (error) {
+          // Check if error is related to missing session (like AuthSessionMissingError)
+          const errorMessage = error.message || error.toString();
+          const isSessionError = 
+            errorMessage.includes('session') || 
+            errorMessage.includes('Session') ||
+            errorMessage.includes('auth') ||
+            errorMessage.includes('Auth') ||
+            errorMessage.includes('missing') ||
+            errorMessage.includes('Missing') ||
+            errorMessage.includes('AuthSessionMissingError');
+          
+          // Only log if it's not a session-related error
+          if (!isSessionError) {
+            console.error("Error fetching user:", error);
+          }
+          setUser(null);
+        } else {
+          setUser(user);
+        }
+      } catch (err) {
+        // Check if error is related to missing session (like AuthSessionMissingError)
+        const errorMessage = err.message || err.toString();
+        const isSessionError = 
+          errorMessage.includes('session') || 
+          errorMessage.includes('Session') ||
+          errorMessage.includes('auth') ||
+          errorMessage.includes('Auth') ||
+          errorMessage.includes('missing') ||
+          errorMessage.includes('Missing') ||
+          errorMessage.includes('AuthSessionMissingError');
+        
+        // Only log if it's not a session-related error
+        if (!isSessionError) {
+          console.error("Error fetching user:", err);
+        }
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      const supabase = createClient();
+      const { error } = await supabase.auth.signOut();
+      
+      if (error) {
+        console.error("Error signing out:", error);
+      } else {
+        setUser(null);
+        window.location.href = "/";
+      }
+    } catch (err) {
+      console.error("Error signing out:", err);
+    }
+  };
 
   // Function to filter entries based on search query
   const filterEntries = (query) => {
@@ -111,12 +181,94 @@ export default function Home() {
           <h1 className={styles.title}>{collectionName}</h1>
           <p className={styles.description}>{collectionDescription}</p>
         </div>
-        <button
-          className={styles.languageToggle}
-          onClick={() => setLang(lang === "en" ? "kh" : "en")}
-        >
-          {t.languageToggle}
-        </button>
+        <div style={{ display: "flex", gap: "8px", alignItems: "flex-start" }}>
+          {loading ? (
+            // Show nothing or minimal loading state
+            <div style={{ width: "60px", height: "24px", marginTop: "4px" }}></div>
+          ) : user ? (
+            // Logged in: show email and logout button
+            <>
+              <div
+                style={{
+                  fontFamily: "'Courier New', monospace",
+                  fontSize: "12px",
+                  color: "#97A1B3",
+                  padding: "4px 8px",
+                  marginTop: "4px",
+                  maxWidth: "150px",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                  whiteSpace: "nowrap",
+                }}
+                title={user.email}
+              >
+                {user.email}
+              </div>
+              <button
+                onClick={handleLogout}
+                style={{
+                  fontFamily: "'Courier New', monospace",
+                  fontSize: "12px",
+                  color: "#FFFFFF",
+                  background: "#972514",
+                  border: "1px solid #972514",
+                  borderRadius: "4px",
+                  padding: "4px 8px",
+                  cursor: "pointer",
+                  marginTop: "4px",
+                }}
+              >
+                {lang === "en" ? "LOGOUT" : "ចាកចេញ"}
+              </button>
+            </>
+          ) : (
+            // Not logged in: show login/signup links
+            <>
+              <a
+                href="/login"
+                style={{
+                  fontFamily: "'Courier New', monospace",
+                  fontSize: "12px",
+                  color: "#97A1B3",
+                  background: "none",
+                  border: "1px solid #2E3644",
+                  borderRadius: "4px",
+                  padding: "4px 8px",
+                  cursor: "pointer",
+                  marginTop: "4px",
+                  textDecoration: "none",
+                  display: "inline-block",
+                }}
+              >
+                {lang === "en" ? "LOG IN" : "ចូល"}
+              </a>
+              <a
+                href="/signup"
+                style={{
+                  fontFamily: "'Courier New', monospace",
+                  fontSize: "12px",
+                  color: "#FFFFFF",
+                  background: "#972514",
+                  border: "1px solid #972514",
+                  borderRadius: "4px",
+                  padding: "4px 8px",
+                  cursor: "pointer",
+                  marginTop: "4px",
+                  textDecoration: "none",
+                  display: "inline-block",
+                }}
+              >
+                {lang === "en" ? "SIGN UP" : "ចុះឈ្មោះ"}
+              </a>
+            </>
+          )}
+          <button
+            className={styles.languageToggle}
+            onClick={() => setLang(lang === "en" ? "kh" : "en")}
+          >
+            {t.languageToggle}
+          </button>
+        </div>
       </div>
 
       <div className={styles.card}>

@@ -9,6 +9,11 @@
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 16px;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  background-color: #14181F;
+  z-index: 100;
 }
 
 .kicker {
