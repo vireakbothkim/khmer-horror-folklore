@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import collection from "../collection.config.js";
 import EntryCard from "../components/EntryCard";
 import EntrySearch from "../components/EntrySearch";
-import { entriesEn, entriesKh } from "../data/entries.js";
 import styles from "./page.module.css";
 import { createClient } from "../lib/supabase-client";
 
@@ -46,6 +45,8 @@ export default function Home() {
   const [lang, setLang] = useState("en"); // "en" or "kh"
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [entries, setEntries] = useState([]); // All entries from Supabase
+  const [entriesLoading, setEntriesLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -98,6 +99,33 @@ export default function Home() {
     fetchUser();
   }, []);
 
+  // Fetch entries from Supabase
+  useEffect(() => {
+    const fetchEntries = async () => {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from('entries')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error("Error fetching entries:", error);
+          setEntries([]);
+        } else {
+          setEntries(data || []);
+        }
+      } catch (err) {
+        console.error("Error fetching entries:", err);
+        setEntries([]);
+      } finally {
+        setEntriesLoading(false);
+      }
+    };
+
+    fetchEntries();
+  }, []);
+
   const handleLogout = async () => {
     try {
       const supabase = createClient();
@@ -113,6 +141,33 @@ export default function Home() {
       console.error("Error signing out:", err);
     }
   };
+
+  // Map Supabase entries to English and Khmer arrays for compatibility with existing components
+  // Create English entries array from Supabase data
+  const entriesEn = entries.map(entry => ({
+    id: entry.id,
+    title: entry.title_en,
+    khmerName: entry.title_km,
+    appearance: entry.appearance_en,
+    story: entry.story_en,
+    source: entry.source_en,
+    place: entry.place_en,
+    media: entry.media,
+    contributor: entry.contributor
+  }));
+
+  // Create Khmer entries array from Supabase data
+  const entriesKh = entries.map(entry => ({
+    id: entry.id,
+    title: entry.title_km,
+    khmerName: entry.title_en,
+    appearance: entry.appearance_km,
+    story: entry.story_km,
+    source: entry.source_km,
+    place: entry.place_km,
+    media: entry.media,
+    contributor: entry.contributor
+  }));
 
   // Function to filter entries based on search query
   const filterEntries = (query) => {
@@ -132,6 +187,8 @@ export default function Home() {
         entry.title?.toLowerCase() || "",
         entry.appearance?.toLowerCase() || "",
         entry.story?.toLowerCase() || "",
+        entry.source?.toLowerCase() || "",
+        entry.place?.toLowerCase() || "",
       ];
       
       if (searchableFields.some(field => field.includes(trimmedQuery.toLowerCase()))) {
@@ -145,6 +202,8 @@ export default function Home() {
         entry.title || "", // Khmer title
         entry.appearance || "", // Khmer appearance
         entry.story || "", // Khmer story
+        entry.source || "", // Khmer source
+        entry.place || "", // Khmer place
       ];
       
       if (searchableFields.some(field => field.includes(trimmedQuery))) {
@@ -294,14 +353,24 @@ export default function Home() {
       />
 
       {/* Dynamic count based on filtered entries array length */}
-      <p className={styles.count}>
-        {searchQuery.trim() 
-          ? t.countFound(filteredEntries.length, totalEntries)
-          : t.countTotal(totalEntries)}
-      </p>
+      {!entriesLoading && entries.length > 0 && (
+        <p className={styles.count}>
+          {searchQuery.trim() 
+            ? t.countFound(filteredEntries.length, totalEntries)
+            : t.countTotal(totalEntries)}
+        </p>
+      )}
 
       {/* Render filtered entries dynamically */}
-      {filteredEntries.length > 0 ? (
+      {entriesLoading ? (
+        <div className={styles.noResults}>
+          Loading entries...
+        </div>
+      ) : entries.length === 0 ? (
+        <div className={styles.noResults}>
+          No entries found in the archive.
+        </div>
+      ) : filteredEntries.length > 0 ? (
         filteredEntries.map((entry) => (
           <EntryCard key={entry.id} entry={entry} lang={lang} />
         ))
@@ -310,7 +379,7 @@ export default function Home() {
           {t.noResults(searchQuery)}
         </div>
       ) : (
-        // This case shouldn't happen since entries should always exist
+        // This case shouldn't happen since entries should always exist when loaded
         <div className={styles.noResults}>
           {t.noEntries}
         </div>
