@@ -53,8 +53,8 @@ export default function EntryCard({ entry, isLoading = false, error = null, lang
       <p className={styles.label}>{t.media}</p>
       {entry.media ? (
         <img
-          src={entry.media.src}
-          alt="Entry media"
+          src={entry.media}
+          alt={entry.title || "Entry media"}
           style={{ maxWidth: "100%", height: "auto", marginTop: "6px" }}
         />
       ) : (
