@@ -372,7 +372,9 @@ export default function Home() {
         </div>
       ) : filteredEntries.length > 0 ? (
         filteredEntries.map((entry) => (
-          <EntryCard key={entry.id} entry={entry} lang={lang} />
+          <a key={entry.id} href={`/entries/${entry.id}`} style={{ textDecoration: "none", display: "block" }}>
+            <EntryCard entry={entry} lang={lang} />
+          </a>
         ))
       ) : searchQuery.trim() ? (
         <div className={styles.noResults}>
