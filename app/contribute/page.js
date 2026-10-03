@@ -99,11 +99,6 @@ export default function ContributePage() {
       return;
     }
     
-    if (!photo) {
-      setError("Photo is required");
-      return;
-    }
-    
     if (!user) {
       setError("You must be logged in");
       return;
@@ -114,34 +109,41 @@ export default function ContributePage() {
     try {
       const supabase = createClient();
       
-      const fileExt = photo.name.split('.').pop();
-      const fileName = `${user.id}/${crypto.randomUUID()}.${fileExt}`;
+      let mediaUrl = null;
       
-      const { error: uploadError } = await supabase.storage
-        .from('photos')
-        .upload(fileName, photo);
-      
-      if (uploadError) {
-        console.error("Upload error:", uploadError);
-        throw new Error("Failed to upload photo");
+      // Upload photo only if provided
+      if (photo) {
+        const fileExt = photo.name.split('.').pop();
+        const fileName = `${user.id}/${crypto.randomUUID()}.${fileExt}`;
+        
+        const { error: uploadError } = await supabase.storage
+          .from('photos')
+          .upload(fileName, photo);
+        
+        if (uploadError) {
+          console.error("Upload error:", uploadError);
+          throw new Error("Failed to upload photo");
+        }
+        
+        const { data: urlData } = supabase.storage
+          .from('photos')
+          .getPublicUrl(fileName);
+        
+        mediaUrl = urlData.publicUrl;
       }
-      
-      const { data: urlData } = supabase.storage
-        .from('photos')
-        .getPublicUrl(fileName);
       
       const entryData = {
         title_en: formData.title_en.trim(),
-        title_km: formData.title_km.trim(),
-        appearance_en: formData.appearance_en.trim(),
-        appearance_km: formData.appearance_km.trim(),
+        title_km: formData.title_km.trim() || null,
+        appearance_en: formData.appearance_en.trim() || null,
+        appearance_km: formData.appearance_km.trim() || null,
         story_en: formData.story_en.trim(),
-        story_km: formData.story_km.trim(),
+        story_km: formData.story_km.trim() || null,
         source_en: formData.source_en.trim(),
-        source_km: formData.source_km.trim(),
+        source_km: formData.source_km.trim() || null,
         place_en: formData.place_en.trim(),
-        place_km: formData.place_km.trim(),
-        media: urlData.publicUrl,
+        place_km: formData.place_km.trim() || null,
+        media: mediaUrl,
         owner: user.id
       };
       
@@ -252,7 +254,7 @@ export default function ContributePage() {
         ))}
         
         <div style={{ marginBottom: "20px" }}>
-          <label style={{ display: "block", marginBottom: "5px" }}>Photo *</label>
+          <label style={{ display: "block", marginBottom: "5px" }}>Photo</label>
           <input
             type="file"
             accept=".jpg,.jpeg,.png,.webp"
@@ -267,7 +269,7 @@ export default function ContributePage() {
             }}
           />
           <small style={{ color: "#5A6373", display: "block", marginTop: "5px" }}>
-            JPG, PNG, or WebP. Max 5MB.
+            Optional. JPG, PNG, or WebP. Max 5MB.
           </small>
         </div>
         

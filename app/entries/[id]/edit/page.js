@@ -186,15 +186,15 @@ export default function EditEntryPage({ params }) {
       
       const entryData = {
         title_en: formData.title_en.trim(),
-        title_km: formData.title_km.trim(),
-        appearance_en: formData.appearance_en.trim(),
-        appearance_km: formData.appearance_km.trim(),
+        title_km: formData.title_km.trim() || null,
+        appearance_en: formData.appearance_en.trim() || null,
+        appearance_km: formData.appearance_km.trim() || null,
         story_en: formData.story_en.trim(),
-        story_km: formData.story_km.trim(),
+        story_km: formData.story_km.trim() || null,
         source_en: formData.source_en.trim(),
-        source_km: formData.source_km.trim(),
+        source_km: formData.source_km.trim() || null,
         place_en: formData.place_en.trim(),
-        place_km: formData.place_km.trim(),
+        place_km: formData.place_km.trim() || null,
         media: mediaUrl
       };
       
