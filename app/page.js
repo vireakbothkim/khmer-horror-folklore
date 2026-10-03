@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import collection from "../collection.config.js";
-import EntryCard from "../components/EntryCard";
 import EntrySearch from "../components/EntrySearch";
 import styles from "./page.module.css";
 import { createClient } from "../lib/supabase-client";
@@ -47,6 +46,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [entries, setEntries] = useState([]); // All entries from Supabase
   const [entriesLoading, setEntriesLoading] = useState(true);
+  const [isSticky, setIsSticky] = useState(false);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -124,6 +124,16 @@ export default function Home() {
     };
 
     fetchEntries();
+  }, []);
+
+  // Handle scroll for sticky header
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsSticky(window.scrollY > 10);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleLogout = async () => {
@@ -224,7 +234,6 @@ export default function Home() {
   
   // Get collection fields based on language
   const collectionName = lang === "kh" ? collection.name_km : collection.name;
-  const collectionDescription = lang === "kh" ? collection.description_km : collection.description;
   const collectionCurator = lang === "kh" ? collection.curator_km : collection.curator;
   const collectionSource = lang === "kh" ? collection.source_km : collection.source;
   const collectionProvince = lang === "kh" ? collection.province_km : collection.province;
@@ -234,47 +243,93 @@ export default function Home() {
 
   return (
     <main className={styles.wrap}>
-      <div className={styles.headerRow}>
+      <div className={`${styles.headerRow} ${isSticky ? styles.sticky : ''}`}>
         <div>
           <p className={styles.kicker}>{t.kicker}</p>
           <h1 className={styles.title}>{collectionName}</h1>
-          <p className={styles.description}>{collectionDescription}</p>
         </div>
         <div style={{ display: "flex", gap: "8px", alignItems: "flex-start" }}>
           {loading ? (
             // Show nothing or minimal loading state
             <div style={{ width: "60px", height: "24px", marginTop: "4px" }}></div>
           ) : user ? (
-            // Logged in: show email and logout button
+            // Logged in: show email, contribute, and logout button
             <>
               <div
                 style={{
-                  fontFamily: "'Courier New', monospace",
+                  fontFamily: "'Space Mono', monospace",
                   fontSize: "12px",
-                  color: "#97A1B3",
+                  color: "#8A8A90",
                   padding: "4px 8px",
                   marginTop: "4px",
                   maxWidth: "150px",
                   overflow: "hidden",
                   textOverflow: "ellipsis",
                   whiteSpace: "nowrap",
+                  textTransform: "uppercase",
+                  fontVariantCaps: "small-caps",
+                  letterSpacing: "0.05em",
                 }}
                 title={user.email}
               >
                 {user.email}
               </div>
+              <a
+                href="/contribute"
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "12px",
+                  color: "#8A8A90",
+                  background: "none",
+                  border: "1px solid #2A2A2E",
+                  borderRadius: "4px",
+                  padding: "4px    12px",
+                  cursor: "pointer",
+                  marginTop: "4px",
+                  textDecoration: "none",
+                  display: "inline-block",
+                  textTransform: "uppercase",
+                  fontVariantCaps: "small-caps",
+                  letterSpacing: "0.05em",
+                  transition: "all 0.2s ease",
+                  whiteSpace: "nowrap"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#9B2232";
+                  e.currentTarget.style.borderColor = "#9B2232";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "#8A8A90";
+                  e.currentTarget.style.borderColor = "#2A2A2E";
+                }}
+              >
+                {lang === "en" ? "CONTRIBUTE" : "ចូលរួម"}
+              </a>
               <button
                 onClick={handleLogout}
                 style={{
-                  fontFamily: "'Courier New', monospace",
+                  fontFamily: "'Space Mono', monospace",
                   fontSize: "12px",
-                  color: "#FFFFFF",
-                  background: "#972514",
-                  border: "1px solid #972514",
+                  color: "#EDE6D9",
+                  background: "#9B2232",
+                  border: "1px solid #9B2232",
                   borderRadius: "4px",
-                  padding: "4px 8px",
+                  padding: "4px 12px",
                   cursor: "pointer",
                   marginTop: "4px",
+                  textTransform: "uppercase",
+                  fontVariantCaps: "small-caps",
+                  letterSpacing: "0.05em",
+                  transition: "all 0.2s ease",
+                  whiteSpace: "nowrap"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#8A1D2B";
+                  e.currentTarget.style.borderColor = "#8A1D2B";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#9B2232";
+                  e.currentTarget.style.borderColor = "#9B2232";
                 }}
               >
                 {lang === "en" ? "LOGOUT" : "ចាកចេញ"}
@@ -286,35 +341,91 @@ export default function Home() {
               <a
                 href="/login"
                 style={{
-                  fontFamily: "'Courier New', monospace",
+                  fontFamily: "'Space Mono', monospace",
                   fontSize: "12px",
-                  color: "#97A1B3",
+                  color: "#8A8A90",
                   background: "none",
-                  border: "1px solid #2E3644",
+                  border: "1px solid #2A2A2E",
                   borderRadius: "4px",
-                  padding: "4px 8px",
+                  padding: "4px 12px",
                   cursor: "pointer",
                   marginTop: "4px",
                   textDecoration: "none",
                   display: "inline-block",
+                  textTransform: "uppercase",
+                  fontVariantCaps: "small-caps",
+                  letterSpacing: "0.05em",
+                  transition: "all 0.2s ease",
+                  whiteSpace: "nowrap"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#9B2232";
+                  e.currentTarget.style.borderColor = "#9B2232";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "#8A8A90";
+                  e.currentTarget.style.borderColor = "#2A2A2E";
                 }}
               >
                 {lang === "en" ? "LOG IN" : "ចូល"}
               </a>
               <a
-                href="/signup"
+                href="/contribute"
                 style={{
-                  fontFamily: "'Courier New', monospace",
+                  fontFamily: "'Space Mono', monospace",
                   fontSize: "12px",
-                  color: "#FFFFFF",
-                  background: "#972514",
-                  border: "1px solid #972514",
+                  color: "#8A8A90",
+                  background: "none",
+                  border: "1px solid #2A2A2E",
                   borderRadius: "4px",
                   padding: "4px 8px",
                   cursor: "pointer",
                   marginTop: "4px",
                   textDecoration: "none",
                   display: "inline-block",
+                  textTransform: "uppercase",
+                  fontVariantCaps: "small-caps",
+                  letterSpacing: "0.05em",
+                  transition: "all 0.2s ease",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#9B2232";
+                  e.currentTarget.style.borderColor = "#9B2232";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "#8A8A90";
+                  e.currentTarget.style.borderColor = "#2A2A2E";
+                }}
+              >
+                {lang === "en" ? "CONTRIBUTE" : "ចូលរួម"}
+              </a>
+              <a
+                href="/signup"
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "12px",
+                  color: "#EDE6D9",
+                  background: "#9B2232",
+                  border: "1px solid #9B2232",
+                  borderRadius: "4px",
+                  padding: "4px 8px",
+                  cursor: "pointer",
+                  marginTop: "4px",
+                  textDecoration: "none",
+                  display: "inline-block",
+                  textTransform: "uppercase",
+                  fontVariantCaps: "small-caps",
+                  letterSpacing: "0.05em",
+                  transition: "all 0.2s ease",
+                  whiteSpace: "nowrap"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = "#8A1D2B";
+                  e.currentTarget.style.borderColor = "#8A1D2B";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#9B2232";
+                  e.currentTarget.style.borderColor = "#9B2232";
                 }}
               >
                 {lang === "en" ? "SIGN UP" : "ចុះឈ្មោះ"}
@@ -330,17 +441,19 @@ export default function Home() {
         </div>
       </div>
 
-      <div className={styles.card}>
-        <p className={styles.cardLabel}>{t.curatedBy}</p>
-        <p className={styles.cardValue}>{collectionCurator}</p>
-      </div>
-      <div className={styles.card}>
-        <p className={styles.cardLabel}>{t.source}</p>
-        <p className={styles.cardValue}>{collectionSource}</p>
-      </div>
-      <div className={styles.card}>
-        <p className={styles.cardLabel}>{t.province}</p>
-        <p className={styles.cardValue}>{collectionProvince}</p>
+      <div className={styles.metadataGrid}>
+        <div className={styles.metadataItem}>
+          <p className={styles.metadataLabel}>{t.curatedBy}</p>
+          <p className={styles.metadataValue}>{collectionCurator}</p>
+        </div>
+        <div className={styles.metadataItem}>
+          <p className={styles.metadataLabel}>{t.source}</p>
+          <p className={styles.metadataValue}>{collectionSource}</p>
+        </div>
+        <div className={styles.metadataItem}>
+          <p className={styles.metadataLabel}>{t.province}</p>
+          <p className={styles.metadataValue}>{collectionProvince}</p>
+        </div>
       </div>
 
       {/* Search box */}
@@ -371,11 +484,42 @@ export default function Home() {
           No entries found in the archive.
         </div>
       ) : filteredEntries.length > 0 ? (
-        filteredEntries.map((entry) => (
-          <a key={entry.id} href={`/entries/${entry.id}`} style={{ textDecoration: "none", display: "block" }}>
-            <EntryCard entry={entry} lang={lang} />
-          </a>
-        ))
+        <div className={styles.entriesGrid}>
+          {filteredEntries.map((entry) => (
+            <a key={entry.id} href={`/entries/${entry.id}`} className={styles.entryItem}>
+              <div className={styles.entryImageContainer}>
+                {entry.media ? (
+                  <img 
+                    src={entry.media} 
+                    alt={entry.title}
+                    className={styles.entryImage}
+                  />
+                ) : (
+                  <div style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "var(--color-border)",
+                    color: "var(--color-text-secondary)",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "var(--text-xs)",
+                    textTransform: "uppercase",
+                    fontVariantCaps: "small-caps",
+                    letterSpacing: "0.05em"
+                  }}>
+                    No Image
+                  </div>
+                )}
+              </div>
+              <h3 className={styles.entryTitle}>{entry.title}</h3>
+              {entry.khmerName && (
+                <p className={styles.entrySubtitle}>{entry.khmerName}</p>
+              )}
+            </a>
+          ))}
+        </div>
       ) : searchQuery.trim() ? (
         <div className={styles.noResults}>
           {t.noResults(searchQuery)}

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "../../lib/supabase-client";
 import collection from "../../collection.config.js";
+import styles from "../auth.module.css";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -37,6 +38,7 @@ export default function LoginPage() {
   };
 
   const t = uiText[lang];
+  const collectionName = lang === "kh" ? collection.name_km : collection.name;
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -63,104 +65,34 @@ export default function LoginPage() {
     }
   };
 return (
-    <div style={{
-      maxWidth: "720px",
-      margin: "0 auto",
-      padding: "80px 24px",
-      backgroundColor: "#14181F",
-      color: "#E8EDF2",
-      minHeight: "100vh",
-      fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-    }}>
-      <div style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        marginBottom: "16px",
-      }}>
+    <div className={styles.wrap}>
+      <div className={styles.headerRow}>
         <div>
-          <p style={{
-            fontFamily: "'Courier New', monospace",
-            color: "#972514",
-            fontSize: "14px",
-            letterSpacing: "1px",
-            margin: "0",
-          }}>
-            {t.kicker}
-          </p>
-          <h1 style={{
-            fontSize: "48px",
-            fontWeight: "700",
-            margin: "16px 0 12px",
-            lineHeight: "1.1",
-          }}>
-            {lang === "kh" ? collection.name_km : collection.name}
-          </h1>
-          <p style={{
-            fontSize: "18px",
-            color: "#97A1B3",
-            lineHeight: "1.6",
-            margin: "0",
-          }}>
-            {lang === "kh" ? collection.description_km : collection.description}
-          </p>
+          <p className={styles.kicker}>{t.kicker}</p>
+          <h1 className={styles.title}>{collectionName}</h1>
         </div>
         <button
           onClick={() => setLang(lang === "en" ? "kh" : "en")}
-          style={{
-            fontFamily: "'Courier New', monospace",
-            fontSize: "12px",
-            color: "#97A1B3",
-            background: "none",
-            border: "1px solid #2E3644",
-            borderRadius: "4px",
-            padding: "4px 8px",
-            cursor: "pointer",
-            marginTop: "4px",
-          }}
+          className={styles.languageToggle}
         >
           {t.languageToggle}
         </button>
       </div>
 
-      <div style={{
-        marginTop: "48px",
-        padding: "24px",
-        backgroundColor: "#1C222C",
-        border: "1px solid #2E3644",
-        borderRadius: "10px",
-      }}>
-        <h2 style={{
-          fontSize: "32px",
-          fontWeight: "600",
-          margin: "0 0 24px 0",
-        }}>
+      <div>
+        <h2 className={styles.title} style={{ fontSize: "var(--text-3xl)", marginBottom: "var(--space-xl)" }}>
           {t.title}
         </h2>
 
         {error && (
-          <div style={{
-            padding: "12px",
-            backgroundColor: "#2E1C1C",
-            border: "1px solid #972514",
-            borderRadius: "8px",
-            color: "#E8EDF2",
-            marginBottom: "20px",
-            fontSize: "14px",
-          }}>
+          <div className={error.includes("Invalid") ? styles.errorMessage : styles.successMessage}>
             {error}
           </div>
         )}
 
-        <form onSubmit={handleLogin}>
-          <div style={{ marginBottom: "24px" }}>
-            <label style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: "12px",
-              color: "#97A1B3",
-              display: "block",
-              marginBottom: "8px",
-            }}>
+        <form onSubmit={handleLogin} className={styles.form}>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>
               {t.emailLabel}
             </label>
             <input
@@ -168,28 +100,13 @@ return (
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              style={{
-                padding: "12px 16px",
-                fontSize: "16px",
-                backgroundColor: "#14181F",
-                border: "1px solid #2E3644",
-                borderRadius: "8px",
-                color: "#FFFFFF",
-                width: "100%",
-                boxSizing: "border-box",
-              }}
+              className={styles.input}
               placeholder="you@example.com"
             />
           </div>
 
-          <div style={{ marginBottom: "32px" }}>
-            <label style={{
-              fontFamily: "'Courier New', monospace",
-              fontSize: "12px",
-              color: "#97A1B3",
-              display: "block",
-              marginBottom: "8px",
-            }}>
+          <div className={styles.formGroup}>
+            <label className={styles.label}>
               {t.passwordLabel}
             </label>
             <input
@@ -197,16 +114,7 @@ return (
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              style={{
-                padding: "12px 16px",
-                fontSize: "16px",
-                backgroundColor: "#14181F",
-                border: "1px solid #2E3644",
-                borderRadius: "8px",
-                color: "#FFFFFF",
-                width: "100%",
-                boxSizing: "border-box",
-              }}
+              className={styles.input}
               placeholder="••••••••"
             />
           </div>
@@ -214,44 +122,23 @@ return (
           <button
             type="submit"
             disabled={loading}
-            style={{
-              padding: "12px 24px",
-              fontSize: "16px",
-              fontWeight: "600",
-              backgroundColor: "#972514",
-              color: "#FFFFFF",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-              width: "100%",
-              opacity: loading ? 0.7 : 1,
-            }}
+            className={styles.submitButton}
           >
             {loading ? "LOGGING IN..." : t.loginButton}
           </button>
         </form>
 
-        <div style={{ marginTop: "24px", textAlign: "center" }}>
+        <div className={styles.linkContainer}>
           <a
             href="/signup"
-            style={{
-              color: "#97A1B3",
-              textDecoration: "none",
-              fontSize: "14px",
-            }}
+            className={styles.link}
           >
             {t.signupLink}
           </a>
         </div>
       </div>
 
-      <footer style={{
-        marginTop: "64px",
-        paddingTop: "24px",
-        borderTop: "1px solid #2E3644",
-        fontSize: "13px",
-        color: "#5A6373",
-      }}>
+      <footer className={styles.footer}>
         {t.footer}
       </footer>
     </div>
