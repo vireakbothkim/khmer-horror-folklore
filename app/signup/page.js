@@ -11,6 +11,7 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [lang, setLang] = useState("en");
@@ -20,6 +21,7 @@ export default function SignupPage() {
       kicker: "KHMER LIVING ARCHIVE",
       title: "Sign Up",
       emailLabel: "EMAIL",
+      usernameLabel: "USERNAME",
       passwordLabel: "PASSWORD",
       confirmPasswordLabel: "CONFIRM PASSWORD",
       signupButton: "SIGN UP",
@@ -33,6 +35,7 @@ export default function SignupPage() {
       kicker: "បណ្ណសាររស់របស់ខ្មែរ",
       title: "ចុះឈ្មោះ",
       emailLabel: "អ៊ីមែល",
+      usernameLabel: "ឈ្មោះអ្នកប្រើ",
       passwordLabel: "ពាក្យសម្ងាត់",
       confirmPasswordLabel: "បញ្ជាក់ពាក្យសម្ងាត់",
       signupButton: "ចុះឈ្មោះ",
@@ -50,6 +53,13 @@ export default function SignupPage() {
   const handleSignup = async (e) => {
     e.preventDefault();
     setError("");
+    
+    // Trim and validate username
+    const trimmedUsername = username.trim();
+    if (trimmedUsername.length < 3 || trimmedUsername.length > 30) {
+      setError("Username must be 3-30 characters");
+      return;
+    }
     
     if (password !== confirmPassword) {
       setError(t.passwordMismatch);
@@ -70,11 +80,15 @@ export default function SignupPage() {
         password,
         options: {
           emailRedirectTo: `${window.location.origin}/auth/callback`,
+          data: {
+            username: trimmedUsername,
+          },
         },
       });
 
       if (error) {
-        setError("Could not create account. Please try again.");
+        console.error("Signup error:", error);
+        setError("Couldn't create your account. That username or email may already be in use.");
       } else {
         setError(t.signupSuccess);
         setTimeout(() => {
@@ -82,7 +96,8 @@ export default function SignupPage() {
         }, 2000);
       }
     } catch (err) {
-      setError("Could not create account. Please try again.");
+      console.error("Signup exception:", err);
+      setError("Couldn't create your account. That username or email may already be in use.");
     } finally {
       setLoading(false);
     }
@@ -108,7 +123,7 @@ return (
         </h2>
 
         {error && (
-          <div className={error.includes("Invalid") || error.includes("Could not") || error === t.passwordMismatch ? styles.errorMessage : styles.successMessage}>
+          <div className={error.includes("Invalid") || error.includes("Couldn't") || error === t.passwordMismatch || error.includes("Username must be") || error.includes("Password must be") ? styles.errorMessage : styles.successMessage}>
             {error}
           </div>
         )}
@@ -126,6 +141,23 @@ return (
               className={styles.input}
               placeholder="you@example.com"
             />
+          </div>
+
+          <div className={styles.formGroup}>
+            <label className={styles.label}>
+              {t.usernameLabel}
+            </label>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+              className={styles.input}
+              placeholder="yourusername"
+            />
+            <p className={styles.helperText}>
+              Must be 3-30 characters
+            </p>
           </div>
 
           <div className={styles.formGroup}>

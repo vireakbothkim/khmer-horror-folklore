@@ -1,12 +1,12 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { createClient } from "../../../lib/supabase-client";
 import EntryCard from "../../../components/EntryCard";
 import collection from "../../../collection.config.js";
 
-export default function EntryPage({ params }) {
+export default function EntryPage() {
   const router = useRouter();
   const [entry, setEntry] = useState(null);
   const [user, setUser] = useState(null);
@@ -14,6 +14,7 @@ export default function EntryPage({ params }) {
   const [lang, setLang] = useState("en");
   const [error, setError] = useState("");
   
+  const params = useParams();
   const entryId = params?.id;
 
   useEffect(() => {
@@ -107,6 +108,7 @@ export default function EntryPage({ params }) {
     story: entry.story_en,
     source: entry.source_en,
     place: entry.place_en,
+    contributor: entry.contributor,
     media: entry.media
   } : {
     id: entry.id,
@@ -116,6 +118,7 @@ export default function EntryPage({ params }) {
     story: entry.story_km,
     source: entry.source_km,
     place: entry.place_km,
+    contributor: entry.contributor,
     media: entry.media
   }) : null;
 
@@ -203,8 +206,19 @@ export default function EntryPage({ params }) {
           
           <button
             onClick={() => router.push("/")}
+            onMouseEnter={(e) => {
+              // hover effect
+              e.currentTarget.style.backgroundColor = "#9B2232";
+              e.currentTarget.style.borderColor = "#9B2232";
+              e.currentTarget.style.color = "#EDE6D9";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+              e.currentTarget.style.borderColor = "#2E3644";
+              e.currentTarget.style.color = "#97A1B3";
+            }}
             style={{
-              padding: "8px 16px",
+              padding: "12px 8px",
               backgroundColor: "transparent",
               border: "1px solid #2E3644",
               borderRadius: "4px",

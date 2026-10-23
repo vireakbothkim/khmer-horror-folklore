@@ -18,6 +18,7 @@ export default function EntryCard({ entry, isLoading = false, error = null, lang
       story: "STORY",
       source: "SOURCE",
       place: "PLACE",
+      contributor: "CONTRIBUTOR",
       media: "MEDIA",
     },
     kh: {
@@ -27,6 +28,7 @@ export default function EntryCard({ entry, isLoading = false, error = null, lang
       story: "រឿងរ៉ាវ",
       source: "ប្រភព",
       place: "ទីកន្លែង",
+      contributor: "អ្នករួមចំណែក",
       media: "មេឌៀ",
     },
   };
@@ -50,6 +52,12 @@ export default function EntryCard({ entry, isLoading = false, error = null, lang
       <p className={styles.value}>{entry.source}</p>
       <p className={styles.label}>{t.place}</p>
       <p className={styles.value}>{entry.place}</p>
+      {entry.contributor && (
+        <>
+          <p className={styles.label}>{t.contributor}</p>
+          <p className={styles.value}>{entry.contributor}</p>
+        </>
+      )}
       <p className={styles.label}>{t.media}</p>
       {entry.media ? (
         <img

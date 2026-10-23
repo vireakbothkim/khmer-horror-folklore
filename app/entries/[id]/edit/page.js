@@ -1,10 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import { createClient } from "../../../../lib/supabase-client";
 
-export default function EditEntryPage({ params }) {
+export default function EditEntryPage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -26,6 +26,7 @@ export default function EditEntryPage({ params }) {
   const [fieldErrors, setFieldErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
   
+  const params = useParams();
   const entryId = params?.id;
 
   const handleInputChange = (field) => (e) => {
