@@ -107,6 +107,7 @@ export default function Home() {
         const { data, error } = await supabase
           .from('entries')
           .select('*')
+          .eq('status', 'published')
           .order('created_at', { ascending: false });
 
         if (error) {
@@ -304,6 +305,37 @@ export default function Home() {
                 }}
               >
                 {lang === "en" ? "CONTRIBUTE" : "ចូលរួម"}
+              </a>
+              <a
+                href="/my-entries"
+                style={{
+                  fontFamily: "'Space Mono', monospace",
+                  fontSize: "12px",
+                  color: "#8A8A90",
+                  background: "none",
+                  border: "1px solid #2A2A2E",
+                  borderRadius: "4px",
+                  padding: "4px 12px",
+                  cursor: "pointer",
+                  marginTop: "4px",
+                  textDecoration: "none",
+                  display: "inline-block",
+                  textTransform: "uppercase",
+                  fontVariantCaps: "small-caps",
+                  letterSpacing: "0.05em",
+                  transition: "all 0.2s ease",
+                  whiteSpace: "nowrap"
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = "#9B2232";
+                  e.currentTarget.style.borderColor = "#9B2232";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = "#8A8A90";
+                  e.currentTarget.style.borderColor = "#2A2A2E";
+                }}
+              >
+                {lang === "en" ? "MY ENTRIES" : "ធាតុរបស់ខ្ញុំ"}
               </a>
               <button
                 onClick={handleLogout}

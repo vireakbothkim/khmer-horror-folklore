@@ -185,6 +185,12 @@ export default function EditEntryPage() {
         mediaUrl = urlData.publicUrl;
       }
       
+      // Check if user is a reviewer
+      const { data: isReviewerData, error: reviewerError } = await supabase
+        .rpc('is_reviewer');
+      
+      const isReviewer = !reviewerError && isReviewerData === true;
+      
       const entryData = {
         title_en: formData.title_en.trim(),
         title_km: formData.title_km.trim() || null,
@@ -198,6 +204,11 @@ export default function EditEntryPage() {
         place_km: formData.place_km.trim() || null,
         media: mediaUrl
       };
+      
+      // If user is not a reviewer, set status to pending
+      if (!isReviewer) {
+        entryData.status = 'pending';
+      }
       
       // Update the entry with .select() to verify the update
       const { data: updatedData, error: updateError } = await supabase

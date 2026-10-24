@@ -24,6 +24,7 @@ export default function ContributePage() {
   const [error, setError] = useState("");
   const [fieldErrors, setFieldErrors] = useState({});
   const [submitting, setSubmitting] = useState(false);
+  const [submittedSuccess, setSubmittedSuccess] = useState(false);
 
   const handleInputChange = (field) => (e) => {
     setFormData(prev => ({ ...prev, [field]: e.target.value }));
@@ -156,7 +157,7 @@ export default function ContributePage() {
         throw new Error("Failed to save entry");
       }
       
-      router.push("/");
+      setSubmittedSuccess(true);
       
     } catch (err) {
       setError("Submission failed. Please try again.");
@@ -178,6 +179,61 @@ export default function ContributePage() {
         <div style={{ marginTop: "20px" }}>
           <a href="/login" style={{ marginRight: "10px", color: "#972514" }}>Log In</a>
           <a href="/signup" style={{ color: "#972514" }}>Sign Up</a>
+        </div>
+      </div>
+    );
+  }
+
+  if (submittedSuccess) {
+    return (
+      <div style={{ maxWidth: "600px", margin: "40px auto", padding: "20px" }}>
+        <h1>Contribute an Entry</h1>
+        
+        <div style={{ 
+          padding: "20px", 
+          backgroundColor: "#1C2E1C", 
+          color: "#E8EDF2",
+          marginBottom: "30px",
+          borderRadius: "4px",
+          border: "1px solid #2E4A2E"
+        }}>
+          <p style={{ margin: "0 0 15px 0", fontSize: "16px", lineHeight: "1.5" }}>
+            Thank you! Your entry was submitted and is waiting for review. It will appear 
+            in the archive once it is published. You can check its status any time on your My 
+            Entries page.
+          </p>
+          <p style={{ margin: "0", fontSize: "16px", lineHeight: "1.5" }}>
+            សូមអរគុណ! ធាតុរបស់អ្នកត្រូវបានដាក់ស្នើហើយ និងកំពុងរង់ចាំការពិនិត្យ។ វានឹងបង្ហាញក្នុងបណ្ណសារ 
+            នៅពេលត្រូវបានផ្សព្វផ្សាយ។ អ្នកអាចពិនិត្យស្ថានភាពរបស់វាបានគ្រប់ពេលនៅទំព័រ "ធាតុរបស់ខ្ញុំ"។
+          </p>
+          <div style={{ marginTop: "20px" }}>
+            <a 
+              href="/" 
+              style={{ 
+                padding: "10px 20px", 
+                backgroundColor: "#972514", 
+                color: "#FFFFFF", 
+                textDecoration: "none", 
+                borderRadius: "4px",
+                marginRight: "10px"
+              }}
+            >
+              Back to Archive
+            </a>
+            <a 
+              href="/my-entries" 
+              style={{ 
+                padding: "10px 20px", 
+                backgroundColor: "transparent", 
+                border: "1px solid #2E3644", 
+                color: "#97A1B3", 
+                textDecoration: "none", 
+                borderRadius: "4px" 
+              }}
+            >
+              My Entries
+            </a>
+          </div>
         </div>
       </div>
     );
