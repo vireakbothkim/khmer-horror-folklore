@@ -15,7 +15,22 @@
   --color-accent-hover: #8A1D2B;
   --color-border: #2A2A2E;
 
-  --font-display: 'Playfair Display', serif;
-  --font-mono: 'Space Mono', monospace;
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-playfair), serif;
+  --font-mono: var(--font-sans);
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-khmer: var(--font-noto-khmer), 'Khmer OS Siemreap', sans-serif;
+}
+
+/* Tailwind utility for Khmer headings in the header */
+@utility font-khmer {
+  font-family: var(--font-khmer);
+}
+
+/* Khmer text: use the Khmer font and drop the uppercase/small-caps styling,
+   which does not apply to Khmer script. Pages mark Khmer with lang="km". */
+:lang(km) {
+  font-family: var(--font-khmer);
+  text-transform: none;
+  font-variant-caps: normal;
+  letter-spacing: normal;
 }

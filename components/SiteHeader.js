@@ -50,10 +50,16 @@ export default function SiteHeader() {
     >
       <div className="mx-auto flex max-w-[1280px] items-start justify-between gap-4 px-6 py-4">
         <a href="/" className="min-w-0">
-          <p className="m-0 font-mono text-xs font-bold uppercase tracking-[2px] text-accent [font-variant-caps:small-caps]">
+          <p
+            lang={lang}
+            className="m-0 font-mono text-xs font-bold uppercase tracking-[2px] text-accent [font-variant-caps:small-caps]"
+          >
             {kicker}
           </p>
-          <span className="block pb-1 font-display text-2xl font-bold leading-snug text-text-primary sm:text-3xl">
+          <span
+            lang={lang}
+            className={`block pb-1 font-bold leading-snug text-text-primary sm:text-3xl text-2xl ${lang === "kh" ? "font-khmer" : "font-display"}`}
+          >
             {brandName}
           </span>
         </a>

@@ -1,7 +1,30 @@
 import "./globals.css";
+import { Playfair_Display, Inter, Noto_Sans_Khmer } from "next/font/google";
 import collection from "../collection.config.js";
 import { LanguageProvider } from "../components/LanguageProvider";
 import SiteHeader from "../components/SiteHeader";
+
+// Fonts are loaded by Next.js, so there are no external <link> tags.
+// Each font exposes a CSS variable that globals.css maps to a role.
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const notoKhmer = Noto_Sans_Khmer({
+  subsets: ["khmer"],
+  weight: ["400", "500", "700"],
+  variable: "--font-noto-khmer",
+  display: "swap",
+});
 
 export const metadata = {
   title: `${collection.name} — Khmer Living Archive`,
@@ -10,22 +33,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={`${playfair.variable} ${inter.variable} ${notoKhmer.variable}`}>
       <body
         style={{
           margin: 0,
           backgroundColor: "#0B0B0D",
           color: "#EDE6D9",
-          fontFamily:
-            "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+          fontFamily: "var(--font-sans)",
           minHeight: "100vh",
           lineHeight: 1.6,
         }}
@@ -39,10 +53,11 @@ export default function RootLayout({ children }) {
             --color-accent: #9B2232;
             --color-border: #2A2A2E;
             
-            /* Typography */
-            --font-display: 'Playfair Display', serif;
-            --font-mono: 'Space Mono', monospace;
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            /* Typography: roles map to the next/font variables loaded above */
+            --font-display: var(--font-playfair), serif;
+            --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            --font-mono: var(--font-sans);
+            --font-khmer: var(--font-noto-khmer), 'Khmer OS Siemreap', sans-serif;
             
             /* Spacing scale */
             --space-xs: 0.25rem;   /* 4px */

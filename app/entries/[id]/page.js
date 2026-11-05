@@ -130,7 +130,7 @@ export default function EntryPage() {
         margin: "0 auto",
         padding: "40px 20px",
         color: "#FFFFFF",
-        fontFamily: "'Courier New', monospace"
+        fontFamily: "var(--font-sans)"
       }}>
         Loading entry...
       </div>
@@ -144,7 +144,7 @@ export default function EntryPage() {
         margin: "0 auto",
         padding: "40px 20px",
         color: "#FFFFFF",
-        fontFamily: "'Courier New', monospace"
+        fontFamily: "var(--font-sans)"
       }}>
         <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>Entry Not Found</h1>
         <p style={{ marginBottom: "20px" }}>{error || "The entry you're looking for doesn't exist."}</p>
@@ -157,7 +157,7 @@ export default function EntryPage() {
             borderRadius: "4px",
             color: "#FFFFFF",
             cursor: "pointer",
-            fontFamily: "'Courier New', monospace"
+            fontFamily: "var(--font-sans)"
           }}
         >
           Back to Archive
@@ -172,7 +172,7 @@ export default function EntryPage() {
       margin: "0 auto",
       padding: "40px 20px",
       color: "#FFFFFF",
-      fontFamily: "'Courier New', monospace"
+      fontFamily: "var(--font-sans)"
     }}>
       <div style={{
         display: "flex",
@@ -209,7 +209,7 @@ export default function EntryPage() {
               borderRadius: "4px",
               color: "#97A1B3",
               cursor: "pointer",
-              fontFamily: "'Courier New', monospace",
+              fontFamily: "var(--font-sans)",
               fontSize: "12px"
             }}
           >
@@ -245,7 +245,7 @@ export default function EntryPage() {
                 borderRadius: "4px",
                 color: "#FFFFFF",
                 cursor: "pointer",
-                fontFamily: "'Courier New', monospace",
+                fontFamily: "var(--font-sans)",
                 fontSize: "12px"
               }}
             >
@@ -260,7 +260,7 @@ export default function EntryPage() {
                 borderRadius: "4px",
                 color: "#FFFFFF",
                 cursor: "pointer",
-                fontFamily: "'Courier New', monospace",
+                fontFamily: "var(--font-sans)",
                 fontSize: "12px"
               }}
             >

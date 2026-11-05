@@ -252,7 +252,7 @@ export default function EditEntryPage() {
         margin: "0 auto",
         padding: "40px 20px",
         color: "#FFFFFF",
-        fontFamily: "'Courier New', monospace"
+        fontFamily: "var(--font-sans)"
       }}>
         Loading...
       </div>
@@ -266,7 +266,7 @@ export default function EditEntryPage() {
         margin: "0 auto",
         padding: "40px 20px",
         color: "#FFFFFF",
-        fontFamily: "'Courier New', monospace"
+        fontFamily: "var(--font-sans)"
       }}>
         <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>Error</h1>
         <p style={{ marginBottom: "20px" }}>{error}</p>
@@ -279,7 +279,7 @@ export default function EditEntryPage() {
             borderRadius: "4px",
             color: "#FFFFFF",
             cursor: "pointer",
-            fontFamily: "'Courier New', monospace"
+            fontFamily: "var(--font-sans)"
           }}
         >
           Back to Archive
@@ -294,7 +294,7 @@ export default function EditEntryPage() {
       margin: "0 auto",
       padding: "40px 20px",
       color: "#FFFFFF",
-      fontFamily: "'Courier New', monospace"
+      fontFamily: "var(--font-sans)"
     }}>
       <div style={{
         display: "flex",
@@ -319,7 +319,7 @@ export default function EditEntryPage() {
             borderRadius: "4px",
             color: "#97A1B3",
             cursor: "pointer",
-            fontFamily: "'Courier New', monospace",
+            fontFamily: "var(--font-sans)",
             fontSize: "12px"
           }}
         >
