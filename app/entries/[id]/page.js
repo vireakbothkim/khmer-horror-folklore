@@ -285,6 +285,21 @@ export default function EntryPage() {
         </div>
       )}
       
+      {/* Pending notice for owner */}
+      {isOwner && entry.status === 'pending' && (
+        <div style={{
+          marginBottom: "30px",
+          padding: "16px 20px",
+          border: "1px solid #2E3644",
+          borderRadius: "4px",
+          backgroundColor: "#14181F",
+          color: "#97A1B3",
+          fontSize: "12px"
+        }}>
+          This entry is waiting for review. It will go live once a reviewer approves it.
+        </div>
+      )}
+
       {/* Entry display */}
       {transformedEntry && <EntryCard entry={transformedEntry} lang={lang} />}
       

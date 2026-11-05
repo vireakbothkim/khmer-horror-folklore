@@ -229,7 +229,11 @@ export default function EditEntryPage() {
         alert("That change wasn't saved. Please try again.");
       } else {
         // Successfully updated
-        alert("Entry updated successfully!");
+        alert(
+          isReviewer
+            ? "Entry updated successfully!"
+            : "Your changes were saved. This entry is waiting for review again and will go live once a reviewer approves it."
+        );
         router.push(`/entries/${entryId}`);
       }
       
