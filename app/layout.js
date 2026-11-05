@@ -1,3 +1,4 @@
+import "./globals.css";
 import collection from "../collection.config.js";
 
 export const metadata = {

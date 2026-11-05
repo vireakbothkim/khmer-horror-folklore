@@ -10,14 +10,14 @@ One student's Khmer Living Archive, built in ICT 340 at AUPP. Every student buil
 
 - Next.js 15, App Router, React 19.
 - JavaScript only. No TypeScript, no .ts or .tsx files, ever.
-- Plain React. No CSS frameworks, no component libraries, no state libraries.
-- Styling follows the existing pattern: inline style objects (see `app/page.js`) or a plain CSS file.
+- Plain React. No component libraries, no state libraries.
+- Styling uses Tailwind CSS v4 (approved by the instructor, Sprint 3 redesign), plus the existing CSS variables in `app/layout.js`. Plain CSS files are still allowed.
 - `collection.config.js` is the single source of the archive's identity (name, description, curator, source). Read from it; never hard-code those values.
 
 ## Hard rules
 
-1. Do not add dependencies. The three in `package.json` are the whole list. If a task seems to need a package, stop and say so instead of installing it.
-2. Do not touch `package.json`, `package-lock.json`, `next.config.mjs`, or `.gitignore` unless the task explicitly names them.
+1. Do not add dependencies. The approved list is the three in `package.json` plus `tailwindcss` and `@tailwindcss/postcss` (dev dependencies, instructor-approved for the Tailwind setup). If a task seems to need any other package, stop and say so instead of installing it.
+2. Do not touch `package.json`, `package-lock.json`, `next.config.mjs`, or `.gitignore` unless the task explicitly names them. For the Tailwind setup, `package.json`, `package-lock.json`, and a new `postcss.config.mjs` are explicitly named.
 3. Never write an API key, token, or password into any file. This repository is public.
 4. Keep diffs scoped to what was asked. If completing the task honestly requires touching another file, say which file and why before editing it.
 5. One component per file in `components/`, plain function components, roughly 80 lines or less. If a component wants to be bigger, split it.

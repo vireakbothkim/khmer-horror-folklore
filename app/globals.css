@@ -1,0 +1,21 @@
+/*
+  Tailwind v4 entry point.
+  We import only the theme and utilities layers. We skip "preflight"
+  (the base reset) so the existing pages keep their current look.
+*/
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+/* Map the existing palette and fonts so Tailwind utilities can use them. */
+@theme {
+  --color-bg: #0B0B0D;
+  --color-text-primary: #EDE6D9;
+  --color-text-secondary: #8A8A90;
+  --color-accent: #9B2232;
+  --color-accent-hover: #8A1D2B;
+  --color-border: #2A2A2E;
+
+  --font-display: 'Playfair Display', serif;
+  --font-mono: 'Space Mono', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
