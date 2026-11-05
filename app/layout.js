@@ -3,6 +3,7 @@ import { Playfair_Display, Inter, Noto_Sans_Khmer } from "next/font/google";
 import collection from "../collection.config.js";
 import { LanguageProvider } from "../components/LanguageProvider";
 import SiteHeader from "../components/SiteHeader";
+import SiteFooter from "../components/SiteFooter";
 
 // Fonts are loaded by Next.js, so there are no external <link> tags.
 // Each font exposes a CSS variable that globals.css maps to a role.
@@ -163,6 +164,7 @@ export default function RootLayout({ children }) {
         <LanguageProvider>
           <SiteHeader />
           {children}
+          <SiteFooter />
         </LanguageProvider>
       </body>
     </html>

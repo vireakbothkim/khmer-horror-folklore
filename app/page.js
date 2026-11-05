@@ -21,7 +21,6 @@ const uiText = {
     noResults: (query) => `No results found for "${query}"`,
     noEntries: "No entries found",
     languageToggle: "ភាសាខ្មែរ", // Khmer text for toggle to switch to Khmer
-    footer: "Built in ICT 340 — Vibe Coding, American University of Phnom Penh, Fall 2026. This archive is under construction all semester. Come back in December.",
   },
   kh: {
     kicker: "បណ្ណសាររស់របស់ខ្មែរ",
@@ -35,7 +34,6 @@ const uiText = {
     noResults: (query) => `គ្មានលទ្ធផលសម្រាប់ "${query}"`,
     noEntries: "គ្មានធាតុរកឃើញ",
     languageToggle: "English", // English text for toggle to switch to English
-    footer: "បង្កើតឡើងសម្រាប់មុខវិជ្ជា ICT 340 — Vibe Coding នៅសាកលវិទ្យាល័យអាមេរិកាំងភ្នំពេញ (AUPP) សម្រាប់ឆមាសទី ២ ឆ្នាំ ២០២៦។ ឃ្លាំងឯកសារនេះកំពុងស្ថិតក្នុងដំណាក់កាលរៀបចំពេញមួយឆមាស។ សូមត្រឡប់មកវិញនៅខែធ្នូ។",
   },
 };
 
@@ -255,9 +253,6 @@ export default function Home() {
         </StatusBox>
       )}
 
-      <footer className={styles.footer}>
-        {t.footer}
-      </footer>
     </main>
   );
 }

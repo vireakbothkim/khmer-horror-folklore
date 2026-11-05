@@ -27,7 +27,6 @@ export default function SignupPage() {
       confirmPasswordLabel: "CONFIRM PASSWORD",
       signupButton: "SIGN UP",
       loginLink: "Already have an account? Log in",
-      footer: "Built in ICT 340 — Vibe Coding, American University of Phnom Penh, Fall 2026.",
       languageToggle: "ភាសាខ្មែរ",
       passwordMismatch: "Passwords do not match",
       signupSuccess: "Account created! Redirecting to login...",
@@ -41,7 +40,6 @@ export default function SignupPage() {
       confirmPasswordLabel: "បញ្ជាក់ពាក្យសម្ងាត់",
       signupButton: "ចុះឈ្មោះ",
       loginLink: "មានគណនីរួចហើយ? ចូល",
-      footer: "បង្កើតឡើងសម្រាប់មុខវិជ្ជា ICT 340 — Vibe Coding នៅសាកលវិទ្យាល័យអាមេរិកាំងភ្នំពេញ (AUPP) សម្រាប់ឆមាសទី ២ ឆ្នាំ ២០២៦។",
       languageToggle: "English",
       passwordMismatch: "ពាក្យសម្ងាត់មិនត្រូវគ្នា",
       signupSuccess: "បានបង្កើតគណនីហើយ! កំពុងបញ្ជូនទៅការចូល...",
@@ -205,9 +203,6 @@ return (
         </div>
       </div>
 
-      <footer className={styles.footer}>
-        {t.footer}
-      </footer>
     </div>
   );
 }

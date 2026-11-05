@@ -1,4 +1,5 @@
 import styles from "./EntryCard.module.css";
+import EntryField from "./EntryField";
 
 export default function EntryCard({ entry, isLoading = false, error = null, lang = "en" }) {
   if (isLoading) {
@@ -12,22 +13,18 @@ export default function EntryCard({ entry, isLoading = false, error = null, lang
   // UI text for labels based on language
   const uiText = {
     en: {
-      title: "TITLE",
-      khmerName: "KHMER NAME",
       appearance: "APPEARANCE",
       story: "STORY",
       source: "SOURCE",
-      place: "PLACE",
+      place: (title) => `Places that ${title || ""} is usually found`,
       contributor: "CONTRIBUTOR",
       media: "MEDIA",
     },
     kh: {
-      title: "ចំណងជើង",
-      khmerName: "ឈ្មោះខ្មែរ",
       appearance: "រូបរាង",
       story: "រឿងរ៉ាវ",
       source: "ប្រភព",
-      place: "ទីកន្លែង",
+      place: (title) => `កន្លែងដែល${title || ""}រស់នៅ`,
       contributor: "អ្នករួមចំណែក",
       media: "មេឌៀ",
     },
@@ -36,38 +33,25 @@ export default function EntryCard({ entry, isLoading = false, error = null, lang
   const t = uiText[lang];
   return (
     <div className={styles.wrap}>
-      <p className={styles.label}>{t.title}</p>
-      <p className={styles.value}>{entry.title}</p>
-      {entry.khmerName && (
-        <>
-          <p className={styles.label}>{t.khmerName}</p>
-          <p className={styles.value}>{entry.khmerName}</p>
-        </>
-      )}
-      <p className={styles.label}>{t.appearance}</p>
-      <p className={styles.value}>{entry.appearance}</p>
-      <p className={styles.label}>{t.story}</p>
-      <p className={styles.value}>{entry.story}</p>
-      <p className={styles.label}>{t.source}</p>
-      <p className={styles.value}>{entry.source}</p>
-      <p className={styles.label}>{t.place}</p>
-      <p className={styles.value}>{entry.place}</p>
+      <p className={styles.title}>{entry.title}</p>
+      <EntryField label={t.appearance} variant="long">{entry.appearance}</EntryField>
+      <EntryField label={t.source}>{entry.source}</EntryField>
+      <EntryField label={t.place(entry.title)}>{entry.place}</EntryField>
       {entry.contributor && (
-        <>
-          <p className={styles.label}>{t.contributor}</p>
-          <p className={styles.value}>{entry.contributor}</p>
-        </>
+        <EntryField label={t.contributor}>{entry.contributor}</EntryField>
       )}
-      <p className={styles.label}>{t.media}</p>
-      {entry.media ? (
-        <img
-          src={entry.media}
-          alt={entry.title || "Entry media"}
-          style={{ maxWidth: "100%", height: "auto", marginTop: "6px" }}
-        />
-      ) : (
-        <p className={styles.value}>"(media placeholder - to be added)"</p>
-      )}
+      <EntryField label={t.story} variant="long">{entry.story}</EntryField>
+      <EntryField label={t.media} variant="media">
+        {entry.media ? (
+          <img
+            src={entry.media}
+            alt={entry.title || "Entry media"}
+            className={styles.media}
+          />
+        ) : (
+          <p className={styles.shortValue}>(media placeholder - to be added)</p>
+        )}
+      </EntryField>
     </div>
   );
 }

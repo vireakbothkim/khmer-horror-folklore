@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { createClient } from "../../../lib/supabase-client";
 import EntryCard from "../../../components/EntryCard";
-import collection from "../../../collection.config.js";
 import StatusBox from "../../../components/StatusBox";
 import { useLanguage } from "../../../components/LanguageProvider";
 
@@ -105,7 +104,6 @@ export default function EntryPage() {
   const transformedEntry = entry ? (lang === "en" ? {
     id: entry.id,
     title: entry.title_en,
-    khmerName: entry.title_km,
     appearance: entry.appearance_en,
     story: entry.story_en,
     source: entry.source_en,
@@ -115,7 +113,6 @@ export default function EntryPage() {
   } : {
     id: entry.id,
     title: entry.title_km,
-    khmerName: entry.title_en,
     appearance: entry.appearance_km,
     story: entry.story_km,
     source: entry.source_km,
@@ -150,57 +147,15 @@ export default function EntryPage() {
   }
 
   return (
-    <div style={{
-      maxWidth: "800px",
-      margin: "0 auto",
-      padding: "40px 20px",
-      color: "#FFFFFF",
-      fontFamily: "var(--font-sans)"
-    }}>
-      <div style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: "40px"
-      }}>
-        <h1 style={{
-          fontSize: "24px",
-          margin: 0,
-          fontWeight: "normal"
-        }}>
-          {collection.name}
-        </h1>
-        
-        <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-          <button
-            onClick={() => router.push("/")}
-            onMouseEnter={(e) => {
-              // hover effect
-              e.currentTarget.style.backgroundColor = "#9B2232";
-              e.currentTarget.style.borderColor = "#9B2232";
-              e.currentTarget.style.color = "#EDE6D9";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-              e.currentTarget.style.borderColor = "#2E3644";
-              e.currentTarget.style.color = "#97A1B3";
-            }}
-            style={{
-              padding: "12px 8px",
-              backgroundColor: "transparent",
-              border: "1px solid #2E3644",
-              borderRadius: "4px",
-              color: "#97A1B3",
-              cursor: "pointer",
-              fontFamily: "var(--font-sans)",
-              fontSize: "12px"
-            }}
-          >
-            Back to Archive
-          </button>
-        </div>
+    <main className="mx-auto max-w-[1280px] px-[var(--content-padding)] pb-0">
+      <div className="mb-8">
+        <button
+          onClick={() => router.push("/")}
+          className="cursor-pointer rounded border border-border px-4 py-2.5 font-sans text-sm text-text-secondary hover:border-accent hover:bg-accent hover:text-text-primary"
+        >
+          Back to Archive
+        </button>
       </div>
-      
       {/* Owner actions */}
       {isOwner && (
         <div style={{
@@ -271,17 +226,6 @@ export default function EntryPage() {
       {/* Entry display */}
       {transformedEntry && <EntryCard entry={transformedEntry} lang={lang} />}
       
-      <div style={{
-        marginTop: "40px",
-        paddingTop: "20px",
-        borderTop: "1px solid #2E3644",
-        color: "#5A6373",
-        fontSize: "12px"
-      }}>
-        <p>Entry ID: {entry.id}</p>
-        {entry.owner && <p>Owner ID: {entry.owner}</p>}
-        {entry.created_at && <p>Created: {new Date(entry.created_at).toLocaleDateString()}</p>}
-      </div>
-    </div>
+    </main>
   );
 }

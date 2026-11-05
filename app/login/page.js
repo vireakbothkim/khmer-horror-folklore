@@ -23,7 +23,6 @@ export default function LoginPage() {
       passwordLabel: "PASSWORD",
       loginButton: "LOG IN",
       signupLink: "Don't have an account? Sign up",
-      footer: "Built in ICT 340 — Vibe Coding, American University of Phnom Penh, Fall 2026.",
       languageToggle: "ភាសាខ្មែរ",
     },
     kh: {
@@ -33,7 +32,6 @@ export default function LoginPage() {
       passwordLabel: "ពាក្យសម្ងាត់",
       loginButton: "ចូល",
       signupLink: "មិនទាន់មានគណនីទេ? ចុះឈ្មោះ",
-      footer: "បង្កើតឡើងសម្រាប់មុខវិជ្ជា ICT 340 — Vibe Coding នៅសាកលវិទ្យាល័យអាមេរិកាំងភ្នំពេញ (AUPP) សម្រាប់ឆមាសទី ២ ឆ្នាំ ២០២៦។",
       languageToggle: "English",
     },
   };
@@ -133,9 +131,6 @@ return (
         </div>
       </div>
 
-      <footer className={styles.footer}>
-        {t.footer}
-      </footer>
     </div>
   );
 }
