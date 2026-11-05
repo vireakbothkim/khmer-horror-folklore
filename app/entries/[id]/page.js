@@ -5,13 +5,14 @@ import { useRouter, useParams } from "next/navigation";
 import { createClient } from "../../../lib/supabase-client";
 import EntryCard from "../../../components/EntryCard";
 import collection from "../../../collection.config.js";
+import { useLanguage } from "../../../components/LanguageProvider";
 
 export default function EntryPage() {
   const router = useRouter();
   const [entry, setEntry] = useState(null);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [lang, setLang] = useState("en");
+  const { lang } = useLanguage();
   const [error, setError] = useState("");
   
   const params = useParams();
@@ -188,22 +189,6 @@ export default function EntryPage() {
         </h1>
         
         <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-          <button
-            onClick={() => setLang(lang === "en" ? "kh" : "en")}
-            style={{
-              padding: "8px 16px",
-              backgroundColor: "transparent",
-              border: "1px solid #2E3644",
-              borderRadius: "4px",
-              color: "#97A1B3",
-              cursor: "pointer",
-              fontFamily: "'Courier New', monospace",
-              fontSize: "12px"
-            }}
-          >
-            {lang === "en" ? "ភាសាខ្មែរ" : "English"}
-          </button>
-          
           <button
             onClick={() => router.push("/")}
             onMouseEnter={(e) => {

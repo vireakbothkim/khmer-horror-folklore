@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "../../lib/supabase-client";
 import collection from "../../collection.config.js";
 import styles from "../auth.module.css";
+import { useLanguage } from "../../components/LanguageProvider";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -14,7 +15,7 @@ export default function SignupPage() {
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [lang, setLang] = useState("en");
+  const { lang } = useLanguage();
 
   const uiText = {
     en: {
@@ -109,12 +110,6 @@ return (
           <p className={styles.kicker}>{t.kicker}</p>
           <h1 className={styles.title}>{collectionName}</h1>
         </div>
-        <button
-          onClick={() => setLang(lang === "en" ? "kh" : "en")}
-          className={styles.languageToggle}
-        >
-          {t.languageToggle}
-        </button>
       </div>
 
       <div>

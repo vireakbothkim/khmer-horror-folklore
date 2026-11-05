@@ -3,12 +3,13 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "../../lib/supabase-client";
+import { useLanguage } from "../../components/LanguageProvider";
 
 export default function MyEntriesPage() {
   const router = useRouter();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [lang, setLang] = useState("en");
+  const { lang } = useLanguage();
   const [entries, setEntries] = useState([]);
   const [error, setError] = useState("");
 
@@ -137,21 +138,6 @@ export default function MyEntriesPage() {
     <div style={{ maxWidth: "800px", margin: "40px auto", padding: "20px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "40px" }}>
         <h1 style={{ margin: 0, fontSize: "24px" }}>{t.pageTitle}</h1>
-        <button
-          onClick={() => setLang(lang === "en" ? "kh" : "en")}
-          style={{
-            padding: "8px 16px",
-            backgroundColor: "transparent",
-            border: "1px solid var(--color-border)",
-            borderRadius: "4px",
-            color: "var(--color-text-secondary)",
-            cursor: "pointer",
-            fontFamily: "var(--font-mono)",
-            fontSize: "var(--text-sm)"
-          }}
-        >
-          {t.langToggle}
-        </button>
       </div>
 
       {entries.length === 0 ? (

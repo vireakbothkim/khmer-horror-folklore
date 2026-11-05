@@ -1,5 +1,7 @@
 import "./globals.css";
 import collection from "../collection.config.js";
+import { LanguageProvider } from "../components/LanguageProvider";
+import SiteHeader from "../components/SiteHeader";
 
 export const metadata = {
   title: `${collection.name} — Khmer Living Archive`,
@@ -142,7 +144,10 @@ export default function RootLayout({ children }) {
             color: var(--color-accent);
           }
         `}</style>
-        {children}
+        <LanguageProvider>
+          <SiteHeader />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );
