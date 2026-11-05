@@ -11,7 +11,7 @@ export default function ReviewList({ entries: initialEntries }) {
   const handleReview = async (entryId, decision) => {
     if (decision === 'published') {
       const confirmed = window.confirm(
-        "Publish this entry? It becomes public.\n\nផ្សព្វផ្សាយធាតុនេះ? វានឹងបង្ហាញជាសាធារណៈ។"
+        "Publish this entry? It becomes public."
       );
       if (!confirmed) return;
     }
@@ -72,9 +72,6 @@ export default function ReviewList({ entries: initialEntries }) {
       }}>
         <p style={{ marginBottom: "8px", fontSize: "var(--text-base)" }}>
           Nothing is waiting for review.
-        </p>
-        <p style={{ fontSize: "var(--text-base)", color: "var(--color-text-secondary)", marginBottom: "20px" }}>
-          មិនមានធាតុណាកំពុងរង់ចាំការពិនិត្យទេ។
         </p>
         <a
           href="/"
@@ -143,7 +140,7 @@ export default function ReviewList({ entries: initialEntries }) {
                 letterSpacing: "0.05em",
                 marginBottom: "8px"
               }}>
-                Appearance / រូបរាង
+                Appearance
               </h3>
               <div style={{ whiteSpace: "pre-wrap", fontSize: "var(--text-base)", lineHeight: "1.6" }}>
                 {entry.appearance_en || "No description"}
@@ -172,7 +169,7 @@ export default function ReviewList({ entries: initialEntries }) {
                 letterSpacing: "0.05em",
                 marginBottom: "8px"
               }}>
-                Story / រឿង
+                Story
               </h3>
               <div style={{ whiteSpace: "pre-wrap", fontSize: "var(--text-base)", lineHeight: "1.6" }}>
                 {entry.story_en || "No story provided"}
@@ -201,7 +198,7 @@ export default function ReviewList({ entries: initialEntries }) {
                 letterSpacing: "0.05em",
                 marginBottom: "8px"
               }}>
-                Source & Place / ប្រភព និងទីកន្លែង
+                Source & Place
               </h3>
               <div style={{ fontSize: "var(--text-base)", lineHeight: "1.6", marginBottom: "8px" }}>
                 <strong>Source:</strong> {entry.source_en || "Unknown"}
@@ -213,7 +210,7 @@ export default function ReviewList({ entries: initialEntries }) {
                   color: "var(--color-text-secondary)",
                   marginBottom: "8px"
                 }}>
-                  <strong>ប្រភព:</strong> {entry.source_km}
+                  <strong>Source (Khmer):</strong> {entry.source_km}
                 </div>
               )}
               <div style={{ fontSize: "var(--text-base)", lineHeight: "1.6", marginBottom: "8px" }}>
@@ -225,7 +222,7 @@ export default function ReviewList({ entries: initialEntries }) {
                   lineHeight: "1.6",
                   color: "var(--color-text-secondary)"
                 }}>
-                  <strong>ទីកន្លែង:</strong> {entry.place_km}
+                  <strong>Place (Khmer):</strong> {entry.place_km}
                 </div>
               )}
             </div>
@@ -241,7 +238,7 @@ export default function ReviewList({ entries: initialEntries }) {
                 letterSpacing: "0.05em",
                 marginBottom: "8px"
               }}>
-                Photo / រូបថត
+                Photo
               </h3>
               {entry.media ? (
                 <img 
@@ -263,7 +260,7 @@ export default function ReviewList({ entries: initialEntries }) {
                   textAlign: "center",
                   color: "var(--color-text-secondary)"
                 }}>
-                  No photo / គ្មានរូបថត
+                  No photo
                 </div>
               )}
             </div>
@@ -297,7 +294,7 @@ export default function ReviewList({ entries: initialEntries }) {
                   opacity: isLoading ? 0.7 : 1
                 }}
               >
-                {isLoading ? "Processing..." : "Publish / ផ្សព្វផ្សាយ"}
+                {isLoading ? "Processing..." : "Publish"}
               </button>
               <button
                 onClick={() => handleReview(entry.id, 'returned')}
@@ -314,7 +311,7 @@ export default function ReviewList({ entries: initialEntries }) {
                   opacity: isLoading ? 0.7 : 1
                 }}
               >
-                {isLoading ? "Processing..." : "Return for changes / បញ្ជូនត្រឡប់វិញ"}
+                {isLoading ? "Processing..." : "Return for changes"}
               </button>
               {hasError && (
                 <div style={{
@@ -323,7 +320,7 @@ export default function ReviewList({ entries: initialEntries }) {
                   marginLeft: "12px",
                   fontFamily: "var(--font-mono)"
                 }}>
-                  That didn&apos;t go through. Someone may have already reviewed this entry. Refresh the list and try again. / សកម្មភាពនេះមិនបានជោគជ័យទេ។ ប្រហែលជាមានអ្នកផ្សេងបានពិនិត្យធាតុនេះរួចហើយ។ សូមផ្ទុកបញ្ជីឡើងវិញ ហើយព្យាយាមម្តងទៀត។
+                  That didn&apos;t go through. Someone may have already reviewed this entry. Refresh the list and try again.
                 </div>
               )}
             </div>

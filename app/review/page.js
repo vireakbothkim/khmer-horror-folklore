@@ -42,9 +42,6 @@ export default async function ReviewPage() {
           <p style={{ marginBottom: "16px", fontSize: "var(--text-base)" }}>
             This page is for reviewers only.
           </p>
-          <p style={{ fontSize: "var(--text-base)", color: "var(--color-text-secondary)" }}>
-            ទំព័រនេះសម្រាប់អ្នកពិនិត្យតែប៉ុណ្ណោះ។
-          </p>
         </div>
         <a
           href="/"
@@ -79,13 +76,13 @@ export default async function ReviewPage() {
 
     if (error) {
       console.error("Error fetching pending entries:", error);
-      errorMessage = "Couldn't load the queue. Please reload the page. / ផ្ទុកបញ្ជីមិនបានទេ។ សូមផ្ទុកទំព័រឡើងវិញ។";
+      errorMessage = "Couldn't load the queue. Please reload the page.";
     } else {
       entries = data || [];
     }
   } catch (err) {
     console.error("Exception fetching pending entries:", err);
-    errorMessage = "Couldn't load the queue. Please reload the page. / ផ្ទុកបញ្ជីមិនបានទេ។ សូមផ្ទុកទំព័រឡើងវិញ។";
+    errorMessage = "Couldn't load the queue. Please reload the page.";
   }
 
   // If there's an error fetching entries
@@ -102,9 +99,6 @@ export default async function ReviewPage() {
         }}>
           <p style={{ marginBottom: "8px", fontSize: "var(--text-base)" }}>
             Couldn't load the queue. Please reload the page.
-          </p>
-          <p style={{ fontSize: "var(--text-base)", color: "var(--color-text-secondary)" }}>
-            ផ្ទុកបញ្ជីមិនបានទេ។ សូមផ្ទុកទំព័រឡើងវិញ។
           </p>
         </div>
         <a
@@ -142,9 +136,6 @@ export default async function ReviewPage() {
           <p style={{ marginBottom: "8px", fontSize: "var(--text-base)" }}>
             Nothing is waiting for review.
           </p>
-          <p style={{ fontSize: "var(--text-base)", color: "var(--color-text-secondary)" }}>
-            មិនមានធាតុណាកំពុងរង់ចាំការពិនិត្យទេ។
-          </p>
         </div>
         <a
           href="/"
@@ -178,12 +169,6 @@ export default async function ReviewPage() {
         }}>
           Review Queue
         </h1>
-        <p style={{ 
-          color: "var(--color-text-secondary)",
-          fontSize: "var(--text-base)"
-        }}>
-          ជួររង់ចាំការពិនិត្យ
-        </p>
         <p style={{ 
           color: "var(--color-text-secondary)",
           fontSize: "var(--text-sm)",
