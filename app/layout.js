@@ -51,6 +51,7 @@ export default function RootLayout({ children }) {
             --color-text-primary: #EDE6D9;
             --color-text-secondary: #8A8A90;
             --color-accent: #9B2232;
+            --color-accent-text: var(--color-accent);
             --color-border: #2A2A2E;
             
             /* Typography: roles map to the next/font variables loaded above */

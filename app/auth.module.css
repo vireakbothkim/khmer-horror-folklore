@@ -1,7 +1,7 @@
 .wrap {
   max-width: var(--container-width);
   margin: 0 auto;
-  padding: var(--space2x1) var(--content-padding);
+  padding: var(--space-2xl) var(--content-padding);
   min-height: 100vh;
 }
 
@@ -14,7 +14,7 @@
 
 .kicker {
   font-family: var(--font-mono);
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   font-size: var(--text-xs);
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -58,7 +58,7 @@
   background-color: rgba(155, 34, 50, 0.1);
   border: 1px solid var(--color-accent);
   border-radius: var(--radius-md);
-  color: var(--color-accent);
+  color: var(--color-accent-text);
   margin-bottom: var(--space-lg);
   font-size: var(--text-sm);
 }

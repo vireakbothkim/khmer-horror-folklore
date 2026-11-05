@@ -73,7 +73,7 @@ export default function ReturnNotesModal({ onSubmit, onCancel }) {
         {error && (
           <p style={{
             marginTop: "8px",
-            color: "var(--color-accent)",
+            color: "var(--color-accent-text)",
             fontSize: "var(--text-sm)"
           }}>
             {error}

@@ -151,7 +151,7 @@ export default function ReviewList({ entries: initialEntries }) {
               <h3 style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "var(--text-xs)",
-                color: "var(--color-accent)",
+                color: "var(--color-accent-text)",
                 textTransform: "uppercase",
                 fontVariantCaps: "small-caps",
                 letterSpacing: "0.05em",
@@ -180,7 +180,7 @@ export default function ReviewList({ entries: initialEntries }) {
               <h3 style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "var(--text-xs)",
-                color: "var(--color-accent)",
+                color: "var(--color-accent-text)",
                 textTransform: "uppercase",
                 fontVariantCaps: "small-caps",
                 letterSpacing: "0.05em",
@@ -209,7 +209,7 @@ export default function ReviewList({ entries: initialEntries }) {
               <h3 style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "var(--text-xs)",
-                color: "var(--color-accent)",
+                color: "var(--color-accent-text)",
                 textTransform: "uppercase",
                 fontVariantCaps: "small-caps",
                 letterSpacing: "0.05em",
@@ -249,7 +249,7 @@ export default function ReviewList({ entries: initialEntries }) {
               <h3 style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: "var(--text-xs)",
-                color: "var(--color-accent)",
+                color: "var(--color-accent-text)",
                 textTransform: "uppercase",
                 fontVariantCaps: "small-caps",
                 letterSpacing: "0.05em",

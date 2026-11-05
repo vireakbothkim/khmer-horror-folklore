@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "../../lib/supabase-client";
 import { useLanguage } from "../../components/LanguageProvider";
+import StatusBox from "../../components/StatusBox";
 
 export default function MyEntriesPage() {
   const router = useRouter();
@@ -141,7 +142,7 @@ export default function MyEntriesPage() {
       </div>
 
       {entries.length === 0 ? (
-        <div style={{ textAlign: "center", padding: "40px 20px", border: "1px solid var(--color-border)", borderRadius: "4px" }}>
+        <StatusBox className="mt-0">
           <p style={{ marginBottom: "20px" }}>{t.noEntries}</p>
           <a 
             href="/contribute" 
@@ -155,7 +156,7 @@ export default function MyEntriesPage() {
           >
             {t.contribute}
           </a>
-        </div>
+        </StatusBox>
       ) : (
         <div style={{ overflowX: "auto" }}>
           <table style={{ width: "100%", borderCollapse: "collapse", fontFamily: "var(--font-mono)", fontSize: "var(--text-sm)" }}>

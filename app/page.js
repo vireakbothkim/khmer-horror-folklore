@@ -6,6 +6,7 @@ import EntrySearch from "../components/EntrySearch";
 import styles from "./page.module.css";
 import { createClient } from "../lib/supabase-client";
 import { useLanguage } from "../components/LanguageProvider";
+import StatusBox from "../components/StatusBox";
 
 const uiText = {
   en: {
@@ -199,13 +200,13 @@ export default function Home() {
 
       {/* Render filtered entries dynamically */}
       {entriesLoading ? (
-        <div className={styles.noResults}>
+        <StatusBox>
           Loading entries...
-        </div>
+        </StatusBox>
       ) : entries.length === 0 ? (
-        <div className={styles.noResults}>
+        <StatusBox>
           No entries found in the archive.
-        </div>
+        </StatusBox>
       ) : filteredEntries.length > 0 ? (
         <div className={`${styles.entriesGrid} grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`}>
           {filteredEntries.map((entry) => (
@@ -244,14 +245,14 @@ export default function Home() {
           ))}
         </div>
       ) : searchQuery.trim() ? (
-        <div className={styles.noResults}>
+        <StatusBox>
           {t.noResults(searchQuery)}
-        </div>
+        </StatusBox>
       ) : (
         // This case shouldn't happen since entries should always exist when loaded
-        <div className={styles.noResults}>
+        <StatusBox>
           {t.noEntries}
-        </div>
+        </StatusBox>
       )}
 
       <footer className={styles.footer}>

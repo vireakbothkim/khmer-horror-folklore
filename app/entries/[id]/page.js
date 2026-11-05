@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { createClient } from "../../../lib/supabase-client";
 import EntryCard from "../../../components/EntryCard";
 import collection from "../../../collection.config.js";
+import StatusBox from "../../../components/StatusBox";
 import { useLanguage } from "../../../components/LanguageProvider";
 
 export default function EntryPage() {
@@ -125,44 +126,26 @@ export default function EntryPage() {
 
   if (loading) {
     return (
-      <div style={{
-        maxWidth: "800px",
-        margin: "0 auto",
-        padding: "40px 20px",
-        color: "#FFFFFF",
-        fontFamily: "var(--font-sans)"
-      }}>
-        Loading entry...
-      </div>
+      <main className="mx-auto max-w-[800px] px-5 pb-10">
+        <StatusBox>Loading entry...</StatusBox>
+      </main>
     );
   }
 
   if (error || !entry) {
     return (
-      <div style={{
-        maxWidth: "800px",
-        margin: "0 auto",
-        padding: "40px 20px",
-        color: "#FFFFFF",
-        fontFamily: "var(--font-sans)"
-      }}>
-        <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>Entry Not Found</h1>
-        <p style={{ marginBottom: "20px" }}>{error || "The entry you're looking for doesn't exist."}</p>
-        <button
-          onClick={() => router.push("/")}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#972514",
-            border: "none",
-            borderRadius: "4px",
-            color: "#FFFFFF",
-            cursor: "pointer",
-            fontFamily: "var(--font-sans)"
-          }}
-        >
-          Back to Archive
-        </button>
-      </div>
+      <main className="mx-auto max-w-[800px] px-5 pb-10">
+        <StatusBox>
+          <h1 className="mb-5 text-2xl">Entry Not Found</h1>
+          <p className="mb-5">{error || "The entry you're looking for doesn't exist."}</p>
+          <button
+            onClick={() => router.push("/")}
+            className="cursor-pointer rounded bg-accent px-5 py-2.5 text-text-primary hover:bg-accent-hover"
+          >
+            Back to Archive
+          </button>
+        </StatusBox>
+      </main>
     );
   }
 

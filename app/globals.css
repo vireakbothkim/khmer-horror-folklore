@@ -13,6 +13,9 @@
   --color-text-secondary: #8A8A90;
   --color-accent: #9B2232;
   --color-accent-hover: #8A1D2B;
+  /* Small red text uses the original accent. Kept as a separate token
+     so it can be tuned later without touching buttons or borders. */
+  --color-accent-text: var(--color-accent);
   --color-border: #2A2A2E;
 
   --font-display: var(--font-playfair), serif;

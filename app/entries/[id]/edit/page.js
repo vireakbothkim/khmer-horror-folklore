@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { createClient } from "../../../../lib/supabase-client";
+import StatusBox from "../../../../components/StatusBox";
 
 export default function EditEntryPage() {
   const router = useRouter();
@@ -247,15 +248,9 @@ export default function EditEntryPage() {
 
   if (loading) {
     return (
-      <div style={{
-        maxWidth: "800px",
-        margin: "0 auto",
-        padding: "40px 20px",
-        color: "#FFFFFF",
-        fontFamily: "var(--font-sans)"
-      }}>
-        Loading...
-      </div>
+      <main className="mx-auto max-w-[800px] px-5 pb-10">
+        <StatusBox>Loading...</StatusBox>
+      </main>
     );
   }
 

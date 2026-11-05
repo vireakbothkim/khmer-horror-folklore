@@ -52,7 +52,7 @@ export default function SiteHeader() {
         <a href="/" className="min-w-0">
           <p
             lang={lang}
-            className="m-0 font-mono text-xs font-bold uppercase tracking-[2px] text-accent [font-variant-caps:small-caps]"
+            className="m-0 font-mono text-xs font-bold uppercase tracking-[2px] text-accent-text [font-variant-caps:small-caps]"
           >
             {kicker}
           </p>
