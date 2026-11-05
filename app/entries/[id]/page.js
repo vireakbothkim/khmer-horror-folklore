@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { createClient } from "../../../lib/supabase-client";
 import EntryCard from "../../../components/EntryCard";
 import StatusBox from "../../../components/StatusBox";
+import Spinner from "../../../components/Spinner";
 import { useLanguage } from "../../../components/LanguageProvider";
 
 export default function EntryPage() {
@@ -124,7 +125,7 @@ export default function EntryPage() {
   if (loading) {
     return (
       <main className="mx-auto max-w-[800px] px-5 pb-10">
-        <StatusBox>Loading entry...</StatusBox>
+        <StatusBox><Spinner label="Loading entry..." /></StatusBox>
       </main>
     );
   }

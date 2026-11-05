@@ -7,6 +7,7 @@ import styles from "./page.module.css";
 import { createClient } from "../lib/supabase-client";
 import { useLanguage } from "../components/LanguageProvider";
 import StatusBox from "../components/StatusBox";
+import Spinner from "../components/Spinner";
 
 const uiText = {
   en: {
@@ -199,7 +200,7 @@ export default function Home() {
       {/* Render filtered entries dynamically */}
       {entriesLoading ? (
         <StatusBox>
-          Loading entries...
+          <Spinner label="Loading entries..." />
         </StatusBox>
       ) : entries.length === 0 ? (
         <StatusBox>

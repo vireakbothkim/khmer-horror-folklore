@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "../../../lib/supabase-client";
+import Spinner from "../../../components/Spinner";
 
 export default function AuthCallbackPage() {
   const router = useRouter();
@@ -58,6 +59,9 @@ export default function AuthCallbackPage() {
           borderRadius: "10px",
         }}
       >
+        <div style={{ marginBottom: "24px" }}>
+          <Spinner />
+        </div>
         <h2
           style={{
             fontSize: "24px",

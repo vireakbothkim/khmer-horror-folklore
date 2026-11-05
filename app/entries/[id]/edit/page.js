@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { createClient } from "../../../../lib/supabase-client";
 import StatusBox from "../../../../components/StatusBox";
+import Spinner from "../../../../components/Spinner";
 
 export default function EditEntryPage() {
   const router = useRouter();
@@ -249,7 +250,7 @@ export default function EditEntryPage() {
   if (loading) {
     return (
       <main className="mx-auto max-w-[800px] px-5 pb-10">
-        <StatusBox>Loading...</StatusBox>
+        <StatusBox><Spinner label="Loading..." /></StatusBox>
       </main>
     );
   }

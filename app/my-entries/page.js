@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { createClient } from "../../lib/supabase-client";
 import { useLanguage } from "../../components/LanguageProvider";
 import StatusBox from "../../components/StatusBox";
+import Spinner from "../../components/Spinner";
 
 export default function MyEntriesPage() {
   const router = useRouter();
@@ -105,7 +106,7 @@ export default function MyEntriesPage() {
   if (loading) {
     return (
       <div style={{ maxWidth: "800px", margin: "40px auto", padding: "20px", textAlign: "center" }}>
-        Loading...
+        <Spinner label="Loading..." />
       </div>
     );
   }
