@@ -169,14 +169,6 @@ export default async function ReviewPage() {
         }}>
           Review Queue
         </h1>
-        <p style={{ 
-          color: "var(--color-text-secondary)",
-          fontSize: "var(--text-sm)",
-          fontFamily: "var(--font-mono)",
-          marginTop: "16px"
-        }}>
-          {entries.length} {entries.length === 1 ? 'entry' : 'entries'} waiting for review
-        </p>
       </div>
 
       <ReviewList entries={entries} />

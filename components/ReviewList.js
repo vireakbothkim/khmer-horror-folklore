@@ -104,6 +104,14 @@ export default function ReviewList({ entries: initialEntries }) {
 
   return (
     <div style={{ display: "flex", flexDirection: "column", gap: "32px" }}>
+      <p style={{
+        color: "var(--color-text-secondary)",
+        fontSize: "var(--text-sm)",
+        fontFamily: "var(--font-mono)",
+        margin: 0
+      }}>
+        {entries.length} {entries.length === 1 ? 'entry' : 'entries'} waiting for review
+      </p>
       {entries.map((entry) => {
         const isLoading = loadingIds.has(entry.id);
         const hasError = errorIds.has(entry.id);
