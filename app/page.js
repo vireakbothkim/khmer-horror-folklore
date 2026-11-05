@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import collection from "../collection.config.js";
 import EntrySearch from "../components/EntrySearch";
+import MobileMenu from "../components/MobileMenu";
 import styles from "./page.module.css";
 import { createClient } from "../lib/supabase-client";
 
@@ -270,7 +271,14 @@ export default function Home() {
           <p className={styles.kicker}>{t.kicker}</p>
           <h1 className={styles.title}>{collectionName}</h1>
         </div>
-        <div style={{ display: "flex", gap: "8px", alignItems: "flex-start" }}>
+        <div className="flex shrink-0 items-start gap-2">
+          <button
+            className={`${styles.languageToggle} sm:order-last`}
+            onClick={() => setLang(lang === "en" ? "kh" : "en")}
+          >
+            {t.languageToggle}
+          </button>
+          <MobileMenu label={lang === "en" ? "Open menu" : "បើកម៉ឺនុយ"}>
           {loading ? (
             // Show nothing or minimal loading state
             <div style={{ width: "60px", height: "24px", marginTop: "4px" }}></div>
@@ -518,12 +526,7 @@ export default function Home() {
               </a>
             </>
           )}
-          <button
-            className={styles.languageToggle}
-            onClick={() => setLang(lang === "en" ? "kh" : "en")}
-          >
-            {t.languageToggle}
-          </button>
+          </MobileMenu>
         </div>
       </div>
 
