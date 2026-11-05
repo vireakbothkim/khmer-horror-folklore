@@ -12,9 +12,7 @@ import Spinner from "../components/Spinner";
 const uiText = {
   en: {
     kicker: "KHMER LIVING ARCHIVE",
-    curatedBy: "CURATED BY",
-    source: "SOURCE",
-    province: "PROVINCE",
+    about: "ABOUT THIS ARCHIVE",
     searchEntries: "SEARCH ENTRIES",
     searchPlaceholder: "Search by title (English or Khmer) or description...",
     countFound: (found, total) => `found ${found} of ${total} entries`,
@@ -25,9 +23,7 @@ const uiText = {
   },
   kh: {
     kicker: "បណ្ណសាររស់របស់ខ្មែរ",
-    curatedBy: "ដោយ",
-    source: "ប្រភព",
-    province: "ខេត្ត",
+    about: "អំពីបណ្ណសារនេះ",
     searchEntries: "ស្វែងរកធាតុ",
     searchPlaceholder: "ស្វែងរកតាមចំណងជើង (អង់គ្លេស ឬខ្មែរ) ឬការពិពណ៌នា...",
     countFound: (found, total) => `រកឃើញ ${found} នៃ ${total} ធាតុ`,
@@ -155,9 +151,7 @@ export default function Home() {
   const t = uiText[lang];
   
   // Get collection fields based on language
-  const collectionCurator = lang === "kh" ? collection.curator_km : collection.curator;
-  const collectionSource = lang === "kh" ? collection.source_km : collection.source;
-  const collectionProvince = lang === "kh" ? collection.province_km : collection.province;
+  const collectionDescription = lang === "kh" ? collection.description_km : collection.description;
   
   // Get total entries count for current language
   const totalEntries = lang === "en" ? entriesEn.length : entriesKh.length;
@@ -165,17 +159,9 @@ export default function Home() {
   return (
     <main className={styles.wrap}>
       <div className={styles.metadataGrid}>
-        <div className={styles.metadataItem}>
-          <p className={styles.metadataLabel}>{t.curatedBy}</p>
-          <p className={styles.metadataValue}>{collectionCurator}</p>
-        </div>
-        <div className={styles.metadataItem}>
-          <p className={styles.metadataLabel}>{t.source}</p>
-          <p className={styles.metadataValue}>{collectionSource}</p>
-        </div>
-        <div className={styles.metadataItem}>
-          <p className={styles.metadataLabel}>{t.province}</p>
-          <p className={styles.metadataValue}>{collectionProvince}</p>
+        <div className={`${styles.metadataItem} ${styles.metadataWide}`}>
+          <p className={styles.metadataLabel}>{t.about}</p>
+          <p className={styles.metadataValue} lang={lang === "kh" ? "km" : "en"}>{collectionDescription}</p>
         </div>
       </div>
 
@@ -236,10 +222,7 @@ export default function Home() {
                   </div>
                 )}
               </div>
-              <h3 className={styles.entryTitle}>{entry.title}</h3>
-              {entry.khmerName && (
-                <p className={styles.entrySubtitle}>{entry.khmerName}</p>
-              )}
+              <h3 className={styles.entryTitle} lang={lang === "kh" ? "km" : "en"}>{entry.title}</h3>
             </a>
           ))}
         </div>

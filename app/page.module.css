@@ -53,6 +53,11 @@
   font-weight: 700;
 }
 
+/* Description spans the full grid row, not one narrow column */
+.metadataWide {
+  grid-column: 1 / -1;
+}
+
 .metadataValue {
   font-size: var(--text-base);
   color: var(--color-text-primary);
