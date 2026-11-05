@@ -53,7 +53,7 @@ export default function EditEntryPage() {
         // Fetch entry
         const { data, error } = await supabase
           .from('entries')
-          .select('*')
+          .select('id, owner, status, created_at, contributor, media, title_en, title_km, appearance_en, appearance_km, story_en, story_km, source_en, source_km, place_en, place_km')
           .eq('id', entryId)
           .single();
         
@@ -215,7 +215,7 @@ export default function EditEntryPage() {
         .from('entries')
         .update(entryData)
         .eq('id', entryId)
-        .select();
+        .select('id');
       
       if (updateError) {
         console.error("Update error:", updateError);

@@ -69,12 +69,26 @@ export default function MyEntriesPage() {
         
         const { data, error } = await supabase
           .from('entries')
-          .select('*')
+          .select('id, owner, status, created_at, contributor, media, title_en, title_km, appearance_en, appearance_km, story_en, story_km, source_en, source_km, place_en, place_km')
           .eq('owner', user.id)
           .order('created_at', { ascending: false });
         
         if (error) throw error;
-        setEntries(data || []);
+        // Notes are not readable directly; the owner-only function returns them
+        const withNotes = await Promise.all(
+          (data || []).map(async (entry) => {
+            if (entry.status !== 'returned') return entry;
+            const { data: noteRows, error: noteError } = await supabase.rpc('get_return_notes', { entry_id: entry.id });
+            if (noteError) console.error("Error loading return notes:", noteError);
+            const note = noteRows?.[0];
+            return {
+              ...entry,
+              return_notes: note?.return_notes ?? null,
+              returned_at: note?.returned_at ?? null
+            };
+          })
+        );
+        setEntries(withNotes);
       } catch (err) {
         console.error("Error:", err);
         setError("Failed to load entries");
