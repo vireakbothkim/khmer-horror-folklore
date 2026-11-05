@@ -179,6 +179,27 @@ export default function MyEntriesPage() {
                     <div style={{ fontWeight: "500" }}>
                       {lang === "en" ? entry.title_en : entry.title_km || entry.title_en}
                     </div>
+                    {entry.status === 'returned' && entry.return_notes && (
+                      <div style={{
+                        marginTop: "12px",
+                        padding: "12px",
+                        borderLeft: "3px solid rgb(239, 68, 68)",
+                        backgroundColor: "rgba(239, 68, 68, 0.05)",
+                        whiteSpace: "pre-wrap",
+                        fontSize: "var(--text-sm)",
+                        lineHeight: 1.5
+                      }}>
+                        <div style={{
+                          fontFamily: "var(--font-mono)",
+                          fontSize: "var(--text-xs)",
+                          color: "var(--color-text-secondary)",
+                          marginBottom: "6px"
+                        }}>
+                          Reviewer feedback{entry.returned_at ? ` · ${new Date(entry.returned_at).toLocaleDateString()}` : ""}
+                        </div>
+                        {entry.return_notes}
+                      </div>
+                    )}
                   </td>
                   <td style={{ padding: "16px" }}>
                     <div style={{

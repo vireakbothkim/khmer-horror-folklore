@@ -2,13 +2,15 @@
 
 import { useState } from "react";
 import { createClient } from "../lib/supabase-client.js";
+import ReturnNotesModal from "./ReturnNotesModal.js";
 
 export default function ReviewList({ entries: initialEntries }) {
   const [entries, setEntries] = useState(initialEntries);
   const [loadingIds, setLoadingIds] = useState(new Set());
   const [errorIds, setErrorIds] = useState(new Set());
+  const [returningId, setReturningId] = useState(null);
 
-  const handleReview = async (entryId, decision) => {
+  const handleReview = async (entryId, decision, notes = null) => {
     if (decision === 'published') {
       const confirmed = window.confirm(
         "Publish this entry? It becomes public."
@@ -27,7 +29,8 @@ export default function ReviewList({ entries: initialEntries }) {
       const supabase = createClient();
       const { data, error } = await supabase.rpc('review_entry', {
         entry_id: entryId,
-        decision: decision
+        decision: decision,
+        notes: notes
       });
 
       if (error) {
@@ -49,6 +52,12 @@ export default function ReviewList({ entries: initialEntries }) {
         return newSet;
       });
     }
+  };
+
+  const handleReturnSubmit = (notes) => {
+    const entryId = returningId;
+    setReturningId(null);
+    handleReview(entryId, 'returned', notes);
   };
 
   const formatDate = (dateString) => {
@@ -297,7 +306,7 @@ export default function ReviewList({ entries: initialEntries }) {
                 {isLoading ? "Processing..." : "Publish"}
               </button>
               <button
-                onClick={() => handleReview(entry.id, 'returned')}
+                onClick={() => setReturningId(entry.id)}
                 disabled={isLoading}
                 style={{
                   padding: "10px 20px",
@@ -327,6 +336,13 @@ export default function ReviewList({ entries: initialEntries }) {
           </div>
         );
       })}
+
+      {returningId && (
+        <ReturnNotesModal
+          onSubmit={handleReturnSubmit}
+          onCancel={() => setReturningId(null)}
+        />
+      )}
     </div>
   );
 }
