@@ -253,7 +253,7 @@ export default function EditEntryPage() {
 
   if (loading) {
     return (
-      <main className="mx-auto max-w-[800px] px-5 pb-10">
+      <main className="mx-auto w-full max-w-[1280px] px-[var(--content-padding)] pb-10">
         <StatusBox><Spinner label="Loading..." /></StatusBox>
       </main>
     );
@@ -262,9 +262,10 @@ export default function EditEntryPage() {
   if (error) {
     return (
       <div style={{
-        maxWidth: "800px",
+        width: "100%",
+        maxWidth: "1280px",
         margin: "0 auto",
-        padding: "40px 20px",
+        padding: "40px var(--content-padding)",
         color: "#FFFFFF",
         fontFamily: "var(--font-sans)"
       }}>
@@ -277,9 +278,10 @@ export default function EditEntryPage() {
 
   return (
     <div style={{
+      width: "100%",
       maxWidth: "1280px",
       margin: "0 auto",
-      padding: "40px 20px",
+      padding: "40px var(--content-padding)",
       color: "#FFFFFF",
       fontFamily: "var(--font-sans)"
     }}>

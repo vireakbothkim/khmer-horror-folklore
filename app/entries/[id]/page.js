@@ -137,7 +137,7 @@ export default function EntryPage() {
 
   if (loading) {
     return (
-      <main className="mx-auto max-w-[800px] px-5 pb-10">
+      <main className="mx-auto w-full max-w-[1280px] px-[var(--content-padding)] pb-10">
         <StatusBox><Spinner label="Loading entry..." /></StatusBox>
       </main>
     );
@@ -145,7 +145,7 @@ export default function EntryPage() {
 
   if (error || !entry) {
     return (
-      <main className="mx-auto max-w-[800px] px-5 pb-10">
+      <main className="mx-auto w-full max-w-[1280px] px-[var(--content-padding)] pb-10">
         <StatusBox>
           <h1 className="mb-5 text-2xl">Entry Not Found</h1>
           <p className="mb-5">{error || "The entry you're looking for doesn't exist."}</p>
@@ -156,7 +156,7 @@ export default function EntryPage() {
   }
 
   return (
-    <main className="mx-auto max-w-[1280px] px-[var(--content-padding)] pb-0">
+    <main className="mx-auto w-full max-w-[1280px] px-[var(--content-padding)] pb-0">
       <div className="mb-8">
         <BackToArchiveLink />
       </div>

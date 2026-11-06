@@ -173,7 +173,7 @@ export default function MyEntriesPage() {
 
   if (loading) {
     return (
-      <main className="mx-auto flex min-h-[60vh] max-w-[1280px] items-center justify-center px-6">
+      <main className="mx-auto flex min-h-[60vh] w-full max-w-[1280px] items-center justify-center px-6">
         <Spinner label={t.loading} />
       </main>
     );
@@ -181,7 +181,7 @@ export default function MyEntriesPage() {
 
   if (error) {
     return (
-      <main className="mx-auto max-w-[1280px] px-6 py-12">
+      <main className="mx-auto w-full max-w-[1280px] px-6 py-12">
         <h1 className="font-display text-4xl font-bold text-text-primary">{t.errorTitle}</h1>
         <p className="mt-4 text-text-secondary">{t.errorMessage}</p>
         <div className="mt-8">
@@ -204,7 +204,7 @@ export default function MyEntriesPage() {
     statusFilter === "all" ? entries : entries.filter((entry) => entry.status === statusFilter);
 
   return (
-    <main className="mx-auto max-w-[1280px] px-6 pb-16 pt-10">
+    <main className="mx-auto w-full max-w-[1280px] px-6 pb-16 pt-10">
       <header className="flex flex-col gap-6 border-b border-border pb-8 md:flex-row md:items-end md:justify-between">
         <div className="min-w-0">
           <p className="m-0 font-mono text-xs font-bold uppercase tracking-[2px] text-accent-text [font-variant-caps:small-caps]">

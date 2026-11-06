@@ -101,7 +101,7 @@ export default function RootLayout({ children }) {
             --text-6xl: 3.75rem;  /* 60px */
             
             /* Layout */
-            --container-width: 720px;
+            --container-width: 1280px;
             --content-padding: 1.5rem;
           }
           

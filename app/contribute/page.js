@@ -216,7 +216,7 @@ export default function ContributePage() {
 
   if (loading) {
     return (
-      <main className="mx-auto max-w-[var(--container-width)] px-[var(--content-padding)] py-12">
+      <main className="mx-auto w-full max-w-[var(--container-width)] px-[var(--content-padding)] py-12">
         <StatusBox><Spinner label="Loading..." /></StatusBox>
       </main>
     );
@@ -224,7 +224,7 @@ export default function ContributePage() {
 
   if (!user) {
     return (
-      <main className="mx-auto max-w-[var(--container-width)] px-[var(--content-padding)] py-12 sm:py-16">
+      <main className="mx-auto w-full max-w-[var(--container-width)] px-[var(--content-padding)] py-12 sm:py-16">
         <p className={styles.kicker} lang={lang === "kh" ? "km" : "en"}>{t.kicker}</p>
         <h1 className={styles.heading} lang={lang === "kh" ? "km" : "en"}>{t.heading}</h1>
         <p className="mb-12 text-base leading-relaxed text-text-secondary" lang={lang === "kh" ? "km" : "en"}>
@@ -240,7 +240,7 @@ export default function ContributePage() {
 
   if (submittedSuccess) {
     return (
-      <main className="mx-auto max-w-[var(--container-width)] px-[var(--content-padding)] py-12 sm:py-16">
+      <main className="mx-auto w-full max-w-[var(--container-width)] px-[var(--content-padding)] py-12 sm:py-16">
         <p className={styles.kicker} lang={lang === "kh" ? "km" : "en"}>{t.kicker}</p>
         <h1 className={styles.heading} lang={lang === "kh" ? "km" : "en"}>{t.heading}</h1>
         <p
@@ -280,7 +280,7 @@ export default function ContributePage() {
         {error && <div className={styles.errorMessage}>{error}</div>}
       </div>
 
-      <form onSubmit={handleSubmit} className="mx-auto max-w-[1440px]">
+      <form onSubmit={handleSubmit} className="mx-auto max-w-[1280px]">
         <EntryFieldCards formData={formData} fieldErrors={fieldErrors} onChange={handleInputChange} />
 
         <PhotoField

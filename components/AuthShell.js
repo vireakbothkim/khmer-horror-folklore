@@ -3,7 +3,7 @@
 // Right: the form. The quote uses the Khmer font when lang is "km".
 export default function AuthShell({ quote, lang, children }) {
   return (
-    <div className="mx-auto grid min-h-[calc(100vh-6rem)] max-w-[1280px] lg:grid-cols-2">
+    <div className="mx-auto grid w-full min-h-[calc(100vh-6rem)] max-w-[1280px] lg:grid-cols-2">
       <div className="relative hidden overflow-hidden border-r border-border lg:sticky lg:top-0 lg:block lg:h-[calc(100vh-6rem)] lg:self-start">
         <img
           src="/images/login_house.jpeg"

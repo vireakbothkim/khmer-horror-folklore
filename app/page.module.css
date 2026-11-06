@@ -1,5 +1,6 @@
 /* Homepage uses the full laptop width. Auth pages keep --container-width. */
 .wrap {
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 var(--content-padding) 0;

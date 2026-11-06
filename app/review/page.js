@@ -32,7 +32,7 @@ export default async function ReviewPage() {
   // If not reviewer, show access denied message
   if (!isReviewer) {
     return (
-      <main className="mx-auto max-w-[800px] px-5 pb-10">
+      <main className="mx-auto w-full max-w-[1280px] px-[var(--content-padding)] pb-10">
         <StatusBox>
           <p className="mb-0">This page is for reviewers only.</p>
         </StatusBox>
@@ -68,7 +68,7 @@ export default async function ReviewPage() {
   // If there's an error fetching entries
   if (errorMessage) {
     return (
-      <main className="mx-auto max-w-[800px] px-5 pb-10">
+      <main className="mx-auto w-full max-w-[1280px] px-[var(--content-padding)] pb-10">
         <StatusBox>
           <p className="mb-0">{errorMessage}</p>
         </StatusBox>
@@ -82,7 +82,7 @@ export default async function ReviewPage() {
   // 4. Empty queue message
   if (entries.length === 0) {
     return (
-      <main className="mx-auto max-w-[800px] px-5 pb-10">
+      <main className="mx-auto w-full max-w-[1280px] px-[var(--content-padding)] pb-10">
         <StatusBox>
           <p className="mb-0">Nothing is waiting for review.</p>
         </StatusBox>
@@ -95,7 +95,7 @@ export default async function ReviewPage() {
 
   // 5. Pass entries to ReviewList component
   return (
-    <main className="mx-auto max-w-[1280px] px-6 pb-16 pt-10">
+    <main className="mx-auto w-full max-w-[1280px] px-6 pb-16 pt-10">
       <div className="mb-8">
         <BackToArchiveLink />
       </div>
