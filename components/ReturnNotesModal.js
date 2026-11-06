@@ -2,6 +2,13 @@
 
 import { useState } from "react";
 
+// Dialog for "Return for changes". The reviewer's note is shown only to the
+// contributor, on their My Entries page. Cancel closes it without saving.
+const cancelClass =
+  "inline-flex cursor-pointer items-center border border-border px-4 py-2 font-mono text-xs uppercase tracking-[0.1em] text-text-secondary transition-colors hover:border-accent hover:text-accent";
+const submitClass =
+  "inline-flex cursor-pointer items-center border border-accent bg-accent px-4 py-2 font-mono text-xs uppercase tracking-[0.1em] text-text-primary transition-colors hover:border-accent-hover hover:bg-accent-hover";
+
 export default function ReturnNotesModal({ onSubmit, onCancel }) {
   const [notes, setNotes] = useState("");
   const [error, setError] = useState("");
@@ -15,39 +22,17 @@ export default function ReturnNotesModal({ onSubmit, onCancel }) {
   };
 
   return (
-    <div style={{
-      position: "fixed",
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: "rgba(0, 0, 0, 0.5)",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      zIndex: 1000
-    }}>
-      <div style={{
-        backgroundColor: "var(--color-bg)",
-        padding: "32px",
-        borderRadius: "var(--radius-md)",
-        maxWidth: "600px",
-        width: "90%",
-        border: "1px solid var(--color-border)"
-      }}>
-        <h2 style={{
-          fontFamily: "var(--font-display)",
-          fontSize: "var(--text-xl)",
-          marginBottom: "16px",
-          color: "var(--color-text-primary)"
-        }}>
+    <div className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/50 p-4">
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="return-notes-title"
+        className="w-full max-w-[600px] rounded-md border border-border bg-bg p-8"
+      >
+        <h2 id="return-notes-title" className="m-0 text-2xl font-bold text-text-primary">
           Return for changes
         </h2>
-        <p style={{
-          color: "var(--color-text-secondary)",
-          fontSize: "var(--text-sm)",
-          marginBottom: "16px"
-        }}>
+        <p className="mb-0 mt-3 text-sm leading-relaxed text-text-secondary">
           Explain what the contributor needs to change. You can write in English, Khmer, or both.
         </p>
         <textarea
@@ -57,57 +42,14 @@ export default function ReturnNotesModal({ onSubmit, onCancel }) {
             if (error) setError("");
           }}
           placeholder="Write your note here..."
-          style={{
-            width: "100%",
-            minHeight: "140px",
-            padding: "12px",
-            backgroundColor: "transparent",
-            border: "1px solid var(--color-border)",
-            borderRadius: "var(--radius-sm)",
-            color: "var(--color-text-primary)",
-            fontFamily: "var(--font-sans)",
-            fontSize: "var(--text-base)",
-            resize: "vertical"
-          }}
+          className="mt-5 box-border min-h-[140px] w-full resize-y rounded-sm border border-border bg-transparent p-3 text-base text-text-primary"
         />
-        {error && (
-          <p style={{
-            marginTop: "8px",
-            color: "var(--color-accent-text)",
-            fontSize: "var(--text-sm)"
-          }}>
-            {error}
-          </p>
-        )}
-        <div style={{ display: "flex", justifyContent: "flex-end", gap: "12px", marginTop: "24px" }}>
-          <button
-            onClick={onCancel}
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "transparent",
-              border: "1px solid var(--color-border)",
-              borderRadius: "var(--radius-md)",
-              color: "var(--color-text-secondary)",
-              fontFamily: "var(--font-mono)",
-              fontSize: "var(--text-sm)",
-              cursor: "pointer"
-            }}
-          >
+        {error && <p className="mb-0 mt-2 text-sm text-accent-text">{error}</p>}
+        <div className="mt-6 flex justify-end gap-3">
+          <button type="button" onClick={onCancel} className={cancelClass}>
             Cancel
           </button>
-          <button
-            onClick={handleSubmit}
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "var(--color-accent)",
-              border: "none",
-              borderRadius: "var(--radius-md)",
-              color: "white",
-              fontFamily: "var(--font-mono)",
-              fontSize: "var(--text-sm)",
-              cursor: "pointer"
-            }}
-          >
+          <button type="button" onClick={handleSubmit} className={submitClass}>
             Submit Return
           </button>
         </div>

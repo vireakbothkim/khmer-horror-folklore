@@ -1,5 +1,5 @@
 // One contributor entry as a card: image, status badge, title, reviewer
-// feedback (when returned), and View / Edit actions.
+// feedback (when returned), and View / Edit / Delete actions on every entry.
 // Labels come from the page so the translations live in one place.
 const badgeStyles = {
   published: "bg-[rgba(34,197,94,0.1)] text-[rgb(34,197,94)]",
@@ -10,7 +10,11 @@ const badgeStyles = {
 const actionClass =
   "inline-flex items-center border border-border px-4 py-2 font-mono text-xs uppercase tracking-[0.1em] text-text-secondary transition-colors hover:border-accent hover:text-accent";
 
-export default function MyEntryCard({ entry, lang, statusLabel, labels }) {
+// Delete uses the site's red accent, same as the Delete Entry button on the entry page.
+const deleteClass =
+  "inline-flex cursor-pointer items-center border border-accent bg-accent px-4 py-2 font-mono text-xs uppercase tracking-[0.1em] text-text-primary transition-colors hover:border-accent-hover hover:bg-accent-hover";
+
+export default function MyEntryCard({ entry, lang, statusLabel, labels, onDelete }) {
   const isKhmer = lang === "kh";
   const langTag = isKhmer ? "km" : "en";
   const title = isKhmer ? entry.title_km || entry.title_en : entry.title_en;
@@ -56,15 +60,16 @@ export default function MyEntryCard({ entry, lang, statusLabel, labels }) {
           </div>
         )}
 
-        <div className="mt-auto flex gap-2 pt-2">
+        <div className="mt-auto flex flex-wrap gap-2 pt-2">
           <a href={`/entries/${entry.id}`} className={actionClass}>
             {labels.view}
           </a>
-          {entry.status !== "published" && (
-            <a href={`/entries/${entry.id}/edit`} className={actionClass}>
-              {labels.edit}
-            </a>
-          )}
+          <a href={`/entries/${entry.id}/edit`} className={actionClass}>
+            {labels.edit}
+          </a>
+          <button type="button" onClick={() => onDelete(entry)} className={deleteClass}>
+            {labels.delete}
+          </button>
         </div>
       </div>
     </article>

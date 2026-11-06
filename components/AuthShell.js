@@ -6,7 +6,7 @@ export default function AuthShell({ quote, lang, children }) {
     <div className="mx-auto grid min-h-[calc(100vh-6rem)] max-w-[1280px] lg:grid-cols-2">
       <div className="relative hidden overflow-hidden border-r border-border lg:sticky lg:top-0 lg:block lg:h-[calc(100vh-6rem)] lg:self-start">
         <img
-          src="/images/haunted-house.avif"
+          src="/images/login_house.jpeg"
           alt="An old brick house at night, surrounded by bare trees"
           className="absolute inset-0 size-full object-cover opacity-60 grayscale"
         />

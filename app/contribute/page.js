@@ -31,6 +31,9 @@ export default function ContributePage() {
       submit: "Submit Entry",
       submitting: "Submitting...",
       cancel: "Cancel",
+      successBefore: "Thank you! Your entry was submitted and is waiting for review. It will appear in the archive once it is published. You can check its status any time on your ",
+      successAfter: " page.",
+      myEntries: "My Entries",
     },
     kh: {
       kicker: "ការរួមចំណែក",
@@ -44,6 +47,9 @@ export default function ContributePage() {
       submit: "ដាក់ស្នើធាតុ",
       submitting: "កំពុងដាក់ស្នើ...",
       cancel: "បោះបង់",
+      successBefore: "សូមអរគុណ! ធាតុរបស់អ្នកត្រូវបានដាក់ស្នើហើយ និងកំពុងរង់ចាំការពិនិត្យ។ វានឹងបង្ហាញក្នុងបណ្ណសារ នៅពេលត្រូវបានផ្សព្វផ្សាយ។ អ្នកអាចពិនិត្យស្ថានភាពរបស់វាបានគ្រប់ពេលនៅទំព័រ \"",
+      successAfter: "\"។",
+      myEntries: "ធាតុរបស់ខ្ញុំ",
     },
   };
   const t = uiText[lang];
@@ -235,43 +241,46 @@ export default function ContributePage() {
   if (submittedSuccess) {
     return (
       <main className="mx-auto max-w-[var(--container-width)] px-[var(--content-padding)] py-12 sm:py-16">
-        <p className={styles.kicker}>CONTRIBUTE</p>
-        <h1 className={styles.heading}>Contribute an Entry.</h1>
-        <div className={styles.successMessage}>
-          <p className="m-0 leading-relaxed">
-            Thank you! Your entry was submitted and is waiting for review. It will appear
-            in the archive once it is published. You can check its status any time on your My
-            Entries page.
-          </p>
-          <p lang="km" className="mt-4 mb-0 leading-relaxed">
-            សូមអរគុណ! ធាតុរបស់អ្នកត្រូវបានដាក់ស្នើហើយ និងកំពុងរង់ចាំការពិនិត្យ។ វានឹងបង្ហាញក្នុងបណ្ណសារ
-            នៅពេលត្រូវបានផ្សព្វផ្សាយ។ អ្នកអាចពិនិត្យស្ថានភាពរបស់វាបានគ្រប់ពេលនៅទំព័រ "ធាតុរបស់ខ្ញុំ"។
-          </p>
-        </div>
-        <div className="mt-8 flex flex-wrap gap-4">
-          <BackToArchiveLink />
+        <p className={styles.kicker} lang={lang === "kh" ? "km" : "en"}>{t.kicker}</p>
+        <h1 className={styles.heading} lang={lang === "kh" ? "km" : "en"}>{t.heading}</h1>
+        <p
+          lang={lang === "kh" ? "km" : "en"}
+          className="mt-8 mb-0 max-w-[60ch] text-xl leading-relaxed text-text-primary sm:text-2xl sm:leading-relaxed"
+        >
+          {t.successBefore}
           <a
             href="/my-entries"
-            className="inline-flex items-center border border-border px-6 py-4 font-mono text-sm uppercase tracking-[0.2em] text-text-secondary transition-colors hover:border-accent hover:text-accent"
+            style={{
+              color: "var(--color-accent)",
+              textDecoration: "underline",
+              textUnderlineOffset: "4px",
+              fontWeight: 600,
+            }}
           >
-            My Entries
+            {t.myEntries}
           </a>
+          {t.successAfter}
+        </p>
+        <div className="mt-10 flex flex-wrap gap-4">
+          <BackToArchiveLink />
         </div>
       </main>
     );
   }
 
   return (
-    <main className="mx-auto max-w-[1280px] px-[var(--content-padding)] py-12 sm:py-16">
-      <p className={styles.kicker} lang={lang === "kh" ? "km" : "en"}>{t.kicker}</p>
-      <h1 className={styles.heading} lang={lang === "kh" ? "km" : "en"}>{t.heading}</h1>
-      <p className="mb-12 text-base leading-relaxed text-text-secondary" lang={lang === "kh" ? "km" : "en"}>
-        {t.note}
-      </p>
+    <main className="box-border w-full px-[var(--content-padding)] py-12 sm:py-16">
+      <div className="mx-auto max-w-[1280px]">
+        <p className={styles.kicker} lang={lang === "kh" ? "km" : "en"}>{t.kicker}</p>
+        <h1 className={styles.heading} lang={lang === "kh" ? "km" : "en"}>{t.heading}</h1>
+        <p className="mb-12 text-base leading-relaxed text-text-secondary" lang={lang === "kh" ? "km" : "en"}>
+          {t.note}
+        </p>
 
-      {error && <div className={styles.errorMessage}>{error}</div>}
+        {error && <div className={styles.errorMessage}>{error}</div>}
+      </div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="mx-auto max-w-[1440px]">
         <EntryFieldCards formData={formData} fieldErrors={fieldErrors} onChange={handleInputChange} />
 
         <PhotoField

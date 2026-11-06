@@ -12,7 +12,7 @@ const text = {
 export default function SiteFooter() {
   const { lang } = useLanguage();
   return (
-    <footer className="mx-auto mt-10 max-w-[1280px] border-t border-border px-[var(--content-padding)] py-8 text-center text-sm leading-relaxed text-text-secondary">
+    <footer className="mx-auto mt-auto w-full max-w-[1280px] border-t border-border px-[var(--content-padding)] py-8 text-center text-sm leading-relaxed text-text-secondary">
       {text[lang] || text.en}
     </footer>
   );

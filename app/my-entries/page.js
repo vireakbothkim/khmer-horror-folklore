@@ -52,6 +52,9 @@ export default function MyEntriesPage() {
       loading: "Loading...",
       errorTitle: "Error",
       errorMessage: "Failed to load entries",
+      delete: "Delete",
+      deleteConfirm: "Are you sure you want to delete this entry? This action cannot be undone.",
+      deleteFailed: "Failed to delete entry. Please try again.",
       filterLabel: "Filter by status",
       allStatuses: "All statuses",
       noMatch: "No entries with this status."
@@ -72,6 +75,9 @@ export default function MyEntriesPage() {
       loading: "កំពុងផ្ទុក...",
       errorTitle: "កំហុស",
       errorMessage: "បរាជ័យក្នុងការផ្ទុកធាតុ",
+      delete: "លុប",
+      deleteConfirm: "តើអ្នកច្បាស់ថាចង់លុបធាតុនេះឬ? សកម្មភាពនេះមិនអាចត្រឡប់វិញបានទេ។",
+      deleteFailed: "បរាជ័យក្នុងការលុបធាតុ។ សូមព្យាយាមម្តងទៀត។",
       filterLabel: "ត្រងតាមស្ថានភាព",
       allStatuses: "ស្ថានភាពទាំងអស់",
       noMatch: "គ្មានធាតុដែលមានស្ថានភាពនេះទេ។"
@@ -126,6 +132,43 @@ export default function MyEntriesPage() {
 
   const t = uiText[lang];
   const statusT = statusText[lang];
+
+  // Deletes one entry after confirming. Same checks as the entry page:
+  // delete, then re-read the row to confirm it is gone before updating the list.
+  const handleDelete = async (entry) => {
+    if (!window.confirm(t.deleteConfirm)) return;
+
+    try {
+      const supabase = createClient();
+      const { error: deleteError } = await supabase
+        .from('entries')
+        .delete()
+        .eq('id', entry.id);
+
+      if (deleteError) {
+        console.error("Delete error:", deleteError);
+        window.alert(t.deleteFailed);
+        return;
+      }
+
+      const { data: verifyData } = await supabase
+        .from('entries')
+        .select('id')
+        .eq('id', entry.id);
+
+      if (verifyData && verifyData.length > 0) {
+        console.error("Delete verification failed: entry still exists");
+        window.alert(t.deleteFailed);
+        return;
+      }
+
+      setEntries((prev) => prev.filter((item) => item.id !== entry.id));
+    } catch (err) {
+      console.error("Error during delete:", err);
+      window.alert(t.deleteFailed);
+    }
+  };
+
   const langTag = lang === "kh" ? "km" : "en";
 
   if (loading) {
@@ -221,8 +264,10 @@ export default function MyEntriesPage() {
                     noImage: t.noImage,
                     feedback: t.feedback,
                     view: t.view,
-                    edit: t.edit
+                    edit: t.edit,
+                    delete: t.delete
                   }}
+                  onDelete={handleDelete}
                 />
               ))}
             </div>

@@ -16,7 +16,7 @@ export default function BackToArchiveLink() {
 
   return (
     <a
-      href="/"
+      href="/archive"
       lang={isKhmer ? "km" : "en"}
       className="inline-flex items-center bg-accent px-6 py-4 font-mono text-sm uppercase tracking-[0.2em] text-text-primary transition-colors hover:bg-accent-hover"
     >

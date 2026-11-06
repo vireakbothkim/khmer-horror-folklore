@@ -6,6 +6,7 @@ import { createClient } from "../../../lib/supabase-client";
 import EntryCard from "../../../components/EntryCard";
 import StatusBox from "../../../components/StatusBox";
 import OwnerActions from "../../../components/OwnerActions";
+import ReturnNoteNotice from "../../../components/ReturnNoteNotice";
 import BackToArchiveLink from "../../../components/BackToArchiveLink";
 import Spinner from "../../../components/Spinner";
 import { useLanguage } from "../../../components/LanguageProvider";
@@ -17,6 +18,7 @@ export default function EntryPage() {
   const [loading, setLoading] = useState(true);
   const { lang } = useLanguage();
   const [error, setError] = useState("");
+  const [returnNote, setReturnNote] = useState(null);
   
   const params = useParams();
   const entryId = params?.id;
@@ -42,6 +44,15 @@ export default function EntryPage() {
           setError("Entry not found");
         } else {
           setEntry(data);
+          // Notes are not readable directly; the owner-only function returns them.
+          if (user && data.owner === user.id && data.status === 'returned') {
+            const { data: noteRows, error: noteError } = await supabase.rpc('get_return_notes', { entry_id: entryId });
+            if (noteError) {
+              console.error("Error loading return notes:", noteError);
+            } else if (noteRows?.[0]) {
+              setReturnNote(noteRows[0]);
+            }
+          }
         }
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -160,17 +171,14 @@ export default function EntryPage() {
       
       {/* Pending notice for owner */}
       {isOwner && entry.status === 'pending' && (
-        <div style={{
-          marginBottom: "30px",
-          padding: "16px 20px",
-          border: "1px solid #2E3644",
-          borderRadius: "4px",
-          backgroundColor: "#14181F",
-          color: "#97A1B3",
-          fontSize: "12px"
-        }}>
+        <div className="mb-8 rounded-md border border-[rgb(234,179,8)] bg-[rgba(234,179,8,0.1)] p-5 text-base leading-relaxed text-text-primary">
           This entry is waiting for review. It will go live once a reviewer approves it.
         </div>
+      )}
+
+      {/* Reviewer's note for owner */}
+      {isOwner && entry.status === 'returned' && returnNote && (
+        <ReturnNoteNotice note={returnNote.return_notes} returnedAt={returnNote.returned_at} />
       )}
 
       {/* Entry display */}

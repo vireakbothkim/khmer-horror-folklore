@@ -1,0 +1,242 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import collection from "../../collection.config.js";
+import EntrySearch from "../../components/EntrySearch";
+import styles from "../page.module.css";
+import { createClient } from "../../lib/supabase-client";
+import { useLanguage } from "../../components/LanguageProvider";
+import StatusBox from "../../components/StatusBox";
+import Spinner from "../../components/Spinner";
+
+const uiText = {
+  en: {
+    kicker: "KHMER LIVING ARCHIVE",
+    about: "ABOUT THIS ARCHIVE",
+    searchEntries: "SEARCH ENTRIES",
+    searchPlaceholder: "Search by title or description...",
+    countFound: (found, total) => `found ${found} of ${total} entries`,
+    countTotal: (total) => `entries in the archive: ${total}`,
+    noResults: (query) => `No results found for "${query}"`,
+    noEntries: "No entries found",
+    languageToggle: "ភាសាខ្មែរ", // Khmer text for toggle to switch to Khmer
+  },
+  kh: {
+    kicker: "បណ្ណសាររស់របស់ខ្មែរ",
+    about: "អំពីបណ្ណសារនេះ",
+    searchEntries: "ស្វែងរកធាតុ",
+    searchPlaceholder: "ស្វែងរកតាមចំណងជើង ឬការពិពណ៌នា...",
+    countFound: (found, total) => `រកឃើញ ${found} នៃ ${total} ធាតុ`,
+    countTotal: (total) => `ធាតុនៅក្នុងបណ្ណសារ៖ ${total}`,
+    noResults: (query) => `គ្មានលទ្ធផលសម្រាប់ "${query}"`,
+    noEntries: "គ្មានធាតុរកឃើញ",
+    languageToggle: "English", // English text for toggle to switch to English
+  },
+};
+
+
+
+export default function Home() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const { lang } = useLanguage();
+  const [entries, setEntries] = useState([]); // All entries from Supabase
+  const [entriesLoading, setEntriesLoading] = useState(true);
+
+  // Fetch entries from Supabase
+  useEffect(() => {
+    const fetchEntries = async () => {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from('entries')
+          .select('id, owner, status, created_at, contributor, media, title_en, title_km, appearance_en, appearance_km, story_en, story_km, source_en, source_km, place_en, place_km')
+          .eq('status', 'published')
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error("Error fetching entries:", error);
+          setEntries([]);
+        } else {
+          setEntries(data || []);
+        }
+      } catch (err) {
+        console.error("Error fetching entries:", err);
+        setEntries([]);
+      } finally {
+        setEntriesLoading(false);
+      }
+    };
+
+    fetchEntries();
+  }, []);
+
+  // Map Supabase entries to English and Khmer arrays for compatibility with existing components
+  // Create English entries array from Supabase data
+  const entriesEn = entries.map(entry => ({
+    id: entry.id,
+    title: entry.title_en,
+    khmerName: entry.title_km,
+    appearance: entry.appearance_en,
+    story: entry.story_en,
+    source: entry.source_en,
+    place: entry.place_en,
+    media: entry.media,
+    contributor: entry.contributor
+  }));
+
+  // Create Khmer entries array from Supabase data
+  const entriesKh = entries.map(entry => ({
+    id: entry.id,
+    title: entry.title_km,
+    khmerName: entry.title_en,
+    appearance: entry.appearance_km,
+    story: entry.story_km,
+    source: entry.source_km,
+    place: entry.place_km,
+    media: entry.media,
+    contributor: entry.contributor
+  }));
+
+  // Function to filter entries based on search query
+  const filterEntries = (query) => {
+    const trimmedQuery = query.trim();
+    
+    if (!trimmedQuery) {
+      // Return all entries for current language
+      return lang === "en" ? entriesEn : entriesKh;
+    }
+
+    // Search in both English and Khmer arrays regardless of active language
+    const matchingIds = new Set();
+    
+    // Search in English entries
+    entriesEn.forEach((entry) => {
+      const searchableFields = [
+        entry.title?.toLowerCase() || "",
+        entry.appearance?.toLowerCase() || "",
+        entry.story?.toLowerCase() || "",
+        entry.source?.toLowerCase() || "",
+        entry.place?.toLowerCase() || "",
+      ];
+      
+      if (searchableFields.some(field => field.includes(trimmedQuery.toLowerCase()))) {
+        matchingIds.add(entry.id);
+      }
+    });
+    
+    // Search in Khmer entries
+    entriesKh.forEach((entry) => {
+      const searchableFields = [
+        entry.title || "", // Khmer title
+        entry.appearance || "", // Khmer appearance
+        entry.story || "", // Khmer story
+        entry.source || "", // Khmer source
+        entry.place || "", // Khmer place
+      ];
+      
+      if (searchableFields.some(field => field.includes(trimmedQuery))) {
+        matchingIds.add(entry.id);
+      }
+    });
+    
+    // Return entries from current language array that match the found IDs
+    const currentEntries = lang === "en" ? entriesEn : entriesKh;
+    return currentEntries.filter(entry => matchingIds.has(entry.id));
+  };
+
+  // Get filtered entries based on current search query
+  const filteredEntries = filterEntries(searchQuery);
+  
+  // Get current UI text
+  const t = uiText[lang];
+  
+  // Get collection fields based on language
+  const collectionDescription = lang === "kh" ? collection.description_km : collection.description;
+  
+  // Get total entries count for current language
+  const totalEntries = lang === "en" ? entriesEn.length : entriesKh.length;
+
+  return (
+    <main className={styles.wrap}>
+      <div className={styles.metadataGrid}>
+        <div className={`${styles.metadataItem} ${styles.metadataWide}`}>
+          <p className={styles.metadataLabel}>{t.about}</p>
+          <p className={styles.metadataValue} lang={lang === "kh" ? "km" : "en"}>{collectionDescription}</p>
+        </div>
+      </div>
+
+      {/* Search box */}
+      <EntrySearch
+        value={searchQuery}
+        onChange={(e) => setSearchQuery(e.target.value)}
+        onClear={() => setSearchQuery("")}
+        labelText={t.searchEntries}
+        placeholderText={t.searchPlaceholder}
+      />
+
+      {/* Dynamic count based on filtered entries array length */}
+      {!entriesLoading && entries.length > 0 && (
+        <p className={styles.count}>
+          {searchQuery.trim() 
+            ? t.countFound(filteredEntries.length, totalEntries)
+            : t.countTotal(totalEntries)}
+        </p>
+      )}
+
+      {/* Render filtered entries dynamically */}
+      {entriesLoading ? (
+        <StatusBox>
+          <Spinner label="Loading entries..." />
+        </StatusBox>
+      ) : entries.length === 0 ? (
+        <StatusBox>
+          No entries found in the archive.
+        </StatusBox>
+      ) : filteredEntries.length > 0 ? (
+        <div className={`${styles.entriesGrid} grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`}>
+          {filteredEntries.map((entry) => (
+            <a key={entry.id} href={`/entries/${entry.id}`} className={styles.entryItem}>
+              <div className={styles.entryImageContainer}>
+                {entry.media ? (
+                  <img 
+                    src={entry.media} 
+                    alt={entry.title}
+                    className={styles.entryImage}
+                  />
+                ) : (
+                  <div style={{
+                    width: "100%",
+                    height: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "var(--color-border)",
+                    color: "var(--color-text-secondary)",
+                    fontFamily: "var(--font-mono)",
+                    fontSize: "var(--text-xs)",
+                    textTransform: "uppercase",
+                    fontVariantCaps: "small-caps",
+                    letterSpacing: "0.05em"
+                  }}>
+                    No Image
+                  </div>
+                )}
+              </div>
+              <h3 className={styles.entryTitle} lang={lang === "kh" ? "km" : "en"}>{entry.title}</h3>
+            </a>
+          ))}
+        </div>
+      ) : searchQuery.trim() ? (
+        <StatusBox>
+          {t.noResults(searchQuery)}
+        </StatusBox>
+      ) : (
+        // This case shouldn't happen since entries should always exist when loaded
+        <StatusBox>
+          {t.noEntries}
+        </StatusBox>
+      )}
+
+    </main>
+  );
+}

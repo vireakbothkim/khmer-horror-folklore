@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Playfair_Display, Inter, Noto_Sans_Khmer } from "next/font/google";
+import { Playfair_Display, Inter, Noto_Sans_Khmer, Cormorant_Garamond } from "next/font/google";
 import collection from "../collection.config.js";
 import { LanguageProvider } from "../components/LanguageProvider";
 import SiteHeader from "../components/SiteHeader";
@@ -20,6 +20,15 @@ const inter = Inter({
   display: "swap",
 });
 
+// Garamond-style serif for the landing page title (matches the design).
+const garamond = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-garamond",
+  display: "swap",
+});
+
 const notoKhmer = Noto_Sans_Khmer({
   subsets: ["khmer"],
   weight: ["400", "500", "700"],
@@ -34,7 +43,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${playfair.variable} ${inter.variable} ${notoKhmer.variable}`}>
+    <html lang="en" className={`${playfair.variable} ${inter.variable} ${notoKhmer.variable} ${garamond.variable}`}>
       <body
         style={{
           margin: 0,
@@ -42,6 +51,8 @@ export default function RootLayout({ children }) {
           color: "#EDE6D9",
           fontFamily: "var(--font-sans)",
           minHeight: "100vh",
+          display: "flex",
+          flexDirection: "column",
           lineHeight: 1.6,
         }}
       >
@@ -163,7 +174,7 @@ export default function RootLayout({ children }) {
         `}</style>
         <LanguageProvider>
           <SiteHeader />
-          {children}
+          <div className="flex w-full flex-1 flex-col">{children}</div>
           <SiteFooter />
         </LanguageProvider>
       </body>
