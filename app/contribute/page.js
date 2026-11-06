@@ -298,7 +298,7 @@ export default function ContributePage() {
           />
           <button
             type="button"
-            onClick={() => router.push("/")}
+            onClick={() => router.push("/archive")}
             disabled={submitting}
             lang={lang === "kh" ? "km" : "en"}
             className={`mt-6 w-full cursor-pointer border-0 bg-transparent py-3 font-mono uppercase tracking-[0.2em] text-text-primary transition-colors hover:text-accent disabled:cursor-not-allowed disabled:opacity-70 ${lang === "kh" ? "text-lg" : "text-base"}`}

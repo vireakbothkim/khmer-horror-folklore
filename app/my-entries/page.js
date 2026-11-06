@@ -205,6 +205,9 @@ export default function MyEntriesPage() {
 
   return (
     <main className="mx-auto w-full max-w-[1280px] px-6 pb-16 pt-10">
+      <div className="mb-8">
+        <BackToArchiveLink />
+      </div>
       <header className="flex flex-col gap-6 border-b border-border pb-8 md:flex-row md:items-end md:justify-between">
         <div className="min-w-0">
           <p className="m-0 font-mono text-xs font-bold uppercase tracking-[2px] text-accent-text [font-variant-caps:small-caps]">
@@ -275,9 +278,6 @@ export default function MyEntriesPage() {
         </>
       )}
 
-      <div className="mt-12">
-        <BackToArchiveLink />
-      </div>
     </main>
   );
 }

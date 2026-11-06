@@ -72,7 +72,7 @@ export default function LoginPage() {
       if (error) {
         setError("Invalid email or phone number");
       } else {
-        router.push("/");
+        router.push("/archive");
         router.refresh();
       }
     } catch (err) {
