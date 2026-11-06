@@ -5,9 +5,37 @@ import { useRouter } from "next/navigation";
 import { createClient } from "../../lib/supabase-client";
 import StatusBox from "../../components/StatusBox";
 import Spinner from "../../components/Spinner";
+import EntryFieldCards from "../../components/EntryFieldCards";
+import PhotoField from "../../components/PhotoField";
+import AuthSubmitButton from "../../components/AuthSubmitButton";
+import styles from "../auth.module.css";
+import { useLanguage } from "../../components/LanguageProvider";
+
+
 
 export default function ContributePage() {
   const router = useRouter();
+  const { lang } = useLanguage();
+
+  const uiText = {
+    en: {
+      kicker: "CONTRIBUTE",
+      heading: "Contribute an Entry.",
+      intro: "You must be logged in to contribute.",
+      logIn: "Log In",
+      signUp: "Sign Up",
+      note: "Fields marked * are required. Your entry appears in the archive once it has been reviewed and published.",
+    },
+    kh: {
+      kicker: "ការរួមចំណែក",
+      heading: "ដាក់បញ្ចូលធាតុថ្មី។",
+      intro: "ត្រូវចូលគណនីជាមុនសិន ដើម្បីដាក់បញ្ចូលធាតុថ្មីក្នុងបណ្ណសារ។",
+      logIn: "ចូល",
+      signUp: "បង្កើតគណនី",
+      note: "សូមចំណាំ៖ ប្រអប់ដែលមានសញ្ញា * ត្រូវតែបំពេញ។ ធាតុរបស់អ្នកនឹងបង្ហាញក្នុងបណ្ណសារ បន្ទាប់ពីត្រូវបានពិនិត្យ និងផ្សព្វផ្សាយ។",
+    },
+  };
+  const t = uiText[lang];
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
@@ -171,7 +199,7 @@ export default function ContributePage() {
 
   if (loading) {
     return (
-      <main className="mx-auto max-w-[800px] px-5 pb-10">
+      <main className="mx-auto max-w-[var(--container-width)] px-[var(--content-padding)] py-12">
         <StatusBox><Spinner label="Loading..." /></StatusBox>
       </main>
     );
@@ -179,194 +207,81 @@ export default function ContributePage() {
 
   if (!user) {
     return (
-      <div style={{ maxWidth: "600px", margin: "40px auto", padding: "20px" }}>
-        <h1>Contribute</h1>
-        <p>You must be logged in to contribute.</p>
-        <div style={{ marginTop: "20px" }}>
-          <a href="/login" style={{ marginRight: "10px", color: "#972514" }}>Log In</a>
-          <a href="/signup" style={{ color: "#972514" }}>Sign Up</a>
+      <main className="mx-auto max-w-[var(--container-width)] px-[var(--content-padding)] py-12 sm:py-16">
+        <p className={styles.kicker} lang={lang === "kh" ? "km" : "en"}>{t.kicker}</p>
+        <h1 className={styles.heading} lang={lang === "kh" ? "km" : "en"}>{t.heading}</h1>
+        <p className="mb-12 text-base leading-relaxed text-text-secondary" lang={lang === "kh" ? "km" : "en"}>
+          {t.intro}
+        </p>
+        <div className="flex flex-wrap gap-6 text-sm" lang={lang === "kh" ? "km" : "en"}>
+          <a href="/login" className={styles.inlineLink}>{t.logIn}</a>
+          <a href="/signup" className={styles.inlineLink}>{t.signUp}</a>
         </div>
-      </div>
+      </main>
     );
   }
 
   if (submittedSuccess) {
     return (
-      <div style={{ maxWidth: "600px", margin: "40px auto", padding: "20px" }}>
-        <h1>Contribute an Entry</h1>
-        
-        <div style={{ 
-          padding: "20px", 
-          backgroundColor: "#1C2E1C", 
-          color: "#E8EDF2",
-          marginBottom: "30px",
-          borderRadius: "4px",
-          border: "1px solid #2E4A2E"
-        }}>
-          <p style={{ margin: "0 0 15px 0", fontSize: "16px", lineHeight: "1.5" }}>
-            Thank you! Your entry was submitted and is waiting for review. It will appear 
-            in the archive once it is published. You can check its status any time on your My 
+      <main className="mx-auto max-w-[var(--container-width)] px-[var(--content-padding)] py-12 sm:py-16">
+        <p className={styles.kicker}>CONTRIBUTE</p>
+        <h1 className={styles.heading}>Contribute an Entry.</h1>
+        <div className={styles.successMessage}>
+          <p className="m-0 leading-relaxed">
+            Thank you! Your entry was submitted and is waiting for review. It will appear
+            in the archive once it is published. You can check its status any time on your My
             Entries page.
           </p>
-          <p style={{ margin: "0", fontSize: "16px", lineHeight: "1.5" }}>
-            សូមអរគុណ! ធាតុរបស់អ្នកត្រូវបានដាក់ស្នើហើយ និងកំពុងរង់ចាំការពិនិត្យ។ វានឹងបង្ហាញក្នុងបណ្ណសារ 
+          <p lang="km" className="mt-4 mb-0 leading-relaxed">
+            សូមអរគុណ! ធាតុរបស់អ្នកត្រូវបានដាក់ស្នើហើយ និងកំពុងរង់ចាំការពិនិត្យ។ វានឹងបង្ហាញក្នុងបណ្ណសារ
             នៅពេលត្រូវបានផ្សព្វផ្សាយ។ អ្នកអាចពិនិត្យស្ថានភាពរបស់វាបានគ្រប់ពេលនៅទំព័រ "ធាតុរបស់ខ្ញុំ"។
           </p>
-          <div style={{ marginTop: "20px" }}>
-            <a 
-              href="/" 
-              style={{ 
-                padding: "10px 20px", 
-                backgroundColor: "#972514", 
-                color: "#FFFFFF", 
-                textDecoration: "none", 
-                borderRadius: "4px",
-                marginRight: "10px"
-              }}
-            >
-              Back to Archive
-            </a>
-            <a 
-              href="/my-entries" 
-              style={{ 
-                padding: "10px 20px", 
-                backgroundColor: "transparent", 
-                border: "1px solid #2E3644", 
-                color: "#97A1B3", 
-                textDecoration: "none", 
-                borderRadius: "4px" 
-              }}
-            >
-              My Entries
-            </a>
-          </div>
         </div>
-      </div>
+        <div className="mt-8 flex flex-wrap gap-4">
+          <a
+            href="/"
+            className="inline-flex items-center bg-accent px-6 py-4 font-mono text-sm uppercase tracking-[0.2em] text-text-primary transition-colors hover:bg-accent-hover"
+          >
+            Back to Archive
+          </a>
+          <a
+            href="/my-entries"
+            className="inline-flex items-center border border-border px-6 py-4 font-mono text-sm uppercase tracking-[0.2em] text-text-secondary transition-colors hover:border-accent hover:text-accent"
+          >
+            My Entries
+          </a>
+        </div>
+      </main>
     );
   }
 
   return (
-    <div style={{ maxWidth: "600px", margin: "40px auto", padding: "20px" }}>
-      <h1>Contribute an Entry</h1>
-      
-      {error && (
-        <div style={{ 
-          padding: "10px", 
-          backgroundColor: "#2E1C1C", 
-          color: "#E8EDF2",
-          marginBottom: "20px",
-          borderRadius: "4px"
-        }}>
-          {error}
-        </div>
-      )}
-      
+    <main className="mx-auto max-w-[1280px] px-[var(--content-padding)] py-12 sm:py-16">
+      <p className={styles.kicker} lang={lang === "kh" ? "km" : "en"}>{t.kicker}</p>
+      <h1 className={styles.heading} lang={lang === "kh" ? "km" : "en"}>{t.heading}</h1>
+      <p className="mb-12 text-base leading-relaxed text-text-secondary" lang={lang === "kh" ? "km" : "en"}>
+        {t.note}
+      </p>
+
+      {error && <div className={styles.errorMessage}>{error}</div>}
+
       <form onSubmit={handleSubmit}>
-        {[
-          { field: "title_en", label: "Title (English) *", type: "text", placeholder: "Entry title (3-50 characters)" },
-          { field: "title_km", label: "Title (Khmer)", type: "text", placeholder: "ចំណងជើងខ្មែរ (៣-១០០ តួអក្សរ)" },
-          { field: "appearance_en", label: "Appearance (English)", type: "textarea", rows: 4, placeholder: "Describe appearance (10-500 characters if provided)" },
-          { field: "appearance_km", label: "Appearance (Khmer)", type: "textarea", rows: 4, placeholder: "ពណ៌នារូបរាង (១០-១០០០ តួអក្សរ ប្រសិនបើផ្តល់ឱ្យ)" },
-          { field: "story_en", label: "Story (English) *", type: "textarea", rows: 6, placeholder: "Tell the story (50-1000 characters)" },
-          { field: "story_km", label: "Story (Khmer)", type: "textarea", rows: 6, placeholder: "និទានរឿង (៧៥-២០០០ តួអក្សរ ប្រសិនបើផ្តល់ឱ្យ)" },
-          { field: "source_en", label: "Source (English) *", type: "text", placeholder: "Source information (5-200 characters)" },
-          { field: "source_km", label: "Source (Khmer)", type: "text", placeholder: "ប្រភពព័ត៌មាន (១០-៥០០ តួអក្សរ ប្រសិនបើផ្តល់ឱ្យ)" },
-          { field: "place_en", label: "Place (English) *", type: "text", placeholder: "Location information (5-200 characters)" },
-          { field: "place_km", label: "Place (Khmer)", type: "text", placeholder: "ទីកន្លែង (៥-៥០០ តួអក្សរ ប្រសិនបើផ្តល់ឱ្យ)" }
-        ].map(({ field, label, type, placeholder, rows = 4 }) => (
-          <div key={field} style={{ marginBottom: "20px" }}>
-            <label style={{ display: "block", marginBottom: "5px" }}>{label}</label>
-            {type === "textarea" ? (
-              <textarea
-                value={formData[field]}
-                onChange={handleInputChange(field)}
-                rows={rows}
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  border: `1px solid ${fieldErrors[field] ? "#972514" : "#2E3644"}`,
-                  borderRadius: "4px",
-                  backgroundColor: "#14181F",
-                  color: "#FFFFFF"
-                }}
-                placeholder={placeholder}
-              />
-            ) : (
-              <input
-                type="text"
-                value={formData[field]}
-                onChange={handleInputChange(field)}
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  border: `1px solid ${fieldErrors[field] ? "#972514" : "#2E3644"}`,
-                  borderRadius: "4px",
-                  backgroundColor: "#14181F",
-                  color: "#FFFFFF"
-                }}
-                placeholder={placeholder}
-              />
-            )}
-            {fieldErrors[field] && (
-              <p style={{ color: "#972514", fontSize: "12px", marginTop: "5px" }}>
-                {fieldErrors[field]}
-              </p>
-            )}
-          </div>
-        ))}
-        
-        <div style={{ marginBottom: "20px" }}>
-          <label style={{ display: "block", marginBottom: "5px" }}>Photo</label>
-          <input
-            type="file"
-            accept=".jpg,.jpeg,.png,.webp"
-            onChange={handleFileChange}
-            style={{
-              width: "100%",
-              padding: "10px",
-              border: "1px solid #2E3644",
-              borderRadius: "4px",
-              backgroundColor: "#14181F",
-              color: "#FFFFFF"
-            }}
-          />
-          <small style={{ color: "#5A6373", display: "block", marginTop: "5px" }}>
-            Optional. JPG, PNG, or WebP. Max 5MB.
-          </small>
-        </div>
-        
-        <div style={{ display: "flex", gap: "10px", marginTop: "30px" }}>
+        <EntryFieldCards formData={formData} fieldErrors={fieldErrors} onChange={handleInputChange} />
+
+        <PhotoField hint="Optional. JPG, PNG, or WebP. Max 5MB." onChange={handleFileChange} />
+
+        <div className="mx-auto max-w-[480px]">
+          <AuthSubmitButton label={submitting ? "Submitting..." : "Submit Entry"} disabled={submitting} />
           <button
             type="button"
             onClick={() => router.push("/")}
             disabled={submitting}
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "transparent",
-              border: "1px solid #2E3644",
-              borderRadius: "4px",
-              color: "#97A1B3",
-              cursor: "pointer"
-            }}
+            className="mt-6 w-full cursor-pointer border-0 bg-transparent py-3 font-mono text-xs uppercase tracking-[0.2em] text-text-secondary transition-colors hover:text-accent disabled:cursor-not-allowed disabled:opacity-70"
           >
             Cancel
           </button>
-          <button
-            type="submit"
-            disabled={submitting}
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "#972514",
-              border: "none",
-              borderRadius: "4px",
-              color: "#FFFFFF",
-              cursor: "pointer"
-            }}
-          >
-            {submitting ? "Submitting..." : "Submit Entry"}
-          </button>
         </div>
       </form>
-    </div>
+    </main>
   );
 }

@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { createClient } from "../../../lib/supabase-client";
 import EntryCard from "../../../components/EntryCard";
 import StatusBox from "../../../components/StatusBox";
+import OwnerActions from "../../../components/OwnerActions";
 import Spinner from "../../../components/Spinner";
 import { useLanguage } from "../../../components/LanguageProvider";
 
@@ -159,54 +160,10 @@ export default function EntryPage() {
       </div>
       {/* Owner actions */}
       {isOwner && (
-        <div style={{
-          marginBottom: "30px",
-          padding: "20px",
-          border: "1px solid #2E3644",
-          borderRadius: "4px",
-          backgroundColor: "#14181F"
-        }}>
-          <h2 style={{
-            fontSize: "14px",
-            margin: "0 0 15px 0",
-            color: "#97A1B3",
-            textTransform: "uppercase"
-          }}>
-            Entry Management
-          </h2>
-          <div style={{ display: "flex", gap: "10px" }}>
-            <button
-              onClick={() => router.push(`/entries/${entryId}/edit`)}
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#2E3644",
-                border: "none",
-                borderRadius: "4px",
-                color: "#FFFFFF",
-                cursor: "pointer",
-                fontFamily: "var(--font-sans)",
-                fontSize: "12px"
-              }}
-            >
-              Edit Entry
-            </button>
-            <button
-              onClick={handleDelete}
-              style={{
-                padding: "10px 20px",
-                backgroundColor: "#972514",
-                border: "none",
-                borderRadius: "4px",
-                color: "#FFFFFF",
-                cursor: "pointer",
-                fontFamily: "var(--font-sans)",
-                fontSize: "12px"
-              }}
-            >
-              Delete Entry
-            </button>
-          </div>
-        </div>
+        <OwnerActions
+          onEdit={() => router.push(`/entries/${entryId}/edit`)}
+          onDelete={handleDelete}
+        />
       )}
       
       {/* Pending notice for owner */}

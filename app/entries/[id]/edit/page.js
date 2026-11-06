@@ -5,6 +5,9 @@ import { useRouter, useParams } from "next/navigation";
 import { createClient } from "../../../../lib/supabase-client";
 import StatusBox from "../../../../components/StatusBox";
 import Spinner from "../../../../components/Spinner";
+import AuthSubmitButton from "../../../../components/AuthSubmitButton";
+import EntryFieldCards from "../../../../components/EntryFieldCards";
+import PhotoField from "../../../../components/PhotoField";
 
 export default function EditEntryPage() {
   const router = useRouter();
@@ -286,7 +289,7 @@ export default function EditEntryPage() {
 
   return (
     <div style={{
-      maxWidth: "800px",
+      maxWidth: "1280px",
       margin: "0 auto",
       padding: "40px 20px",
       color: "#FFFFFF",
@@ -336,121 +339,33 @@ export default function EditEntryPage() {
       )}
       
       <form onSubmit={handleSubmit}>
-        {[
-          { field: "title_en", label: "Title (English) *", type: "text", placeholder: "Entry title in English (3-50 characters)" },
-          { field: "title_km", label: "Title (Khmer)", type: "text", placeholder: "ចំណងជើងជាភាសាខ្មែរ (៣+១០០ តួអក្សរ ប្រសិនបើផ្តល់ឱ្យ)" },
-          { field: "appearance_en", label: "Appearance (English)", type: "textarea", placeholder: "Description of appearance (10-500 characters if provided)" },
-          { field: "appearance_km", label: "Appearance (Khmer)", type: "textarea", placeholder: "ការពិពណ៌នាអំពីរូបរាង (១០+១០០០ តួអក្សរ ប្រសិនបើផ្តល់ឱ្យ)" },
-          { field: "story_en", label: "Story (English) *", type: "textarea", placeholder: "The story or background (50-1000 characters)" },
-          { field: "story_km", label: "Story (Khmer)", type: "textarea", placeholder: "រឿងរ៉ាវ (៧៥+២០០០ តួអក្សរ ប្រសិនបើផ្តល់ឱ្យ)" },
-          { field: "source_en", label: "Source (English) *", type: "textarea", placeholder: "Where this information comes from (5-200 characters)" },
-          { field: "source_km", label: "Source (Khmer)", type: "textarea", placeholder: "ប្រភពព័ត៌មាន (១០+៥០០ តួអក្សរ ប្រសិនបើផ្តល់ឱ្យ)" },
-          { field: "place_en", label: "Place (English) *", type: "text", placeholder: "Location information (5-200 characters)" },
-          { field: "place_km", label: "Place (Khmer)", type: "text", placeholder: "ទីកន្លែង (៥-៥០០ តួអក្សរ ប្រសិនបើផ្តល់ឱ្យ)" }
-        ].map(({ field, label, type, placeholder, rows = 4 }) => (
-          <div key={field} style={{ marginBottom: "20px" }}>
-            <label style={{ display: "block", marginBottom: "5px" }}>{label}</label>
-            {type === "textarea" ? (
-              <textarea
-                value={formData[field]}
-                onChange={handleInputChange(field)}
-                rows={rows}
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  border: `1px solid ${fieldErrors[field] ? "#972514" : "#2E3644"}`,
-                  borderRadius: "4px",
-                  backgroundColor: "#14181F",
-                  color: "#FFFFFF"
-                }}
-                placeholder={placeholder}
-              />
-            ) : (
-              <input
-                type="text"
-                value={formData[field]}
-                onChange={handleInputChange(field)}
-                style={{
-                  width: "100%",
-                  padding: "10px",
-                  border: `1px solid ${fieldErrors[field] ? "#972514" : "#2E3644"}`,
-                  borderRadius: "4px",
-                  backgroundColor: "#14181F",
-                  color: "#FFFFFF"
-                }}
-                placeholder={placeholder}
-              />
-            )}
-            {fieldErrors[field] && (
-              <p style={{ color: "#972514", fontSize: "12px", marginTop: "5px" }}>
-                {fieldErrors[field]}
-              </p>
-            )}
-          </div>
-        ))}
-        
-        <div style={{ marginBottom: "20px" }}>
-          <label style={{ display: "block", marginBottom: "5px" }}>Photo</label>
-          <input
-            type="file"
-            accept=".jpg,.jpeg,.png,.webp"
-            onChange={handleFileChange}
-            style={{
-              width: "100%",
-              padding: "10px",
-              border: "1px solid #2E3644",
-              borderRadius: "4px",
-              backgroundColor: "#14181F",
-              color: "#FFFFFF"
-            }}
-          />
-          <small style={{ color: "#5A6373", display: "block", marginTop: "5px" }}>
-            JPG, PNG, or WebP. Max 5MB. Leave empty to keep current photo.
-          </small>
-          
+        <EntryFieldCards formData={formData} fieldErrors={fieldErrors} onChange={handleInputChange} />
+
+        <PhotoField
+          hint="JPG, PNG, or WebP. Max 5MB. Leave empty to keep current photo."
+          onChange={handleFileChange}
+        >
           {existingPhoto && !photo && (
-            <div style={{ marginTop: "10px" }}>
-              <p style={{ color: "#97A1B3", fontSize: "12px", marginBottom: "5px" }}>
-                Current photo:
-              </p>
+            <div className="mt-6">
+              <p className="mb-2 text-xs text-text-secondary">Current photo:</p>
               <img
                 src={existingPhoto}
                 alt="Current entry photo"
-                style={{ maxWidth: "200px", height: "auto" }}
+                className="mx-auto h-auto max-h-48 w-auto max-w-full"
               />
             </div>
           )}
-        </div>
-        
-        <div style={{ display: "flex", gap: "10px", marginTop: "30px" }}>
+        </PhotoField>
+
+        <div className="mx-auto max-w-[480px]">
+          <AuthSubmitButton label={submitting ? "Updating..." : "Update Entry"} disabled={submitting} />
           <button
             type="button"
             onClick={() => router.push(`/entries/${entryId}`)}
             disabled={submitting}
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "transparent",
-              border: "1px solid #2E3644",
-              borderRadius: "4px",
-              color: "#97A1B3",
-              cursor: "pointer"
-            }}
+            className="mt-6 w-full cursor-pointer border-0 bg-transparent py-3 font-mono text-xs uppercase tracking-[0.2em] text-text-secondary transition-colors hover:text-accent disabled:cursor-not-allowed disabled:opacity-70"
           >
             Cancel
-          </button>
-          <button
-            type="submit"
-            disabled={submitting}
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "#972514",
-              border: "none",
-              borderRadius: "4px",
-              color: "#FFFFFF",
-              cursor: "pointer"
-            }}
-          >
-            {submitting ? "Updating..." : "Update Entry"}
           </button>
         </div>
       </form>
