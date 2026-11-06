@@ -49,7 +49,7 @@ export default function SiteHeader() {
       }`}
     >
       <div className="mx-auto flex max-w-[1280px] items-start justify-between gap-4 px-6 py-4">
-        <a href="/" className="min-w-0">
+        <a href="/archive" className="min-w-0">
           <p
             lang={lang}
             className="m-0 font-mono text-xs font-bold uppercase tracking-[2px] text-accent-text [font-variant-caps:small-caps]"

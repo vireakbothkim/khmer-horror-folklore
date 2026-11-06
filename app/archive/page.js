@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import collection from "../../collection.config.js";
 import EntrySearch from "../../components/EntrySearch";
 import styles from "../page.module.css";
 import { createClient } from "../../lib/supabase-client";
@@ -12,7 +11,6 @@ import Spinner from "../../components/Spinner";
 const uiText = {
   en: {
     kicker: "KHMER LIVING ARCHIVE",
-    about: "ABOUT THIS ARCHIVE",
     searchEntries: "SEARCH ENTRIES",
     searchPlaceholder: "Search by title or description...",
     countFound: (found, total) => `found ${found} of ${total} entries`,
@@ -23,7 +21,6 @@ const uiText = {
   },
   kh: {
     kicker: "បណ្ណសាររស់របស់ខ្មែរ",
-    about: "អំពីបណ្ណសារនេះ",
     searchEntries: "ស្វែងរកធាតុ",
     searchPlaceholder: "ស្វែងរកតាមចំណងជើង ឬការពិពណ៌នា...",
     countFound: (found, total) => `រកឃើញ ${found} នៃ ${total} ធាតុ`,
@@ -150,21 +147,11 @@ export default function Home() {
   // Get current UI text
   const t = uiText[lang];
   
-  // Get collection fields based on language
-  const collectionDescription = lang === "kh" ? collection.description_km : collection.description;
-  
   // Get total entries count for current language
   const totalEntries = lang === "en" ? entriesEn.length : entriesKh.length;
 
   return (
     <main className={styles.wrap}>
-      <div className={styles.metadataGrid}>
-        <div className={`${styles.metadataItem} ${styles.metadataWide}`}>
-          <p className={styles.metadataLabel}>{t.about}</p>
-          <p className={styles.metadataValue} lang={lang === "kh" ? "km" : "en"}>{collectionDescription}</p>
-        </div>
-      </div>
-
       {/* Search box */}
       <EntrySearch
         value={searchQuery}
@@ -193,7 +180,7 @@ export default function Home() {
           No entries found in the archive.
         </StatusBox>
       ) : filteredEntries.length > 0 ? (
-        <div className={`${styles.entriesGrid} grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4`}>
+        <div className={`${styles.entriesGrid} grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4`}>
           {filteredEntries.map((entry) => (
             <a key={entry.id} href={`/entries/${entry.id}`} className={styles.entryItem}>
               <div className={styles.entryImageContainer}>

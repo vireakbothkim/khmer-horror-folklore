@@ -10,6 +10,7 @@ import BackToArchiveLink from "../../components/BackToArchiveLink";
 import MyEntriesStats from "../../components/MyEntriesStats";
 import MyEntryCard from "../../components/MyEntryCard";
 import StatusFilter from "../../components/StatusFilter";
+import EntrySearch from "../../components/EntrySearch";
 
 export default function MyEntriesPage() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function MyEntriesPage() {
   const [entries, setEntries] = useState([]);
   const [error, setError] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Status translations
   const statusText = {
@@ -57,7 +59,10 @@ export default function MyEntriesPage() {
       deleteFailed: "Failed to delete entry. Please try again.",
       filterLabel: "Filter by status",
       allStatuses: "All statuses",
-      noMatch: "No entries with this status."
+      noMatch: "No entries with this status.",
+      searchEntries: "SEARCH ENTRIES",
+      searchPlaceholder: "Search by title or description...",
+      noResults: (query) => `No results found for "${query}"`
     },
     kh: {
       kicker: "ផ្ទាំងអ្នករួមចំណែក",
@@ -80,7 +85,10 @@ export default function MyEntriesPage() {
       deleteFailed: "បរាជ័យក្នុងការលុបធាតុ។ សូមព្យាយាមម្តងទៀត។",
       filterLabel: "ត្រងតាមស្ថានភាព",
       allStatuses: "ស្ថានភាពទាំងអស់",
-      noMatch: "គ្មានធាតុដែលមានស្ថានភាពនេះទេ។"
+      noMatch: "គ្មានធាតុដែលមានស្ថានភាពនេះទេ។",
+      searchEntries: "ស្វែងរកធាតុ",
+      searchPlaceholder: "ស្វែងរកតាមចំណងជើង ឬការពិពណ៌នា...",
+      noResults: (query) => `គ្មានលទ្ធផលសម្រាប់ "${query}"`
     }
   };
 
@@ -199,9 +207,21 @@ export default function MyEntriesPage() {
     { label: t.returned, value: countBy("returned") }
   ];
 
-  // Cards shown after the status filter. Stats above always use all entries.
-  const visibleEntries =
-    statusFilter === "all" ? entries : entries.filter((entry) => entry.status === statusFilter);
+  // Cards shown after the status filter and search. Stats above always use all entries.
+  // Search checks both English and Khmer fields, the same as /archive.
+  const query = searchQuery.trim().toLowerCase();
+  const matchesSearch = (entry) =>
+    !query ||
+    [
+      entry.title_en, entry.title_km,
+      entry.appearance_en, entry.appearance_km,
+      entry.story_en, entry.story_km,
+      entry.source_en, entry.source_km,
+      entry.place_en, entry.place_km
+    ].some((field) => (field || "").toLowerCase().includes(query));
+  const visibleEntries = entries
+    .filter((entry) => statusFilter === "all" || entry.status === statusFilter)
+    .filter(matchesSearch);
 
   return (
     <main className="mx-auto w-full max-w-[1280px] px-6 pb-16 pt-10">
@@ -236,7 +256,16 @@ export default function MyEntriesPage() {
         <>
           <MyEntriesStats items={stats} langTag={langTag} />
 
-          <div className="mt-10 flex justify-end">
+          <div className="mt-10 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+            <div className="min-w-0 flex-1">
+              <EntrySearch
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onClear={() => setSearchQuery("")}
+                labelText={t.searchEntries}
+                placeholderText={t.searchPlaceholder}
+              />
+            </div>
             <StatusFilter
               label={t.filterLabel}
               value={statusFilter}
@@ -253,7 +282,7 @@ export default function MyEntriesPage() {
 
           {visibleEntries.length === 0 ? (
             <StatusBox className="mt-6">
-              <p lang={langTag} className="mb-0">{t.noMatch}</p>
+              <p lang={langTag} className="mb-0">{query ? t.noResults(searchQuery.trim()) : t.noMatch}</p>
             </StatusBox>
           ) : (
             <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">

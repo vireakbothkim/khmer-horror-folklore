@@ -69,7 +69,7 @@
 /* Entry grid styles */
 /* Column count is set with Tailwind classes in app/page.js */
 .entriesGrid {
-  margin-top: var(--space-2xl);
+  margin-top: var(--space-md);
   display: grid;
   gap: var(--space-xl);
 }
@@ -131,7 +131,7 @@
   font-family: var(--font-mono);
   font-size: var(--text-sm);
   color: var(--color-accent-text);
-  margin-top: var(--space-2xl);
+  margin-top: var(--space-md);
   text-transform: uppercase;
   font-variant-caps: small-caps;
   letter-spacing: 0.05em;
@@ -139,17 +139,18 @@
 
 
 .searchContainer {
-  margin-top: var(--space-2xl);
+  margin-top: 0;
   position: relative;
 }
 
 .searchBox {
   margin-top: 0;
-  padding: var(--space-md) var(--space-lg);
+  height: 2.75rem; /* 44px, same height as the status filter on /my-entries */
+  padding: 0 var(--space-lg);
   padding-right: calc(var(--space-xl) + var(--space-md)); /* Space for clear button */
   font-size: var(--text-base);
   background-color: transparent;
-  border: 1px solid var(--color-border);
+  border: 1px solid #EDE6D9; /* Same bright outline as the status filter's "all" color */
   border-radius: var(--radius-md);
   color: var(--color-text-primary);
   width: 100%;
