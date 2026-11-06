@@ -46,7 +46,7 @@ export default function MobileMenu({ children, label }) {
         aria-expanded={open}
         aria-controls="site-menu-panel"
         aria-label={label}
-        className="sm:hidden mt-1 cursor-pointer rounded-sm border border-border bg-transparent px-3 py-1 font-mono text-xs uppercase tracking-wider text-text-secondary hover:border-accent hover:text-accent"
+        className="sm:hidden flex h-9 w-11 cursor-pointer items-center justify-center rounded border border-border bg-transparent font-mono text-base text-text-primary hover:border-accent hover:text-accent"
       >
         ☰
       </button>

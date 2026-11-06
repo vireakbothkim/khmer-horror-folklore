@@ -26,7 +26,7 @@ export default function EntryCard({ entry, isLoading = false, error = null, lang
       source: "ប្រភព",
       place: (title) => `កន្លែងដែល${title || ""}រស់នៅ`,
       contributor: "អ្នករួមចំណែក",
-      media: "មេឌៀ",
+      media: "រូបភាព",
     },
   };
 

@@ -67,7 +67,7 @@ export default function SiteHeader() {
           <button
             type="button"
             onClick={toggleLang}
-            className="sm:order-last cursor-pointer rounded border border-border bg-transparent px-3 py-1 font-mono text-xs uppercase tracking-wider text-text-primary transition-colors hover:border-accent hover:text-accent sm:px-5 sm:py-2.5 sm:text-sm"
+            className="sm:order-last flex h-9 cursor-pointer items-center rounded border border-border bg-transparent px-3 font-mono text-xs uppercase tracking-wider text-text-primary transition-colors hover:border-accent hover:text-accent sm:h-11 sm:px-5 sm:text-sm"
           >
             {lang === "en" ? "ភាសាខ្មែរ" : "English"}
           </button>
