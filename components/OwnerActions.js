@@ -8,18 +8,38 @@ const editClass =
 const deleteClass =
   "cursor-pointer whitespace-nowrap rounded border border-accent bg-accent px-3 py-1 font-mono text-xs uppercase tracking-wider text-text-primary transition-colors hover:border-accent-hover hover:bg-accent-hover sm:px-5 sm:py-2.5 sm:text-sm";
 
-export default function OwnerActions({ onEdit, onDelete }) {
+// Labels for each language. Khmer is shown when lang is "kh".
+const labels = {
+  en: {
+    title: "Entry Management",
+    edit: "Edit Entry",
+    remove: "Delete Entry",
+  },
+  kh: {
+    title: "ការគ្រប់គ្រងធាតុ",
+    edit: "កែសម្រួលធាតុ",
+    remove: "លុបធាតុ",
+  },
+};
+
+export default function OwnerActions({ onEdit, onDelete, lang = "en" }) {
+  const t = labels[lang] || labels.en;
+  const isKhmer = lang === "kh";
+
   return (
     <section className="mb-6">
-      <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-text-secondary">
-        Entry Management
+      <p
+        lang={isKhmer ? "km" : "en"}
+        className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-text-secondary"
+      >
+        {t.title}
       </p>
       <div className="flex flex-wrap gap-3">
         <button type="button" onClick={onEdit} className={editClass}>
-          Edit Entry
+          {t.edit}
         </button>
         <button type="button" onClick={onDelete} className={deleteClass}>
-          Delete Entry
+          {t.remove}
         </button>
       </div>
     </section>

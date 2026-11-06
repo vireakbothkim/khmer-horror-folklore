@@ -1,13 +1,14 @@
-// Full-width red submit button with an arrow, used on login and signup.
+// Full-width red submit button with an arrow, used on login, signup, and forms.
 // The arrow is an inline SVG, so no icon package is needed.
-export default function AuthSubmitButton({ label, disabled = false }) {
+// lang sets the label's language ("km" for Khmer). Defaults to English.
+export default function AuthSubmitButton({ label, disabled = false, lang = "en" }) {
   return (
     <button
       type="submit"
       disabled={disabled}
       className="mt-4 flex w-full cursor-pointer items-center justify-between border-0 bg-accent px-6 py-4 font-sans text-sm uppercase tracking-[0.2em] text-text-primary transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-70"
     >
-      <span>{label}</span>
+      <span lang={lang}>{label}</span>
       <svg
         aria-hidden="true"
         width="20"

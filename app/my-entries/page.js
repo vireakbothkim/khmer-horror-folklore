@@ -6,6 +6,7 @@ import { createClient } from "../../lib/supabase-client";
 import { useLanguage } from "../../components/LanguageProvider";
 import StatusBox from "../../components/StatusBox";
 import Spinner from "../../components/Spinner";
+import BackToArchiveLink from "../../components/BackToArchiveLink";
 
 export default function MyEntriesPage() {
   const router = useRouter();
@@ -35,7 +36,6 @@ export default function MyEntriesPage() {
       pageTitle: "My Entries",
       noEntries: "You haven't submitted any entries yet.",
       contribute: "Contribute an entry",
-      back: "Back to Archive",
       title: "Title",
       status: "Status",
       actions: "Actions",
@@ -47,7 +47,6 @@ export default function MyEntriesPage() {
       pageTitle: "ធាតុរបស់ខ្ញុំ",
       noEntries: "អ្នកមិនទាន់បានដាក់ស្នើធាតុណាមួយទេ។",
       contribute: "ចូលរួមធាតុ",
-      back: "ត្រឡប់ទៅបណ្ណសារវិញ",
       title: "ចំណងជើង",
       status: "ស្ថានភាព",
       actions: "សកម្មភាព",
@@ -116,19 +115,7 @@ export default function MyEntriesPage() {
       <div style={{ maxWidth: "800px", margin: "40px auto", padding: "20px" }}>
         <h1>Error</h1>
         <p>{error}</p>
-        <button 
-          onClick={() => router.push("/")}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "var(--color-accent)",
-            border: "none",
-            borderRadius: "4px",
-            color: "var(--color-text-primary)",
-            cursor: "pointer"
-          }}
-        >
-          Back to Archive
-        </button>
+        <BackToArchiveLink />
       </div>
     );
   }
@@ -262,21 +249,7 @@ export default function MyEntriesPage() {
       )}
 
       <div style={{ marginTop: "40px" }}>
-        <a
-          href="/"
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "transparent",
-            border: "1px solid var(--color-border)",
-            borderRadius: "4px",
-            color: "var(--color-text-secondary)",
-            textDecoration: "none",
-            fontFamily: "var(--font-mono)",
-            fontSize: "var(--text-sm)"
-          }}
-        >
-          {t.back}
-        </a>
+        <BackToArchiveLink />
       </div>
     </div>
   );

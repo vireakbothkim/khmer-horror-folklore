@@ -6,6 +6,7 @@ import { createClient } from "../../../lib/supabase-client";
 import EntryCard from "../../../components/EntryCard";
 import StatusBox from "../../../components/StatusBox";
 import OwnerActions from "../../../components/OwnerActions";
+import BackToArchiveLink from "../../../components/BackToArchiveLink";
 import Spinner from "../../../components/Spinner";
 import { useLanguage } from "../../../components/LanguageProvider";
 
@@ -137,12 +138,7 @@ export default function EntryPage() {
         <StatusBox>
           <h1 className="mb-5 text-2xl">Entry Not Found</h1>
           <p className="mb-5">{error || "The entry you're looking for doesn't exist."}</p>
-          <button
-            onClick={() => router.push("/")}
-            className="cursor-pointer rounded bg-accent px-5 py-2.5 text-text-primary hover:bg-accent-hover"
-          >
-            Back to Archive
-          </button>
+          <BackToArchiveLink />
         </StatusBox>
       </main>
     );
@@ -151,18 +147,14 @@ export default function EntryPage() {
   return (
     <main className="mx-auto max-w-[1280px] px-[var(--content-padding)] pb-0">
       <div className="mb-8">
-        <button
-          onClick={() => router.push("/")}
-          className="cursor-pointer rounded border border-border px-4 py-2.5 font-sans text-sm text-text-secondary hover:border-accent hover:bg-accent hover:text-text-primary"
-        >
-          Back to Archive
-        </button>
+        <BackToArchiveLink />
       </div>
       {/* Owner actions */}
       {isOwner && (
         <OwnerActions
           onEdit={() => router.push(`/entries/${entryId}/edit`)}
           onDelete={handleDelete}
+          lang={lang}
         />
       )}
       

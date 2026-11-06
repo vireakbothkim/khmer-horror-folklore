@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "../../lib/supabase-server.js";
 import ReviewList from "../../components/ReviewList.js";
+import BackToArchiveLink from "../../components/BackToArchiveLink";
 
 export const dynamic = "force-dynamic";
 
@@ -43,22 +44,7 @@ export default async function ReviewPage() {
             This page is for reviewers only.
           </p>
         </div>
-        <a
-          href="/"
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "transparent",
-            border: "1px solid var(--color-border)",
-            borderRadius: "var(--radius-md)",
-            color: "var(--color-text-secondary)",
-            textDecoration: "none",
-            fontFamily: "var(--font-mono)",
-            fontSize: "var(--text-sm)",
-            display: "inline-block"
-          }}
-        >
-          Back to Archive
-        </a>
+        <BackToArchiveLink />
       </div>
     );
   }
@@ -101,22 +87,7 @@ export default async function ReviewPage() {
             Couldn't load the queue. Please reload the page.
           </p>
         </div>
-        <a
-          href="/"
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "transparent",
-            border: "1px solid var(--color-border)",
-            borderRadius: "var(--radius-md)",
-            color: "var(--color-text-secondary)",
-            textDecoration: "none",
-            fontFamily: "var(--font-mono)",
-            fontSize: "var(--text-sm)",
-            display: "inline-block"
-          }}
-        >
-          Back to Archive
-        </a>
+        <BackToArchiveLink />
       </div>
     );
   }
@@ -137,22 +108,7 @@ export default async function ReviewPage() {
             Nothing is waiting for review.
           </p>
         </div>
-        <a
-          href="/"
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "transparent",
-            border: "1px solid var(--color-border)",
-            borderRadius: "var(--radius-md)",
-            color: "var(--color-text-secondary)",
-            textDecoration: "none",
-            fontFamily: "var(--font-mono)",
-            fontSize: "var(--text-sm)",
-            display: "inline-block"
-          }}
-        >
-          Back to Archive
-        </a>
+        <BackToArchiveLink />
       </div>
     );
   }

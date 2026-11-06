@@ -8,6 +8,7 @@ import Spinner from "../../components/Spinner";
 import EntryFieldCards from "../../components/EntryFieldCards";
 import PhotoField from "../../components/PhotoField";
 import AuthSubmitButton from "../../components/AuthSubmitButton";
+import BackToArchiveLink from "../../components/BackToArchiveLink";
 import styles from "../auth.module.css";
 import { useLanguage } from "../../components/LanguageProvider";
 
@@ -25,6 +26,11 @@ export default function ContributePage() {
       logIn: "Log In",
       signUp: "Sign Up",
       note: "Fields marked * are required. Your entry appears in the archive once it has been reviewed and published.",
+      photo: "Photo",
+      photoHint: "Optional. JPG, PNG, or WebP. Max 5MB.",
+      submit: "Submit Entry",
+      submitting: "Submitting...",
+      cancel: "Cancel",
     },
     kh: {
       kicker: "ការរួមចំណែក",
@@ -33,6 +39,11 @@ export default function ContributePage() {
       logIn: "ចូល",
       signUp: "បង្កើតគណនី",
       note: "សូមចំណាំ៖ ប្រអប់ដែលមានសញ្ញា * ត្រូវតែបំពេញ។ ធាតុរបស់អ្នកនឹងបង្ហាញក្នុងបណ្ណសារ បន្ទាប់ពីត្រូវបានពិនិត្យ និងផ្សព្វផ្សាយ។",
+      photo: "រូបថត",
+      photoHint: "ស្រេចតាមចិត្ត។ JPG, PNG, ឬ WebP។ ទំហំអតិបរមា 5MB។",
+      submit: "ដាក់ស្នើធាតុ",
+      submitting: "កំពុងដាក់ស្នើ...",
+      cancel: "បោះបង់",
     },
   };
   const t = uiText[lang];
@@ -238,12 +249,7 @@ export default function ContributePage() {
           </p>
         </div>
         <div className="mt-8 flex flex-wrap gap-4">
-          <a
-            href="/"
-            className="inline-flex items-center bg-accent px-6 py-4 font-mono text-sm uppercase tracking-[0.2em] text-text-primary transition-colors hover:bg-accent-hover"
-          >
-            Back to Archive
-          </a>
+          <BackToArchiveLink />
           <a
             href="/my-entries"
             className="inline-flex items-center border border-border px-6 py-4 font-mono text-sm uppercase tracking-[0.2em] text-text-secondary transition-colors hover:border-accent hover:text-accent"
@@ -268,17 +274,27 @@ export default function ContributePage() {
       <form onSubmit={handleSubmit}>
         <EntryFieldCards formData={formData} fieldErrors={fieldErrors} onChange={handleInputChange} />
 
-        <PhotoField hint="Optional. JPG, PNG, or WebP. Max 5MB." onChange={handleFileChange} />
+        <PhotoField
+          label={t.photo}
+          lang={lang === "kh" ? "km" : "en"}
+          hint={t.photoHint}
+          onChange={handleFileChange}
+        />
 
         <div className="mx-auto max-w-[480px]">
-          <AuthSubmitButton label={submitting ? "Submitting..." : "Submit Entry"} disabled={submitting} />
+          <AuthSubmitButton
+            label={submitting ? t.submitting : t.submit}
+            disabled={submitting}
+            lang={lang === "kh" ? "km" : "en"}
+          />
           <button
             type="button"
             onClick={() => router.push("/")}
             disabled={submitting}
-            className="mt-6 w-full cursor-pointer border-0 bg-transparent py-3 font-mono text-xs uppercase tracking-[0.2em] text-text-secondary transition-colors hover:text-accent disabled:cursor-not-allowed disabled:opacity-70"
+            lang={lang === "kh" ? "km" : "en"}
+            className={`mt-6 w-full cursor-pointer border-0 bg-transparent py-3 font-mono uppercase tracking-[0.2em] text-text-primary transition-colors hover:text-accent disabled:cursor-not-allowed disabled:opacity-70 ${lang === "kh" ? "text-lg" : "text-base"}`}
           >
-            Cancel
+            {t.cancel}
           </button>
         </div>
       </form>

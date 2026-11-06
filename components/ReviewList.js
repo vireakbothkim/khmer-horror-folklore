@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createClient } from "../lib/supabase-client.js";
 import ReturnNotesModal from "./ReturnNotesModal.js";
+import BackToArchiveLink from "./BackToArchiveLink";
 
 export default function ReviewList({ entries: initialEntries }) {
   const [entries, setEntries] = useState(initialEntries);
@@ -82,22 +83,7 @@ export default function ReviewList({ entries: initialEntries }) {
         <p style={{ marginBottom: "8px", fontSize: "var(--text-base)" }}>
           Nothing is waiting for review.
         </p>
-        <a
-          href="/"
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "transparent",
-            border: "1px solid var(--color-border)",
-            borderRadius: "var(--radius-md)",
-            color: "var(--color-text-secondary)",
-            textDecoration: "none",
-            fontFamily: "var(--font-mono)",
-            fontSize: "var(--text-sm)",
-            display: "inline-block"
-          }}
-        >
-          Back to Archive
-        </a>
+        <BackToArchiveLink />
       </div>
     );
   }
@@ -188,12 +174,13 @@ export default function ReviewList({ entries: initialEntries }) {
               }}>
                 Story
               </h3>
-              <div style={{ whiteSpace: "pre-wrap", fontSize: "var(--text-base)", lineHeight: "1.6" }}>
+              <div style={{ whiteSpace: "pre-wrap", overflowWrap: "anywhere", fontSize: "var(--text-base)", lineHeight: "1.6" }}>
                 {entry.story_en || "No story provided"}
               </div>
               {entry.story_km && (
                 <div style={{
                   whiteSpace: "pre-wrap",
+                  overflowWrap: "anywhere",
                   fontSize: "var(--text-base)",
                   lineHeight: "1.6",
                   color: "var(--color-text-secondary)",

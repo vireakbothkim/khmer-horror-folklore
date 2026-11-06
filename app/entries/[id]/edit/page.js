@@ -8,6 +8,7 @@ import Spinner from "../../../../components/Spinner";
 import AuthSubmitButton from "../../../../components/AuthSubmitButton";
 import EntryFieldCards from "../../../../components/EntryFieldCards";
 import PhotoField from "../../../../components/PhotoField";
+import BackToArchiveLink from "../../../../components/BackToArchiveLink";
 
 export default function EditEntryPage() {
   const router = useRouter();
@@ -269,20 +270,7 @@ export default function EditEntryPage() {
       }}>
         <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>Error</h1>
         <p style={{ marginBottom: "20px" }}>{error}</p>
-        <button
-          onClick={() => router.push("/")}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#972514",
-            border: "none",
-            borderRadius: "4px",
-            color: "#FFFFFF",
-            cursor: "pointer",
-            fontFamily: "var(--font-sans)"
-          }}
-        >
-          Back to Archive
-        </button>
+        <BackToArchiveLink />
       </div>
     );
   }
