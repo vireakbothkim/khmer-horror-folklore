@@ -12,6 +12,10 @@ const solidClass =
 export default function NavLinks({ lang, user, isReviewer, onLogout }) {
   const t = (en, kh) => (lang === "en" ? en : kh);
 
+  // Show the username chosen at signup. Accounts created before usernames
+  // existed have none, so they fall back to their email.
+  const displayName = user?.user_metadata?.username || user?.email;
+
   if (!user) {
     return (
       <>
@@ -24,8 +28,8 @@ export default function NavLinks({ lang, user, isReviewer, onLogout }) {
 
   return (
     <>
-      <span title={user.email} className={userClass}>
-        {`${t("Logging in as:", "កំពុងចូលជា៖")} ${user.email}`}
+      <span title={displayName} className={userClass}>
+        {`${t("Logging in as:", "កំពុងចូលជា៖")} ${displayName}`}
       </span>
       <a href="/contribute" className={linkClass}>{t("CONTRIBUTE", "ចូលរួម")}</a>
       <a href="/my-entries" className={linkClass}>{t("MY ENTRIES", "ធាតុរបស់ខ្ញុំ")}</a>

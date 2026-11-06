@@ -160,3 +160,34 @@
   color: var(--color-accent);
 }
 
+/* Large serif headline for the split layout (Playfair Display, light weight). */
+.heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: var(--space-md) 0 var(--space-lg);
+  color: var(--color-text-primary);
+}
+
+/* Chrome autofill paints inputs light blue with dark text. Override it so
+   autofilled fields match the dark underline style of the other fields. */
+.authInput:-webkit-autofill,
+.authInput:-webkit-autofill:hover,
+.authInput:-webkit-autofill:focus,
+.authInput:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px var(--color-bg) inset;
+  box-shadow: 0 0 0 1000px var(--color-bg) inset;
+  -webkit-text-fill-color: var(--color-text-primary);
+  caret-color: var(--color-text-primary);
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Red underlined link inside a sentence, e.g. "Create an account". */
+.inlineLink {
+  color: var(--color-accent-text);
+  border-bottom: 1px solid var(--color-accent-text);
+  text-decoration: none;
+}
+
