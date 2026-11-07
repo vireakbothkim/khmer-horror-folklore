@@ -19,9 +19,16 @@ export default function EntryPage() {
   const { lang } = useLanguage();
   const [error, setError] = useState("");
   const [returnNote, setReturnNote] = useState(null);
+  const [cameFromMyEntries, setCameFromMyEntries] = useState(false);
   
   const params = useParams();
   const entryId = params?.id;
+
+  // /my-entries links here with ?from=my-entries so the back button can return there.
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    setCameFromMyEntries(searchParams.get("from") === "my-entries");
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -158,7 +165,7 @@ export default function EntryPage() {
   return (
     <main className="mx-auto w-full max-w-[1280px] px-[var(--content-padding)] pb-0">
       <div className="mb-8">
-        <BackToArchiveLink />
+        <BackToArchiveLink destination={cameFromMyEntries ? "my-entries" : "archive"} />
       </div>
       {/* Owner actions */}
       {isOwner && (

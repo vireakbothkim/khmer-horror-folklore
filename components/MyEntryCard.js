@@ -61,7 +61,7 @@ export default function MyEntryCard({ entry, lang, statusLabel, labels, onDelete
         )}
 
         <div className="mt-auto flex flex-wrap gap-2 pt-2">
-          <a href={`/entries/${entry.id}`} className={actionClass}>
+          <a href={`/entries/${entry.id}?from=my-entries`} className={actionClass}>
             {labels.view}
           </a>
           <a href={`/entries/${entry.id}/edit`} className={actionClass}>

@@ -9,6 +9,7 @@ import AuthSubmitButton from "../../../../components/AuthSubmitButton";
 import EntryFieldCards from "../../../../components/EntryFieldCards";
 import PhotoField from "../../../../components/PhotoField";
 import BackToArchiveLink from "../../../../components/BackToArchiveLink";
+import styles from "../../../auth.module.css";
 
 export default function EditEntryPage() {
   const router = useRouter();
@@ -277,58 +278,18 @@ export default function EditEntryPage() {
   }
 
   return (
-    <div style={{
-      width: "100%",
-      maxWidth: "1280px",
-      margin: "0 auto",
-      padding: "40px var(--content-padding)",
-      color: "#FFFFFF",
-      fontFamily: "var(--font-sans)"
-    }}>
-      <div style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        marginBottom: "40px"
-      }}>
-        <h1 style={{
-          fontSize: "24px",
-          margin: 0,
-          fontWeight: "normal"
-        }}>
-          Edit Entry
-        </h1>
-        
-        <button
-          onClick={() => router.push(`/entries/${entryId}`)}
-          style={{
-            padding: "8px 16px",
-            backgroundColor: "transparent",
-            border: "1px solid #2E3644",
-            borderRadius: "4px",
-            color: "#97A1B3",
-            cursor: "pointer",
-            fontFamily: "var(--font-sans)",
-            fontSize: "12px"
-          }}
-        >
-          Cancel
-        </button>
+    <main className="box-border w-full px-[var(--content-padding)] py-12 sm:py-16">
+      <div className="mx-auto max-w-[1280px]">
+        <p className={styles.kicker}>EDIT ENTRY</p>
+        <h1 className={styles.heading}>Edit an Entry.</h1>
+        <p className="mb-12 text-base leading-relaxed text-text-secondary">
+          Fields marked * are required. Your entry appears in the archive once it has been reviewed and published.
+        </p>
+
+        {error && <div className={styles.errorMessage}>{error}</div>}
       </div>
-      
-      {error && (
-        <div style={{
-          padding: "15px",
-          backgroundColor: "#972514",
-          borderRadius: "4px",
-          marginBottom: "20px",
-          color: "#FFFFFF"
-        }}>
-          {error}
-        </div>
-      )}
-      
-      <form onSubmit={handleSubmit}>
+
+      <form onSubmit={handleSubmit} className="mx-auto max-w-[1280px]">
         <EntryFieldCards formData={formData} fieldErrors={fieldErrors} onChange={handleInputChange} />
 
         <PhotoField
@@ -353,12 +314,12 @@ export default function EditEntryPage() {
             type="button"
             onClick={() => router.push(`/entries/${entryId}`)}
             disabled={submitting}
-            className="mt-6 w-full cursor-pointer border-0 bg-transparent py-3 font-mono text-xs uppercase tracking-[0.2em] text-text-secondary transition-colors hover:text-accent disabled:cursor-not-allowed disabled:opacity-70"
+            className="mt-6 w-full cursor-pointer border-0 bg-transparent py-3 font-mono text-base uppercase tracking-[0.2em] text-text-primary transition-colors hover:text-accent disabled:cursor-not-allowed disabled:opacity-70"
           >
             Cancel
           </button>
         </div>
       </form>
-    </div>
+    </main>
   );
 }
