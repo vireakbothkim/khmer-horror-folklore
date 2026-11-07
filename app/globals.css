@@ -37,3 +37,15 @@
   font-variant-caps: normal;
   letter-spacing: normal;
 }
+
+/* Phones only (below Tailwind's sm breakpoint, 640px): count padding and
+   borders inside an element's width. Without this, elements with w-full plus
+   horizontal padding are wider than the screen and cause a sideways scroll.
+   Desktop is unchanged because this rule does not apply at 640px and up. */
+@media (max-width: 639px) {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
