@@ -23,7 +23,7 @@ export default function MyEntryCard({ entry, lang, statusLabel, labels, onDelete
   const returnedDate = entry.returned_at ? new Date(entry.returned_at).toLocaleDateString() : "";
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-md border border-border bg-bg">
+    <article className="flex min-w-0 flex-col overflow-hidden rounded-md border border-border bg-bg">
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-border">
         {entry.media ? (
           <img src={entry.media} alt={title} className="size-full object-cover" />
@@ -41,7 +41,7 @@ export default function MyEntryCard({ entry, lang, statusLabel, labels, onDelete
         <div>
           <h3
             lang={langTag}
-            className={`m-0 text-xl font-bold leading-snug text-text-primary ${isKhmer ? "font-khmer" : "font-display"}`}
+            className={`m-0 text-xl font-bold leading-snug text-text-primary [overflow-wrap:anywhere] ${isKhmer ? "font-khmer" : "font-display"}`}
           >
             {title}
           </h3>
@@ -51,7 +51,7 @@ export default function MyEntryCard({ entry, lang, statusLabel, labels, onDelete
         </div>
 
         {entry.status === "returned" && entry.return_notes && (
-          <div className="whitespace-pre-wrap border-l-[3px] border-[rgb(239,68,68)] bg-[rgba(239,68,68,0.05)] p-3 text-sm leading-relaxed text-text-primary">
+          <div className="whitespace-pre-wrap [overflow-wrap:anywhere] border-l-[3px] border-[rgb(239,68,68)] bg-[rgba(239,68,68,0.05)] p-3 text-sm leading-relaxed text-text-primary">
             <p className="m-0 mb-1 font-mono text-xs text-text-secondary">
               {labels.feedback}
               {returnedDate ? ` · ${returnedDate}` : ""}

@@ -77,6 +77,7 @@
 .entryItem {
   display: flex;
   flex-direction: column;
+  min-width: 0;
   transition: transform 0.2s ease;
 }
 
@@ -111,6 +112,7 @@
   color: var(--color-text-primary);
   margin: 0 0 var(--space-xs);
   line-height: 1.2;
+  overflow-wrap: anywhere;
 }
 
 .entryTitle:hover {
