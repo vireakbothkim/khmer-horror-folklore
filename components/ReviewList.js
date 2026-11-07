@@ -8,6 +8,7 @@ import StatusBox from "./StatusBox";
 import BackToArchiveLink from "./BackToArchiveLink";
 import ReviewToolbar from "./ReviewToolbar";
 import { sortByCreated } from "../lib/sort-entries.js";
+import { matchesSearch } from "../lib/search-entries.js";
 
 // The live review list. Publishing or returning an entry removes its card
 // right away. Review logic (confirm, RPC call, error handling) is unchanged.
@@ -17,6 +18,7 @@ export default function ReviewList({ entries: initialEntries }) {
   const [errorIds, setErrorIds] = useState(new Set());
   const [returningId, setReturningId] = useState(null);
   const [sortOrder, setSortOrder] = useState("oldest");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleReview = async (entryId, decision, notes = null) => {
     if (decision === "published") {
@@ -55,6 +57,10 @@ export default function ReviewList({ entries: initialEntries }) {
     handleReview(entryId, "returned", notes);
   };
 
+  const visibleEntries = sortByCreated(entries, sortOrder).filter((entry) =>
+    matchesSearch(entry, searchQuery)
+  );
+
   if (entries.length === 0) {
     return (
       <>
@@ -70,19 +76,31 @@ export default function ReviewList({ entries: initialEntries }) {
 
   return (
     <>
-      <ReviewToolbar count={entries.length} sortOrder={sortOrder} onSortChange={setSortOrder} />
-      <div className="mt-6 flex flex-col gap-6">
-        {sortByCreated(entries, sortOrder).map((entry) => (
-          <ReviewEntryCard
-            key={entry.id}
-            entry={entry}
-            isLoading={loadingIds.has(entry.id)}
-            hasError={errorIds.has(entry.id)}
-            onPublish={() => handleReview(entry.id, "published")}
-            onReturn={() => setReturningId(entry.id)}
-          />
-        ))}
-      </div>
+      <ReviewToolbar
+        count={entries.length}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        sortOrder={sortOrder}
+        onSortChange={setSortOrder}
+      />
+      {visibleEntries.length === 0 ? (
+        <StatusBox className="mt-6">
+          <p className="mb-0">No entries match your search.</p>
+        </StatusBox>
+      ) : (
+        <div className="mt-6 flex flex-col gap-6">
+          {visibleEntries.map((entry) => (
+            <ReviewEntryCard
+              key={entry.id}
+              entry={entry}
+              isLoading={loadingIds.has(entry.id)}
+              hasError={errorIds.has(entry.id)}
+              onPublish={() => handleReview(entry.id, "published")}
+              onReturn={() => setReturningId(entry.id)}
+            />
+          ))}
+        </div>
+      )}
 
       {returningId && (
         <ReturnNotesModal
