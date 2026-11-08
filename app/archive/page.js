@@ -180,7 +180,7 @@ export default function Home() {
           No entries found in the archive.
         </StatusBox>
       ) : filteredEntries.length > 0 ? (
-        <div className={`${styles.entriesGrid} grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4`}>
+        <div className={`${styles.entriesGrid} mb-3 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4`}>
           {filteredEntries.map((entry) => (
             <a key={entry.id} href={`/entries/${entry.id}`} className={styles.entryItem}>
               <div className={styles.entryImageContainer}>

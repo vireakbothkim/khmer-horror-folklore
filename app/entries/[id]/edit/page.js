@@ -10,9 +10,44 @@ import EntryFieldCards from "../../../../components/EntryFieldCards";
 import PhotoField from "../../../../components/PhotoField";
 import BackToArchiveLink from "../../../../components/BackToArchiveLink";
 import styles from "../../../auth.module.css";
+import { useLanguage } from "../../../../components/LanguageProvider";
 
 export default function EditEntryPage() {
   const router = useRouter();
+  const { lang } = useLanguage();
+  const langTag = lang === "kh" ? "km" : "en";
+
+  const uiText = {
+    en: {
+      kicker: "EDIT ENTRY",
+      heading: "Edit an Entry.",
+      note: "Fields marked * are required. Your entry appears in the archive once it has been reviewed and published.",
+      photo: "Photo",
+      photoHint: "Leave empty to keep current photo. JPG, PNG, or WebP. Max 5MB.",
+      currentPhoto: "Current photo:",
+      currentPhotoAlt: "Current entry photo",
+      submit: "Update Entry",
+      submitting: "Updating...",
+      cancel: "Cancel",
+      loading: "Loading...",
+      errorTitle: "Error",
+    },
+    kh: {
+      kicker: "កែសម្រួលធាតុ",
+      heading: "កែសម្រួលធាតុ។",
+      note: "សូមចំណាំ៖ ប្រអប់ដែលមានសញ្ញា * ត្រូវតែបំពេញ។ ធាតុរបស់អ្នកនឹងបង្ហាញក្នុងបណ្ណសារ បន្ទាប់ពីត្រូវបានពិនិត្យ និងផ្សព្វផ្សាយ។",
+      photo: "រូបថត",
+      photoHint: "ទុកឱ្យនៅទទេ ដើម្បីរក្សារូបថតបច្ចុប្បន្ន។ JPG, PNG, ឬ WebP។ ទំហំអតិបរមា 5MB។",
+      currentPhoto: "រូបថតបច្ចុប្បន្ន៖",
+      currentPhotoAlt: "រូបថតធាតុបច្ចុប្បន្ន",
+      submit: "កែប្រែធាតុ",
+      submitting: "កំពុងកែប្រែ...",
+      cancel: "បោះបង់",
+      loading: "កំពុងផ្ទុក...",
+      errorTitle: "កំហុស",
+    },
+  };
+  const t = uiText[lang];
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
@@ -255,7 +290,7 @@ export default function EditEntryPage() {
   if (loading) {
     return (
       <main className="mx-auto w-full max-w-[1280px] px-[var(--content-padding)] pb-10">
-        <StatusBox><Spinner label="Loading..." /></StatusBox>
+        <StatusBox><Spinner label={t.loading} /></StatusBox>
       </main>
     );
   }
@@ -270,7 +305,7 @@ export default function EditEntryPage() {
         color: "#FFFFFF",
         fontFamily: "var(--font-sans)"
       }}>
-        <h1 style={{ fontSize: "24px", marginBottom: "20px" }}>Error</h1>
+        <h1 style={{ fontSize: "24px", marginBottom: "20px" }} lang={langTag}>{t.errorTitle}</h1>
         <p style={{ marginBottom: "20px" }}>{error}</p>
         <BackToArchiveLink />
       </div>
@@ -280,10 +315,10 @@ export default function EditEntryPage() {
   return (
     <main className="box-border w-full px-[var(--content-padding)] py-12 sm:py-16">
       <div className="mx-auto max-w-[1280px]">
-        <p className={styles.kicker}>EDIT ENTRY</p>
-        <h1 className={styles.heading}>Edit an Entry.</h1>
-        <p className="mb-12 text-base leading-relaxed text-text-secondary">
-          Fields marked * are required. Your entry appears in the archive once it has been reviewed and published.
+        <p className={styles.kicker} lang={langTag}>{t.kicker}</p>
+        <h1 className={styles.heading} lang={langTag}>{t.heading}</h1>
+        <p className="mb-12 text-base leading-relaxed text-text-secondary" lang={langTag}>
+          {t.note}
         </p>
 
         {error && <div className={styles.errorMessage}>{error}</div>}
@@ -293,15 +328,17 @@ export default function EditEntryPage() {
         <EntryFieldCards formData={formData} fieldErrors={fieldErrors} onChange={handleInputChange} />
 
         <PhotoField
-          hint="JPG, PNG, or WebP. Max 5MB. Leave empty to keep current photo."
+          label={t.photo}
+          lang={langTag}
+          hint={t.photoHint}
           onChange={handleFileChange}
         >
           {existingPhoto && !photo && (
             <div className="mt-6">
-              <p className="mb-2 text-xs text-text-secondary">Current photo:</p>
+              <p className="mb-2 text-xs text-text-secondary" lang={langTag}>{t.currentPhoto}</p>
               <img
                 src={existingPhoto}
-                alt="Current entry photo"
+                alt={t.currentPhotoAlt}
                 className="mx-auto h-auto max-h-48 w-auto max-w-full"
               />
             </div>
@@ -309,14 +346,19 @@ export default function EditEntryPage() {
         </PhotoField>
 
         <div className="mx-auto max-w-[480px]">
-          <AuthSubmitButton label={submitting ? "Updating..." : "Update Entry"} disabled={submitting} />
+          <AuthSubmitButton
+            label={submitting ? t.submitting : t.submit}
+            disabled={submitting}
+            lang={langTag}
+          />
           <button
             type="button"
             onClick={() => router.push(`/entries/${entryId}`)}
             disabled={submitting}
-            className="mt-6 w-full cursor-pointer border-0 bg-transparent py-3 font-mono text-base uppercase tracking-[0.2em] text-text-primary transition-colors hover:text-accent disabled:cursor-not-allowed disabled:opacity-70"
+            lang={langTag}
+            className={`mt-6 w-full cursor-pointer border-0 bg-transparent py-3 font-mono uppercase tracking-[0.2em] text-text-primary transition-colors hover:text-accent disabled:cursor-not-allowed disabled:opacity-70 ${lang === "kh" ? "text-lg" : "text-base"}`}
           >
-            Cancel
+            {t.cancel}
           </button>
         </div>
       </form>
