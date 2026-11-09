@@ -38,6 +38,32 @@
   letter-spacing: normal;
 }
 
+/* Page entrance: content fades in while rising 16px. "backwards" applies the
+   start state only during the animation, so no transform is left behind.
+   That matters because a lingering transform would break position: fixed
+   elements such as the return-notes modal. */
+@keyframes page-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-fade {
+  animation: page-fade-up 0.6s ease-out backwards;
+}
+
+/* Users who ask for reduced motion see the page without movement. */
+@media (prefers-reduced-motion: reduce) {
+  .page-fade {
+    animation: none;
+  }
+}
+
 /* Phones only (below Tailwind's sm breakpoint, 640px): count padding and
    borders inside an element's width. Without this, elements with w-full plus
    horizontal padding are wider than the screen and cause a sideways scroll.

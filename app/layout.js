@@ -4,6 +4,7 @@ import collection from "../collection.config.js";
 import { LanguageProvider } from "../components/LanguageProvider";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import PageFade from "../components/PageFade";
 
 // Fonts are loaded by Next.js, so there are no external <link> tags.
 // Each font exposes a CSS variable that globals.css maps to a role.
@@ -174,7 +175,7 @@ export default function RootLayout({ children }) {
         `}</style>
         <LanguageProvider>
           <SiteHeader />
-          <div className="flex w-full flex-1 flex-col">{children}</div>
+          <PageFade>{children}</PageFade>
           <SiteFooter />
         </LanguageProvider>
       </body>
