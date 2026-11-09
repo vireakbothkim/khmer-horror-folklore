@@ -230,9 +230,22 @@ export default function ContributePage() {
         <p className="mb-12 text-base leading-relaxed text-text-secondary" lang={lang === "kh" ? "km" : "en"}>
           {t.intro}
         </p>
-        <div className="flex flex-wrap gap-6 text-sm" lang={lang === "kh" ? "km" : "en"}>
-          <a href="/login" className={styles.inlineLink}>{t.logIn}</a>
-          <a href="/signup" className={styles.inlineLink}>{t.signUp}</a>
+        <div className="flex flex-wrap gap-4" lang={lang === "kh" ? "km" : "en"}>
+          <a
+            href="/login"
+            className="inline-flex items-center border border-accent px-6 py-4 font-mono text-sm uppercase tracking-[0.2em] text-text-primary transition-colors hover:bg-accent hover:border-accent"
+          >
+            {t.logIn}
+          </a>
+          <a
+            href="/signup"
+            className="inline-flex items-center border border-accent bg-accent px-6 py-4 font-mono text-sm uppercase tracking-[0.2em] text-text-primary transition-colors hover:border-accent-hover hover:bg-accent-hover"
+          >
+            {t.signUp}
+          </a>
+        </div>
+        <div className="mt-10 flex flex-wrap gap-4">
+          <BackToArchiveLink />
         </div>
       </main>
     );
