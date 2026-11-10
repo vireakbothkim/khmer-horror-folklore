@@ -10,6 +10,7 @@ import ReturnNoteNotice from "../../../components/ReturnNoteNotice";
 import BackToArchiveLink from "../../../components/BackToArchiveLink";
 import Spinner from "../../../components/Spinner";
 import { useLanguage } from "../../../components/LanguageProvider";
+import { removePhoto } from "../../../lib/photo-path";
 
 export default function EntryPage() {
   const router = useRouter();
@@ -107,7 +108,8 @@ export default function EntryPage() {
       }
       
       if (!verifyData || verifyData.length === 0) {
-        // Successfully deleted
+        // Successfully deleted. Remove its photo from storage too.
+        await removePhoto(supabase, entry?.media);
         alert("Entry deleted successfully!");
         router.push("/");
       } else {

@@ -11,6 +11,7 @@ import MyEntriesStats from "../../components/MyEntriesStats";
 import MyEntryCard from "../../components/MyEntryCard";
 import StatusFilter from "../../components/StatusFilter";
 import EntrySearch from "../../components/EntrySearch";
+import { removePhoto } from "../../lib/photo-path";
 
 export default function MyEntriesPage() {
   const router = useRouter();
@@ -172,6 +173,7 @@ export default function MyEntriesPage() {
         return;
       }
 
+      await removePhoto(supabase, entry.media);
       setEntries((prev) => prev.filter((item) => item.id !== entry.id));
     } catch (err) {
       console.error("Error during delete:", err);
