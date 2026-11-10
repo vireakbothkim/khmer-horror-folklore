@@ -34,6 +34,7 @@ export default function SignupPage() {
       passwordLabel: "PASSWORD",
       passwordHelper: "Must be at least 8 characters",
       passwordTooShort: "Password must be at least 8 characters",
+      signupFailed: "Couldn't create your account. Please check your details and try again.",
       confirmPasswordLabel: "CONFIRM PASSWORD",
       signupButton: "SIGN UP",
       creatingAccount: "CREATING ACCOUNT...",
@@ -56,6 +57,7 @@ export default function SignupPage() {
       passwordLabel: "ពាក្យសម្ងាត់",
       passwordHelper: "ត្រូវមានយ៉ាងតិច 8 តួអក្សរ",
       passwordTooShort: "ពាក្យសម្ងាត់ត្រូវមានយ៉ាងតិច 8 តួអក្សរ",
+      signupFailed: "មិនអាចបង្កើតគណនីបានទេ។ សូមពិនិត្យព័ត៌មានរបស់អ្នកឡើងវិញ ហើយព្យាយាមម្តងទៀត។",
       confirmPasswordLabel: "បញ្ជាក់ពាក្យសម្ងាត់",
       signupButton: "ចុះឈ្មោះ",
       creatingAccount: "កំពុងបង្កើតគណនី...",
@@ -116,7 +118,7 @@ export default function SignupPage() {
 
       if (error) {
         console.error("Signup error:", error);
-        setError("Couldn't create your account. That username, email, or phone number may already be in use.");
+        setError(t.signupFailed);
       } else {
         setError(t.signupSuccess);
         setTimeout(() => {
@@ -125,7 +127,7 @@ export default function SignupPage() {
       }
     } catch (err) {
       console.error("Signup exception:", err);
-      setError("Couldn't create your account. That username, email, or phone number may already be in use.");
+      setError(t.signupFailed);
     } finally {
       setLoading(false);
     }
