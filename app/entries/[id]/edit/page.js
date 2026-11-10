@@ -11,6 +11,7 @@ import PhotoField from "../../../../components/PhotoField";
 import BackToArchiveLink from "../../../../components/BackToArchiveLink";
 import styles from "../../../auth.module.css";
 import { useLanguage } from "../../../../components/LanguageProvider";
+import { removePhoto } from "../../../../lib/photo-path";
 
 // Allowed photo types. The file extension is taken from this map, not from the
 // user's filename. image/jpg is left out because the storage bucket rejects it.
@@ -277,7 +278,10 @@ export default function EditEntryPage() {
         console.error("Update blocked or entry not found after update:", updatedData);
         alert("That change wasn't saved. Please try again.");
       } else {
-        // Successfully updated
+        // Successfully updated. If a new photo replaced the old one, remove the old file.
+        if (photo && existingPhoto) {
+          await removePhoto(supabase, existingPhoto);
+        }
         alert(
           isReviewer
             ? "Entry updated successfully!"
