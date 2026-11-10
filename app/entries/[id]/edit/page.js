@@ -12,6 +12,14 @@ import BackToArchiveLink from "../../../../components/BackToArchiveLink";
 import styles from "../../../auth.module.css";
 import { useLanguage } from "../../../../components/LanguageProvider";
 
+// Allowed photo types. The file extension is taken from this map, not from the
+// user's filename. image/jpg is left out because the storage bucket rejects it.
+const photoExtensions = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+};
+
 export default function EditEntryPage() {
   const router = useRouter();
   const { lang } = useLanguage();
@@ -146,8 +154,7 @@ export default function EditEntryPage() {
     const file = e.target.files[0];
     if (!file) return;
     
-    const validTypes = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
-    if (!validTypes.includes(file.type)) {
+    if (!photoExtensions[file.type]) {
       setError("Invalid file type. Use JPG, PNG, or WebP.");
       return;
     }
@@ -207,7 +214,7 @@ export default function EditEntryPage() {
       
       // Upload new photo if provided
       if (photo) {
-        const fileExt = photo.name.split('.').pop();
+        const fileExt = photoExtensions[photo.type];
         const fileName = `${user.id}/${crypto.randomUUID()}.${fileExt}`;
         const bucketName = 'photos';
         
