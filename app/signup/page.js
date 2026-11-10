@@ -32,7 +32,8 @@ export default function SignupPage() {
       usernameHelper: "3-30 characters: lowercase letters, numbers, and _ only",
       invalidUsername: "Username must be 3-30 characters: lowercase letters, numbers, and _ only",
       passwordLabel: "PASSWORD",
-      passwordHelper: "Must be at least 6 characters",
+      passwordHelper: "Must be at least 8 characters",
+      passwordTooShort: "Password must be at least 8 characters",
       confirmPasswordLabel: "CONFIRM PASSWORD",
       signupButton: "SIGN UP",
       creatingAccount: "CREATING ACCOUNT...",
@@ -53,7 +54,8 @@ export default function SignupPage() {
       usernameHelper: "3-30 តួអក្សរ៖ អក្សរតូចអង់គ្លេស លេខ និង _ ប៉ុណ្ណោះ",
       invalidUsername: "ឈ្មោះអ្នកប្រើត្រូវមាន 3-30 តួអក្សរ៖ អក្សរតូចអង់គ្លេស លេខ និង _ ប៉ុណ្ណោះ",
       passwordLabel: "ពាក្យសម្ងាត់",
-      passwordHelper: "ត្រូវមានយ៉ាងតិច 6 តួអក្សរ",
+      passwordHelper: "ត្រូវមានយ៉ាងតិច 8 តួអក្សរ",
+      passwordTooShort: "ពាក្យសម្ងាត់ត្រូវមានយ៉ាងតិច 8 តួអក្សរ",
       confirmPasswordLabel: "បញ្ជាក់ពាក្យសម្ងាត់",
       signupButton: "ចុះឈ្មោះ",
       creatingAccount: "កំពុងបង្កើតគណនី...",
@@ -85,8 +87,8 @@ export default function SignupPage() {
       return;
     }
 
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters");
+    if (password.length < 8) {
+      setError(t.passwordTooShort);
       return;
     }
 
