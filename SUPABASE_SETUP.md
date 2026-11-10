@@ -12,8 +12,8 @@ The following dependencies have been installed:
 
 ### 1. **Environment Variables** (`.env.local`)
 ```
-NEXT_PUBLIC_SUPABASE_URL=https://kvmoadulxtcxlntihayf.supabase.co
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_XqmIc-iIqbF6A2OuHyROxA_NjwS1nPW
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 ```
 
 ### 2. **Client-Side Supabase Client** (`lib/supabase-client.js`)
@@ -32,13 +32,7 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_XqmIc-iIqbF6A2OuHyROxA_NjwS1
 - Compatible with Next.js 15 cookies API
 - Applied to all routes except static assets
 
-### 5. **Utility Functions** (`lib/supabase-utils.js`)
-- Helper functions for common operations:
-  - `getCurrentUser()` - Get current authenticated user
-  - `getSession()` - Get current session
-  - `signOut()` - Sign out current user
-
-### 6. **Environment Template** (`.env.example`)
+### 5. **Environment Template** (`.env.example`)
 - Template file documenting required environment variables
 - Safe for committing to version control
 
@@ -63,19 +57,6 @@ export default async function MyServerComponent() {
   const supabase = await createClient();
   const { data } = await supabase.from("table").select("*");
   // Render data
-}
-```
-
-### Using Utility Functions:
-```javascript
-import { getCurrentUser } from "@/lib/supabase-utils";
-
-export default async function ProfilePage() {
-  const user = await getCurrentUser();
-  if (!user) {
-    // Redirect to login
-  }
-  // Render user profile
 }
 ```
 
