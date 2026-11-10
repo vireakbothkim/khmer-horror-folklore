@@ -148,10 +148,12 @@ export default function MyEntriesPage() {
 
     try {
       const supabase = createClient();
+      if (!user) return;
       const { error: deleteError } = await supabase
         .from('entries')
         .delete()
-        .eq('id', entry.id);
+        .eq('id', entry.id)
+        .eq('owner', user.id);
 
       if (deleteError) {
         console.error("Delete error:", deleteError);

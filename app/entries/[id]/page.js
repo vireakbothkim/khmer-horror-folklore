@@ -83,10 +83,12 @@ export default function EntryPage() {
       const supabase = createClient();
       
       // Delete the entry
+      if (!user) return;
       const { error: deleteError } = await supabase
         .from('entries')
         .delete()
-        .eq('id', entryId);
+        .eq('id', entryId)
+        .eq('owner', user.id);
       
       if (deleteError) {
         console.error("Delete error:", deleteError);
