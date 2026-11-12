@@ -8,6 +8,8 @@ import StatusBox from "../../../components/StatusBox";
 import OwnerActions from "../../../components/OwnerActions";
 import ReturnNoteNotice from "../../../components/ReturnNoteNotice";
 import BackToArchiveLink from "../../../components/BackToArchiveLink";
+import EntryPager from "../../../components/EntryPager";
+import { getNeighborIds } from "../../../lib/entry-neighbors";
 import Spinner from "../../../components/Spinner";
 import { useLanguage } from "../../../components/LanguageProvider";
 import { removePhoto } from "../../../lib/photo-path";
@@ -21,6 +23,7 @@ export default function EntryPage() {
   const [error, setError] = useState("");
   const [returnNote, setReturnNote] = useState(null);
   const [cameFromMyEntries, setCameFromMyEntries] = useState(false);
+  const [orderedIds, setOrderedIds] = useState([]); // Published entry ids, newest first (archive order)
   
   const params = useParams();
   const entryId = params?.id;
@@ -75,6 +78,31 @@ export default function EntryPage() {
     }
   }, [entryId]);
 
+  // Load the published entries in archive order, for the previous and next buttons.
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase
+          .from('entries')
+          .select('id')
+          .eq('status', 'published')
+          .order('created_at', { ascending: false })
+          .order('id', { ascending: false });
+
+        if (error) {
+          console.error("Error loading entry order:", error);
+        } else {
+          setOrderedIds((data || []).map((row) => String(row.id)));
+        }
+      } catch (err) {
+        console.error("Error loading entry order:", err);
+      }
+    };
+
+    fetchOrder();
+  }, []);
+
   const handleDelete = async () => {
     if (!window.confirm("Are you sure you want to delete this entry? This action cannot be undone.")) {
       return;
@@ -124,6 +152,9 @@ export default function EntryPage() {
   };
 
   const isOwner = user && entry && user.id === entry.owner;
+
+  // Null when this entry is not published (for example, an owner viewing a pending one). No buttons then.
+  const neighbors = getNeighborIds(orderedIds, entryId);
 
   // Transform entry data based on selected language
   const transformedEntry = entry ? (lang === "en" ? {
@@ -194,6 +225,9 @@ export default function EntryPage() {
 
       {/* Entry display */}
       {transformedEntry && <EntryCard entry={transformedEntry} lang={lang} />}
+
+      {/* Previous and next entry buttons, wrapping at both ends */}
+      {neighbors && <EntryPager prevId={neighbors.prevId} nextId={neighbors.nextId} />}
       
     </main>
   );
