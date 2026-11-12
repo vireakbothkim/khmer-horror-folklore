@@ -2,13 +2,13 @@
 
 ## What this is
 
-Khmer Horror Folklore is a living archive of Cambodian ghosts, demons, and cursed spirits (khmoach, ahp, preta, arak, and others) rooted in animism and Buddhist tradition. Each entry describes a creature's appearance, its story, where it is said to be found, and who told it, in English and Khmer, with an optional photo. Anyone can browse and search published entries. Signed-in contributors submit their own entries, which wait for a reviewer before they go public. A reviewer either publishes an entry or returns it with a note explaining what to change. The archive is curated by KIM Vireakboth.
+Khmer Horror Folklore is a living archive of Cambodian ghosts, demons, and cursed spirits (khmoach, ahp, preta, arak, and others) rooted in animism and Buddhist tradition. Each entry describes a creature's appearance, its story, where it is said to be found, and who told it, in English and Khmer, with an optional photo. Anyone can browse and search published entries. Signed-in contributors submit their own entries, which wait for a reviewer before they go public. A reviewer either publishes an entry or returns it with a note explaining what to change. The archive is curated by Kim Vireakboth.
 
-If a stranger asked what I built this semester: it's a bilingual, searchable archive of Khmer horror folklore where people add what their grandparents told them, and nothing goes public until a reviewer checks it.
+It's a bilingual, searchable archive of Khmer horror folklore where people add what their grandparents told them, and nothing goes public until a reviewer checks it.
 
 ## Who it's for
 
-This archive is for Khmer speakers: elders, parents, grandparents, adults, teenagers, and anyone with a horror-creature story to share. Choices made for them:
+This archive is mainly for Khmer speakers: elders, parents, grandparents, adults, teenagers, and anyone with a horror-creature story to share. It is also for non-Khmer speakers who want to learn about Khmer folklore. Every entry is bilingual, so English readers can follow along. Choices made for them:
 
 - **Khmer as a full second language.** A language button in the header switches the whole site to Khmer, and the choice is remembered in the browser. Every entry has Khmer fields next to the English ones, and Khmer text is set in a Khmer font. The site opens in English by default.
 - **Phone first.** On small screens the navigation moves behind a menu button, and entry cards and forms stack in one column.
@@ -88,28 +88,26 @@ Tools: Cline in VS Code, with the following models.
 
 | Model | Task | What it wrote | Verdict |
 |---|---|---|---|
-| anthropic/claude-haiku-5.5 | [ ] | [ ] | [ ] |
-| deepseek/deepseek-v3.2 | [ ] | [ ] | [ ] |
-| openrouter/free | [ ] | [ ] | [ ] |
+| anthropic/claude-haiku-5.5 | Redesign (Tailwind v4) and security hardening | The Tailwind v4 redesign and the security strengthening. | Kept. Nothing rejected. |
+| deepseek/deepseek-v3.2 | Most of the website's functionality | Most of the core features, including the My Entries page. | Kept most of its code and rejected several parts. Sometimes reported a successful build while syntax errors were still in the code, so the errors had to be fixed in a new task. Sometimes stopped mid-build and needed "continue". A landing page was rejected because the result was poor. |
+| openrouter/free | First orientation: "go through this project and tell me what it's about" (the default model when Cline was first used) | Explanation only. No code. | Used to understand the project. No code kept. |
 
-**What I kept and what I rewrote:** [ ]
+**What I kept and what I rewrote:** I kept most of DeepSeek's code and rejected several parts, including a landing page whose result was poor. I kept Claude's redesign and security code without rejecting anything. Because DeepSeek sometimes reported a successful build with syntax errors, I did not trust its build reports without checking the code myself.
 
-**How I checked the work:** [ ]. Describe at least: the build (`npm run build`) after each change, reading each diff before committing, the Supabase SQL checks, and the two-account test with the date it was run.
+**How I checked the work:** Cline ran `npm run build` after each change. I read each diff before accepting or rejecting it. After every AI-built change, I ran `npm run dev` and tested the whole website, not just the new feature, to confirm that existing pages, designs, and functions still worked. I also ran the Supabase SQL checks and a two-account test, using a reviewer account and a contributor account. The contributor could not see another contributor's pending entries, and could not edit published entries that belonged to someone else. These checks confirmed that the row-level security rules worked for each role. This mattered most with DeepSeek, which sometimes reported a successful build even when the code had syntax errors.
 
 ## Sources and credits
 
-Fill in one row per entry. Each entry needs a credited source. Write "a [role] in [place] who asked not to be named" if someone prefers anonymity.
-
-| # | Entry title (English) | Source (name, relation, or community) | Place | Photo credit (photographer, artist, or where it came from) | Permission (yes / anonymous) |
-|---|---|---|---|---|---|
-| 1 | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 2 | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 3 | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 4 | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 5 | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 6 | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 7 | [ ] | [ ] | [ ] | [ ] | [ ] |
-| 8 | [ ] | [ ] | [ ] | [ ] | [ ] |
+| # | Entry title (English) | Source (name, relation, or community) | Photo credit (photographer, artist, or where it came from) | Permission (yes / anonymous) |
+|---|---|---|---|---|
+| 1 | Ahp/Krasue | Novels, Khmer Literatures, Grandparents, Local traditional healers, and Regional urban legends | Xavier Romero-Frias, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:XRF-krasue.jpg | yes |
+| 2 | Banana Tree Ghost / Kmoch Derm Jek Chvea | Friends, Rural Elders, Novels, Khmer Literature, Popular Medias, Teachers | Screenshot from a YouTube video by pron saymen, https://www.youtube.com/watch?v=EN1Khw-8RBE | yes |
+| 3 | Khmer Elves / Mrenh Kongveal | Pre-Buddhist animist ancestor belief, Agricultural folklore, and Generations of farmer narratives | Facebook photo album, photographer unknown, https://www.facebook.com/100063706085583/albums/477662677700598/ | yes |
+| 4 | Preay | Oral storytelling by parents, grandparents, teachers, friends, novels, khmer literature and popular media tales. | Photo by Matthew Meyer, https://yokai.com/onryou/ | yes |
+| 5 | Sudden Death Ghost / Kmoch Tay Horng | Workplace legends, Ancestral family stories, and Modern urban ghost tales | Photo by Saul Vazquez, https://www.cnn.com/2016/07/14/us/spirit-leaving-body-photo-trnd | yes |
+| 6 | Preta / Pret / Hungry Ghost | Buddhist scripture (Tripitaka), Theravada monastic teachings, and traditional Pchum Ben ceremonies. | Photo by SSE Design Lab, https://www.facebook.com/ssedesignlab/posts/122118926942443651/ | yes |
+| 7 | Ancient Guardian / Neak Ta | Early Khmer ancestor Neak Ta belief, Village community customs, and historical land traditions | Image from a Viator tour listing, photographer unknown, https://www.viator.com/tours/Siem-Reap/4-Day-Siem-Reap-and-Battambang-Tour/d5480-90717P32 | yes |
+| 8 | Arak / Arak Khmer | Popular belief, Arak Musical Act and Unique Khmer folklore | Screenshot from a YouTube video by pron saymen, https://youtu.be/fp3cy-3E6MM | yes |
 
 ## Running it locally
 
@@ -131,22 +129,3 @@ Open http://localhost:3000.
 - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`: your Supabase publishable key. This key is public by design; it is meant to ship to the browser. Access is controlled by the row-level policies in Section 3, not by keeping this key secret.
 
 `.env.local` is listed in `.gitignore`, so it stays out of the repository. `.env.example` lists the variable names with placeholder values.
-
-## Submission checklist
-
-- Live URL loads logged out and shows published entries only: [yes / no], [URL]
-- A stranger cannot publish their own entry through the page or the console: yes, tested [date]
-- Logged out, the API returns nothing pending or returned: yes, tested [date]
-- Contributors can edit and delete only their own entries: yes. Enforced by row-level policies (Section 3) and an owner filter on every delete in the code.
-- No secrets anywhere in the repo history: [yes / partly], checked with [method]
-- At least eight real entries, each with a credited source: [yes], [count]
-- Khmer renders on every screen a user meets, including the queue: [yes / no]
-- Works at phone width: [yes], tested on [device or browser width]
-- No test entries, lorem ipsum, or TODO comments in shipped pages: [yes / no]
-- No console errors on the main pages: [yes / no]
-- jesseorndorff is a collaborator on this repo: [yes / no]
-- Supabase project restored and awake on [date]
-- Demo video link opens in a private window: [yes / no], [link]
-- Reflection pasted in the Canvas submission: [yes / no]
-- Posted in the Show Your Archive discussion: [yes / no]
-- Q&A slot booked for [date and time]
