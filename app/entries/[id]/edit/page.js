@@ -258,6 +258,9 @@ export default function EditEntryPage() {
       // If user is not a reviewer, set status to pending
       if (!isReviewer) {
         entryData.status = 'pending';
+        // Clear the old reviewer note so it is not left on the public row
+        entryData.return_notes = null;
+        entryData.returned_at = null;
       }
       
       // Update the entry with .select() to verify the update
